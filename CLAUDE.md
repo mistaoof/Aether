@@ -83,14 +83,14 @@ Design notes, so edits stay coherent:
   `--danger`, `--quark`) were each tuned to sit at ≥5:1 contrast against both
   `--void` and `--plate` — check new tokens the same way (WCAG relative
   luminance) rather than eyeballing them against the editor's colour picker.
-- The cursor is themed, not the system arrow: two small inline-SVG data URIs
-  in the `--cur-default`/`--cur-pointer` custom properties (a hollow ring for
-  ambient, a filled point in a brighter ring for anything clickable — the
-  same idle/coupled distinction the coupling-bench figure draws). Reference
-  them with `cursor:var(--cur-pointer)` on new interactive elements rather
-  than the bare `pointer` keyword, or the browser default will show through.
-  Native cursors stay put on purpose: `text` over prose and form text inputs
-  (so the selection affordance isn't hidden), `default` on disabled controls
+- The cursor is themed, not the system arrow: three small inline-SVG data
+  URIs in the `--cur-default`/`--cur-pointer`/`--cur-text` custom properties
+  (a hollow ring for ambient, a filled point in a brighter ring for anything
+  clickable — the same idle/coupled distinction the coupling-bench figure
+  draws — and a small I-beam for selectable text). Reference them with
+  `cursor:var(--cur-pointer)` / `cursor:var(--cur-text)` on new elements
+  rather than the bare `pointer`/`text` keyword, or the browser default will
+  show through. `default` stays native on purpose on disabled controls
   and inert cells.
 - Type is Cormorant Garamond (display), Spectral (body), IBM Plex Mono (every
   equation, directory code and § marker), loaded from Google Fonts.
