@@ -1,0 +1,1185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Aether Codex</title>
+<meta name="description" content="The Aether Codex — a layered-field magic system: the Grand Unified Aether Equation, the Power Hierarchy, and the Spell Directory.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&family=Spectral:ital,wght@0,300;0,400;0,500;1,300&display=swap">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   The Aether Codex — deliberately single-world (void plate).
+   Every colour is painted explicitly; nothing inherits a host ground.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  color-scheme: dark;
+
+  --void:#0A0908;
+  --void-2:#0D0B09;
+  --plate:#13100C;
+  --plate-2:#1A1610;
+  --rule:#2B2419;
+  --rule-soft:#1D1811;
+
+  --ink:#EBE3D5;
+  --ink-dim:#A79A88;
+  --ink-faint:#857866;
+
+  --aether:#E4C079;
+  --gauge:#D8A340;
+  --quark:#C2703F;
+  --metric:#AFB6C0;
+  --ceiling:#7A7160;
+
+  --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --body:"Spectral", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --fs-hero:clamp(52px, 10vw, 128px);
+  --fs-h2:clamp(29px, 4.4vw, 47px);
+  --fs-h3:clamp(19px, 2.2vw, 23px);
+  --fs-body:17px;
+  --fs-small:14.5px;
+  --fs-mono:13px;
+  --fs-label:10.5px;
+
+  --shell:1200px;
+  --prose:66ch;
+  --rail:92px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+
+body{
+  margin:0;
+  background:var(--void);
+  color:var(--ink);
+  font-family:var(--body);
+  font-weight:300;
+  font-size:var(--fs-body);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+::selection{background:rgba(228,192,121,.24); color:#F5EEDF}
+
+a{color:var(--aether); text-decoration:none}
+a:focus-visible,button:focus-visible{
+  outline:1px solid var(--aether); outline-offset:3px; border-radius:1px;
+}
+
+/* ── utility type ────────────────────────────────────────────── */
+.label{
+  font-family:var(--mono); font-size:var(--fs-label); font-weight:500;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-faint);
+}
+.mono{font-family:var(--mono); font-size:var(--fs-mono)}
+.sec-num{font-family:var(--mono); font-size:var(--fs-label); letter-spacing:.2em; color:var(--aether)}
+
+h1,h2,h3{font-family:var(--display); font-weight:300; text-wrap:balance; margin:0}
+h2{font-size:var(--fs-h2); line-height:1.06; letter-spacing:-.005em}
+h3{font-size:var(--fs-h3); line-height:1.25; font-weight:500; letter-spacing:.005em}
+p{margin:0}
+
+.shell{max-width:var(--shell); margin:0 auto; padding:0 clamp(20px,5vw,56px)}
+.prose{max-width:var(--prose)}
+.prose p + p{margin-top:1.05em}
+
+/* ── top bar ─────────────────────────────────────────────────── */
+.topbar{
+  position:fixed; inset:0 0 auto 0; z-index:60;
+  background:rgba(10,9,8,.72);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--rule-soft);
+}
+.topbar-in{
+  max-width:var(--shell); margin:0 auto; padding:0 clamp(20px,5vw,56px);
+  height:58px; display:flex; align-items:center; justify-content:space-between; gap:24px;
+}
+.brand{display:flex; align-items:baseline; gap:11px; color:var(--ink)}
+.brand-mark{
+  font-family:var(--display); font-size:19px; font-weight:500; letter-spacing:.03em; color:var(--ink);
+}
+.brand-v{font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:var(--ink-faint)}
+.topnav{display:flex; gap:26px}
+.topnav a{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-faint); transition:color .25s ease;
+}
+.topnav a:hover,.topnav a.on{color:var(--ink)}
+.progress{
+  position:absolute; left:0; bottom:-1px; height:1px; width:0;
+  background:linear-gradient(90deg, rgba(228,192,121,0), var(--aether));
+}
+@media (max-width:820px){ .topnav{display:none} }
+
+/* ── left tick rail ──────────────────────────────────────────── */
+.rail{
+  position:fixed; left:clamp(16px,2.4vw,34px); top:0; height:100vh; width:var(--rail);
+  z-index:40; display:none; flex-direction:column; justify-content:center; gap:0;
+  pointer-events:none;
+}
+.rail-item{display:flex; align-items:center; gap:10px; height:30px; pointer-events:auto}
+.rail-tick{width:14px; height:1px; background:var(--rule); transition:width .3s ease, background .3s ease}
+.rail-lab{
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; color:var(--ink-faint);
+  opacity:0; transform:translateX(-4px); transition:opacity .3s ease, transform .3s ease, color .3s ease;
+  white-space:nowrap;
+}
+.rail-item.on .rail-tick{width:30px; background:var(--aether)}
+.rail-item.on .rail-lab{opacity:1; transform:none; color:var(--ink-dim)}
+@media (min-width:1340px){ .rail{display:flex} }
+
+/* ── hero ────────────────────────────────────────────────────── */
+.hero{position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden}
+#ripple{position:absolute; inset:0; width:100%; height:100%; display:block}
+.hero-veil{
+  position:absolute; inset:0;
+  background:
+    radial-gradient(120% 68% at 50% 88%, rgba(10,9,8,0) 0%, rgba(10,9,8,.62) 58%, var(--void) 100%),
+    linear-gradient(180deg, rgba(10,9,8,.92) 0%, rgba(10,9,8,0) 26%);
+  pointer-events:none;
+}
+.hero-in{position:relative; z-index:2; width:100%; padding-bottom:clamp(40px,7vh,84px); padding-top:120px}
+.hero-eyebrow{display:flex; align-items:center; gap:12px; margin-bottom:26px}
+.hero-eyebrow .dot{width:5px; height:5px; border-radius:50%; background:var(--aether); box-shadow:0 0 12px var(--aether)}
+.hero h1{
+  font-size:var(--fs-hero); line-height:.88; font-weight:300;
+  letter-spacing:-.022em; margin:0 0 26px; color:#F4EDE0;
+}
+.hero h1 em{font-style:italic; font-weight:300; color:var(--aether)}
+.hero-deck{max-width:52ch; font-size:clamp(17px,2vw,20px); line-height:1.62; color:var(--ink-dim)}
+.hero-deck strong{color:var(--ink); font-weight:400}
+.hero-cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:34px}
+.btn{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase;
+  padding:13px 22px; border:1px solid var(--rule); color:var(--ink-dim);
+  background:rgba(19,16,12,.5); transition:border-color .28s ease, color .28s ease, background .28s ease;
+}
+.btn:hover{border-color:var(--aether); color:var(--ink); background:rgba(228,192,121,.07)}
+.btn-key{border-color:rgba(228,192,121,.42); color:var(--aether)}
+.btn-key:hover{background:rgba(228,192,121,.11)}
+
+.hero-strip{
+  position:relative; z-index:2; border-top:1px solid var(--rule-soft);
+  background:linear-gradient(180deg, rgba(10,9,8,.6), var(--void));
+}
+.strip-in{
+  max-width:var(--shell); margin:0 auto; padding:0 clamp(20px,5vw,56px);
+  display:grid; grid-template-columns:repeat(4,1fr);
+}
+.strip-cell{padding:20px 0 22px; border-left:1px solid var(--rule-soft); padding-left:18px}
+.strip-cell:first-child{border-left:0; padding-left:0}
+.strip-n{font-family:var(--mono); font-size:22px; font-weight:400; color:var(--ink); font-variant-numeric:tabular-nums; line-height:1}
+.strip-l{display:block; margin-top:8px; font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint)}
+@media (max-width:720px){
+  .strip-in{grid-template-columns:1fr 1fr}
+  .strip-cell:nth-child(3){border-left:0; padding-left:0}
+  .strip-cell:nth-child(n+3){border-top:1px solid var(--rule-soft)}
+}
+
+/* ── section frame ───────────────────────────────────────────── */
+section.band{padding:clamp(84px,12vh,144px) 0; position:relative}
+section[id],header[id]{scroll-margin-top:58px}
+.band + .band{border-top:1px solid var(--rule-soft)}
+.head{margin-bottom:clamp(38px,6vh,64px)}
+.head-rule{display:flex; align-items:center; gap:14px; margin-bottom:20px}
+.head-rule .line{height:1px; flex:1; background:linear-gradient(90deg,var(--rule),rgba(43,36,25,0))}
+.head h2{margin-bottom:16px}
+.head .sub{max-width:60ch; color:var(--ink-dim); font-size:var(--fs-small); line-height:1.7}
+
+/* ── premise ─────────────────────────────────────────────────── */
+.premise-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.14fr); gap:clamp(32px,5vw,72px); align-items:start}
+@media (max-width:940px){ .premise-grid{grid-template-columns:1fr} }
+
+.pull{
+  font-family:var(--display); font-size:clamp(21px,2.7vw,29px); line-height:1.3; font-weight:300;
+  color:#F1E9DA; border-left:1px solid rgba(228,192,121,.4); padding-left:24px; margin-bottom:30px;
+}
+.pull em{font-style:italic; color:var(--aether)}
+.figure{border:1px solid var(--rule); background:linear-gradient(180deg,var(--plate),var(--void-2)); padding:18px 18px 14px}
+.figure svg{display:block; width:100%; height:auto}
+.figcap{
+  margin-top:12px; padding-top:12px; border-top:1px solid var(--rule-soft);
+  font-family:var(--mono); font-size:11px; line-height:1.65; color:var(--ink-faint);
+}
+.figcap b{color:var(--ink-dim); font-weight:500}
+
+.eqline{
+  margin-top:26px; border:1px solid var(--rule); border-left:2px solid var(--aether);
+  background:var(--plate); padding:14px 18px;
+}
+.eqline .eqk{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-bottom:7px}
+.eqline code{font-family:var(--mono); font-size:14px; color:#E8DCC2; white-space:pre-wrap}
+
+/* ── axes ────────────────────────────────────────────────────── */
+.axes{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
+@media (max-width:860px){ .axes{grid-template-columns:1fr} }
+.axis{background:var(--plate); padding:28px 26px 30px; position:relative; display:flex; flex-direction:column; transition:background .3s ease}
+.axis:hover{background:var(--plate-2)}
+.axis .ax-n{font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:var(--ink-faint)}
+.axis h3{margin:14px 0 6px}
+.axis .ax-role{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--aether); margin-bottom:16px}
+.axis p{font-size:var(--fs-small); line-height:1.72; color:var(--ink-dim)}
+.axis .ax-eq{margin-top:auto; padding-top:18px; font-family:var(--mono); font-size:11.5px; color:var(--ink-faint)}
+.meter{display:flex; gap:3px; margin-top:20px}
+.meter i{height:2px; flex:1; background:var(--rule)}
+.axis[data-fill="fixed"] .meter i:nth-child(-n+7){background:var(--aether)}
+.axis[data-fill="vary"] .meter i:nth-child(2n){background:var(--aether); opacity:.55}
+.axis[data-fill="step"] .meter i:nth-child(-n+4){background:var(--aether)}
+.note-line{margin-top:26px; font-size:var(--fs-small); color:var(--ink-faint); max-width:70ch}
+.note-line b{color:var(--ink-dim); font-weight:400}
+
+/* ── grand equation ──────────────────────────────────────────── */
+.eq-grid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(28px,4vw,56px); align-items:start}
+@media (max-width:960px){ .eq-grid{grid-template-columns:1fr} }
+.plate{border:1px solid var(--rule); background:var(--plate); overflow-x:auto}
+.eqrow{padding:16px 22px; border-bottom:1px solid var(--rule-soft); transition:background .25s ease}
+.eqrow:last-child{border-bottom:0}
+.eqrow:hover{background:var(--plate-2)}
+.eqrow .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); display:flex; gap:10px; align-items:baseline}
+.eqrow .k b{color:var(--aether); font-weight:500; letter-spacing:.1em}
+.eqrow code{display:block; margin-top:9px; font-family:var(--mono); font-size:13.5px; line-height:1.6; color:#E8DCC2; white-space:pre}
+.eqrow.lead code{font-size:15.5px; color:#F2E8D2}
+.eqrow .tm{color:var(--ink); border-bottom:1px dotted var(--ink-faint); cursor:default}
+.eqrow .tm.hot{color:var(--aether); border-bottom-color:var(--aether)}
+
+.terms{display:flex; flex-direction:column; border-top:1px solid var(--rule-soft)}
+.term{
+  display:grid; grid-template-columns:132px 1fr; gap:16px; padding:14px 0;
+  border-bottom:1px solid var(--rule-soft); align-items:baseline; cursor:default;
+  transition:border-color .25s ease;
+}
+.term:hover{border-bottom-color:var(--rule)}
+.term .sym{font-family:var(--mono); font-size:12.5px; color:var(--ink); transition:color .25s ease}
+.term:hover .sym,.term.hot .sym{color:var(--aether)}
+.term .def{font-size:var(--fs-small); color:var(--ink-dim); line-height:1.62}
+.term .def em{font-style:normal; color:var(--ink-faint); display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; margin-top:5px}
+@media (max-width:520px){ .term{grid-template-columns:1fr; gap:6px} }
+
+/* ── power hierarchy ─────────────────────────────────────────── */
+.channels{display:flex; flex-wrap:wrap; gap:14px 22px; margin-bottom:34px}
+@media (max-width:600px){ .channels{flex-direction:column; gap:11px} }
+.chan{display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint)}
+.chan i{width:22px; height:2px; display:block}
+.chan.gauge i{background:var(--gauge)} .chan.quark i{background:var(--quark)}
+.chan.metric i{background:var(--metric)} .chan.none i{background:var(--ceiling)}
+
+.ladder{border-top:1px solid var(--rule-soft)}
+.tier{
+  --c:var(--gauge);
+  display:grid; grid-template-columns:26px 168px minmax(0,1fr) 176px 18px;
+  gap:0 22px; width:100%; text-align:left; align-items:start;
+  padding:20px 6px 20px 0; background:none; border:0; border-bottom:1px solid var(--rule-soft);
+  color:inherit; font:inherit; cursor:pointer; position:relative;
+  transition:background .28s ease;
+}
+.tier:hover{background:rgba(26,22,16,.6)}
+.tier .spine{position:relative; height:100%; min-height:34px}
+.tier .spine::before{content:""; position:absolute; left:11px; top:-20px; bottom:-20px; width:1px; background:var(--rule)}
+.tier:first-child .spine::before{top:14px}
+.tier .node{
+  position:absolute; left:6px; top:9px; width:11px; height:11px; border-radius:50%;
+  border:1px solid var(--c); background:var(--void); transition:box-shadow .3s ease, background .3s ease;
+}
+.tier:hover .node,.tier[aria-expanded="true"] .node{background:var(--c); box-shadow:0 0 14px var(--c)}
+.tier .tname{font-family:var(--display); font-size:26px; font-weight:500; line-height:1.1; color:var(--ink)}
+.tier .tsolved{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--c); margin-top:7px; display:block}
+.tier .tcap{font-size:var(--fs-small); line-height:1.65; color:var(--ink-dim); padding-top:4px}
+.tier .tprev{padding-top:5px; text-align:right}
+.tier .prev-l{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint)}
+.pips{display:flex; gap:3px; justify-content:flex-end; margin-top:8px}
+.pips b{width:4px; height:4px; border-radius:50%; background:var(--rule); display:block}
+.pips b.f{background:var(--c)}
+.tier .tdetail{
+  grid-column:2 / -1; overflow:hidden; max-height:0; opacity:0;
+  transition:max-height .42s cubic-bezier(.2,.7,.2,1), opacity .3s ease, margin-top .42s ease;
+}
+.tier[aria-expanded="true"] .tdetail{max-height:340px; opacity:1; margin-top:16px}
+.tdetail-in{display:block; border-left:1px solid var(--c); padding:2px 0 2px 18px}
+.tdetail-in .dp{display:block; font-size:var(--fs-small); color:var(--ink-dim); line-height:1.7; max-width:62ch}
+.tdetail-in code{display:inline-block; margin-top:10px; font-family:var(--mono); font-size:12px; color:#E8DCC2}
+.tier .chev{padding-top:6px; text-align:right; font-family:var(--mono); font-size:13px; color:var(--ink-faint); transition:transform .3s ease, color .3s ease}
+.tier[aria-expanded="true"] .chev{transform:rotate(45deg); color:var(--c)}
+.tier .chev{display:inline-block}
+@media (max-width:900px){
+  .tier{grid-template-columns:26px minmax(0,1fr); gap:0 18px}
+  .tier .tcap{grid-column:2; padding-top:12px}
+  .tier .tprev{grid-column:2; text-align:left; padding-top:12px}
+  .pips{justify-content:flex-start}
+  .tier .chev{display:none}
+  .ceiling-band .cl{font-size:21px}
+}
+
+.ceiling-band{
+  margin-top:2px; border:1px solid var(--rule-soft); border-top:0;
+  background:repeating-linear-gradient(135deg, rgba(122,113,96,.05) 0 6px, rgba(10,9,8,0) 6px 12px);
+  padding:26px 24px; display:grid; grid-template-columns:168px minmax(0,1fr); gap:22px;
+}
+@media (max-width:900px){ .ceiling-band{grid-template-columns:1fr; gap:12px} }
+.ceiling-band .cl{font-family:var(--display); font-size:24px; color:var(--ceiling); font-weight:500}
+.ceiling-band .cn{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-top:6px}
+.ceiling-band p{font-size:var(--fs-small); color:var(--ink-faint); line-height:1.7; max-width:64ch}
+.ceiling-band code{font-family:var(--mono); font-size:12px; color:var(--ceiling); display:block; margin-top:12px}
+
+/* ── spell directory ─────────────────────────────────────────── */
+.filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:30px}
+.fbtn{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+  padding:9px 15px; border:1px solid var(--rule); background:transparent; color:var(--ink-faint);
+  cursor:pointer; transition:color .25s ease, border-color .25s ease, background .25s ease;
+}
+.fbtn:hover{color:var(--ink-dim); border-color:var(--ink-faint)}
+.fbtn[aria-pressed="true"]{color:var(--void); background:var(--aether); border-color:var(--aether)}
+.fbtn .cnt{opacity:.5; margin-left:7px; font-variant-numeric:tabular-nums}
+
+.grid-spells{display:grid; grid-template-columns:repeat(auto-fill,minmax(288px,1fr)); gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
+.spell{
+  --c:var(--gauge);
+  background:var(--plate); padding:20px 20px 22px; position:relative;
+  display:flex; flex-direction:column;
+  transition:background .3s ease, transform .3s ease;
+}
+.spell::before{content:""; position:absolute; left:0; top:0; width:2px; height:0; background:var(--c); transition:height .38s cubic-bezier(.2,.7,.2,1)}
+.spell:hover{background:var(--plate-2)}
+.spell:hover::before{height:100%}
+.spell .code{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:var(--c)}
+.spell .nm{font-family:var(--display); font-size:22px; font-weight:500; color:var(--ink); margin:8px 0 10px; line-height:1.15}
+.spell .desc{font-size:13.5px; line-height:1.68; color:var(--ink-dim)}
+.spell .f{margin-top:auto; padding-top:14px; border-top:1px solid var(--rule-soft); font-family:var(--mono); font-size:11px; color:var(--ink-faint); overflow-x:auto; white-space:pre}
+.spell.hide{display:none}
+.dir-foot{margin-top:22px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink-faint)}
+
+/* ── ascension ───────────────────────────────────────────────── */
+.paths{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
+@media (max-width:820px){ .paths{grid-template-columns:1fr} }
+.path{background:var(--plate); padding:30px 28px 32px; position:relative; overflow:hidden; display:flex; flex-direction:column}
+.path .pn{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint)}
+.path h3{margin:12px 0 4px; font-size:27px; color:#EFE7D8}
+.path .ptarget{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:16px}
+.path p{font-size:var(--fs-small); line-height:1.7; color:var(--ink-dim); max-width:46ch}
+.path code{display:block; margin-top:auto; padding-top:22px; border-top:1px solid var(--rule-soft); font-family:var(--mono); font-size:11.5px; line-height:1.6; color:#DCCEB0; white-space:pre-wrap}
+.path .never{
+  position:absolute; right:24px; top:26px; font-family:var(--mono); font-size:9px;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--ceiling);
+  border:1px solid rgba(122,113,96,.34); padding:5px 9px; opacity:.7; pointer-events:none;
+}
+@media (max-width:520px){ .path .never{position:static; display:inline-block; margin-bottom:14px} }
+.path[data-c="gauge"] .ptarget{color:var(--gauge)}
+.path[data-c="quark"] .ptarget{color:var(--quark)}
+.path[data-c="metric"] .ptarget{color:var(--metric)}
+.path[data-c="dm"] .ptarget{color:var(--aether)}
+
+/* ── closing ─────────────────────────────────────────────────── */
+.closing{padding:clamp(80px,13vh,150px) 0 clamp(60px,9vh,100px); text-align:left}
+.closing blockquote{
+  margin:0; font-family:var(--display); font-weight:300; font-style:italic;
+  font-size:clamp(25px,3.7vw,42px); line-height:1.28; color:#F1E9DA; max-width:22ch;
+}
+.closing .attr{margin-top:22px; font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint)}
+
+footer{border-top:1px solid var(--rule-soft); padding:34px 0 46px}
+.foot-in{display:flex; flex-wrap:wrap; gap:22px; justify-content:space-between; align-items:baseline}
+.foot-in .fl{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--ink-faint)}
+.foot-nav{display:flex; flex-wrap:wrap; gap:20px}
+.foot-nav a{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--ink-faint); transition:color .25s ease}
+.foot-nav a:hover{color:var(--aether)}
+
+/* ── reveal ──────────────────────────────────────────────────── */
+.rv{opacity:0; transform:translateY(14px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1; transform:none}
+@media (prefers-reduced-motion: reduce){
+  .rv{opacity:1; transform:none; transition:none}
+  .spell::before,.tier .tdetail,.tier .chev{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#top">
+      <span class="brand-mark">Aether</span>
+      <span class="brand-v">CODEX v2.4</span>
+    </a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#premise">Premise</a>
+      <a href="#axes">Axes</a>
+      <a href="#equation">Equation</a>
+      <a href="#hierarchy">Hierarchy</a>
+      <a href="#directory">Directory</a>
+      <a href="#ascent">Ascent</a>
+    </nav>
+    <div class="progress" id="progress"></div>
+  </div>
+</div>
+
+<nav class="rail" id="rail" aria-hidden="true">
+  <span class="rail-item" data-for="premise"><i class="rail-tick"></i><span class="rail-lab">§1</span></span>
+  <span class="rail-item" data-for="axes"><i class="rail-tick"></i><span class="rail-lab">§2</span></span>
+  <span class="rail-item" data-for="equation"><i class="rail-tick"></i><span class="rail-lab">§3.1</span></span>
+  <span class="rail-item" data-for="hierarchy"><i class="rail-tick"></i><span class="rail-lab">§3.3</span></span>
+  <span class="rail-item" data-for="directory"><i class="rail-tick"></i><span class="rail-lab">§4.4</span></span>
+  <span class="rail-item" data-for="ascent"><i class="rail-tick"></i><span class="rail-lab">§4.11</span></span>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="ripple" aria-hidden="true"></canvas>
+  <div class="hero-veil"></div>
+  <div class="hero-in shell">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      <span class="label">Aether Power System · Complete Reference</span>
+    </div>
+    <h1>The Aether<br><em>Codex</em></h1>
+    <p class="hero-deck">A field in its own right, sitting beneath electromagnetism, the weak and strong interactions, and gravity — coupled to all four, sourced by none. <strong>Nothing about the aether field itself glows, burns, pulls, or bends light.</strong> What a witness sees is the upper fields, momentarily wearing a shape they would not have taken on their own.</p>
+    <div class="hero-cta">
+      <a class="btn btn-key" href="#hierarchy">The Power Hierarchy</a>
+      <a class="btn" href="#premise">Read the premise</a>
+    </div>
+  </div>
+  <div class="hero-strip">
+    <div class="strip-in">
+      <div class="strip-cell"><span class="strip-n">8</span><span class="strip-l">Tiers of comprehension</span></div>
+      <div class="strip-cell"><span class="strip-n">3</span><span class="strip-l">Coupling channels</span></div>
+      <div class="strip-cell"><span class="strip-n">39</span><span class="strip-l">Catalogued techniques</span></div>
+      <div class="strip-cell"><span class="strip-n">4</span><span class="strip-l">Paths beyond Legend</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ══ PREMISE ══════════════════════════════════════════════ -->
+<section class="band" id="premise">
+  <div class="shell">
+    <div class="head rv">
+      <div class="head-rule"><span class="sec-num">§1</span><span class="line"></span><span class="label">Foundations</span></div>
+      <h2>The layered-field<br>picture</h2>
+      <p class="sub">Aether is not the substance the four forces are made from. It is a layer beneath them — coupled to all four, sourced by none, and not observable except through that coupling.</p>
+    </div>
+
+    <div class="premise-grid">
+      <div class="rv">
+        <p class="pull">A caster works entirely at the lower surface. Every visible effect — heat, light, lift, curvature — is <em>what the upper surface does</em> once a ripple reaches it.</p>
+        <div class="prose">
+          <p>Picture two surfaces of water, one directly above the other, connected only by narrow, invisible channels rather than by direct contact. The upper surface is the one anyone can see: the four fundamental fields, doing what fields do, indifferent to whatever lies beneath them. The lower surface is aether.</p>
+          <p>Nothing about the lower surface is visible from above unless something disturbs it. But a disturbance sourced correctly, finding one of those channels, arrives at the upper surface as a real physical distortion of the field that channel connects to. A person able to perceive and address the aether field is not casting a spell in the traditional sense — they are disturbing a field beneath the ones matter and radiation actually experience, and using that disturbance's own onward spread to push the upper fields into a configuration of their choosing.</p>
+        </div>
+        <div class="eqline">
+          <span class="eqk">Eq. 1.1 — Aether Field Decomposition</span>
+          <code>Ae(x, t) = Ae_0 + dAe(x, t)</code>
+        </div>
+      </div>
+
+      <figure class="figure rv" style="margin:0">
+        <svg viewBox="0 0 720 320" role="img" aria-label="Diagram: a ripple sourced in the lower aether layer travels outward and couples up through a channel into the upper field layer, where it appears as a visible effect.">
+          <defs>
+            <radialGradient id="bloom" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#D8A340" stop-opacity=".55"/>
+              <stop offset="100%" stop-color="#D8A340" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="src" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#E4C079" stop-opacity=".5"/>
+              <stop offset="100%" stop-color="#E4C079" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- upper surface -->
+          <text x="34" y="24" fill="#857866" font-family="IBM Plex Mono, monospace" font-size="15" letter-spacing="2.2">UPPER SURFACE — THE FOUR FUNDAMENTAL FIELDS</text>
+          <ellipse cx="330" cy="86" rx="120" ry="26" fill="url(#bloom)"/>
+          <line x1="34" y1="86" x2="686" y2="86" stroke="#4A4032" stroke-width="1.3"/>
+          <g stroke="#2B2419" stroke-width="1.3">
+            <line x1="90" y1="86" x2="90" y2="78"/><line x1="190" y1="86" x2="190" y2="78"/>
+            <line x1="430" y1="86" x2="430" y2="78"/><line x1="530" y1="86" x2="530" y2="78"/>
+            <line x1="630" y1="86" x2="630" y2="78"/>
+          </g>
+          <circle cx="330" cy="86" r="6" fill="#D8A340"/>
+          <text x="356" y="52" fill="#D8A340" font-family="IBM Plex Mono, monospace" font-size="15">visible effect: heat, light, lift</text>
+          <text x="356" y="70" fill="#857866" font-family="IBM Plex Mono, monospace" font-size="14">delta(F_f) — gauge sector</text>
+
+          <!-- channels -->
+          <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#857866">
+            <line x1="330" y1="232" x2="330" y2="92" stroke="#D8A340" stroke-width="1.6" stroke-opacity=".85"/>
+            <polygon points="330,88 326,97 334,97" fill="#D8A340"/>
+            <line x1="510" y1="232" x2="510" y2="90" stroke="#3A3226" stroke-width="1.3" stroke-dasharray="3 8"/>
+            <line x1="168" y1="232" x2="168" y2="90" stroke="#3A3226" stroke-width="1.3" stroke-dasharray="3 8"/>
+            <text x="530" y="160">k_f · M_op · Xi(Ae, g)</text>
+            <text x="530" y="180" fill="#6B6152">unsourced channels</text>
+            <text x="36" y="160" text-anchor="start" fill="#6B6152">coupling channels</text>
+            <text x="36" y="180" text-anchor="start" fill="#6B6152">§1.3</text>
+          </g>
+
+          <!-- lower surface -->
+          <ellipse cx="330" cy="232" rx="150" ry="30" fill="url(#src)"/>
+          <g fill="none" stroke="#E4C079">
+            <ellipse cx="330" cy="232" rx="52" ry="9" stroke-opacity=".85"/>
+            <ellipse cx="330" cy="232" rx="104" ry="17" stroke-opacity=".45"/>
+            <ellipse cx="330" cy="232" rx="158" ry="26" stroke-opacity=".22"/>
+            <ellipse cx="330" cy="232" rx="214" ry="35" stroke-opacity=".1"/>
+          </g>
+          <line x1="34" y1="232" x2="686" y2="232" stroke="#4A4032" stroke-width="1.3"/>
+          <circle cx="330" cy="232" r="5" fill="#E4C079"/>
+          <text x="330" y="262" text-anchor="middle" fill="#E4C079" font-family="IBM Plex Mono, monospace" font-size="15">J_cast</text>
+          <text x="34" y="288" fill="#857866" font-family="IBM Plex Mono, monospace" font-size="15" letter-spacing="2.2">LOWER SURFACE — THE AETHER FIELD  Ae</text>
+          <text x="34" y="308" fill="#6B6152" font-family="IBM Plex Mono, monospace" font-size="14">not observable except through the coupling above</text>
+        </svg>
+        <figcaption class="figcap"><b>Fig. 1.1</b> — A ripple <span style="color:#E4C079">dAe</span> is sourced by <span style="color:#E4C079">J_cast</span> at the lower surface and propagates outward. Where it meets a channel the caster has proven, it couples upward and the upper field takes a shape it would not otherwise have taken. Unsourced channels stay dark.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══ THREE AXES ═══════════════════════════════════════════ -->
+<section class="band" id="axes">
+  <div class="shell">
+    <div class="head rv">
+      <div class="head-rule"><span class="sec-num">§2</span><span class="line"></span><span class="label">Core philosophy</span></div>
+      <h2>Three axes, and<br>not one of them is mana</h2>
+      <p class="sub">There is no resource pool. No stamina meter, no supply of aether to run out of. What a practitioner can do is set by three independent quantities — moving along one does nothing to the other two.</p>
+    </div>
+
+    <div class="axes rv">
+      <div class="axis" data-fill="fixed">
+        <span class="ax-n">§2 · §3.3 · §3.4</span>
+        <h3>Comprehension</h3>
+        <div class="ax-role">The ceiling</div>
+        <p>Exactly the union of coupling channels a practitioner has a proven functional form for — nothing more generous, nothing less. It does not vary from casting to casting. It is earned one way only: by solving mathematics that was not solved before.</p>
+        <div class="ax-eq">dM — the comprehension boundary</div>
+        <div class="meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="axis" data-fill="vary">
+        <span class="ax-n">§3.5 · Eq. 3.2</span>
+        <h3>Fidelity</h3>
+        <div class="ax-role">Sourcing quality</div>
+        <p>How coherently a given casting's ripple reproduces the ideal structure for a channel already comprehended. It varies casting to casting, hour to hour, and is exactly as sensitive to injury, distraction, and rush as you would expect a fine motor skill to be.</p>
+        <div class="ax-eq">Fid — per-casting, 0 &lt; Fid &lt; 1</div>
+        <div class="meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="axis" data-fill="step">
+        <span class="ax-n">§3.6 · Eq. 3.4</span>
+        <h3>Practice depth</h3>
+        <div class="ax-role">Medium independence</div>
+        <p>Whether one specific channel has been drilled past the threshold at which it can be sourced through visualization alone — no drawn glyph, no spoken cadence, nothing external to stabilize against. Earned per technique, never in general.</p>
+        <div class="ax-eq">prac ≥ prac_min — per technique</div>
+        <div class="meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+
+    <p class="note-line rv"><b>Sim[…] is not a fourth axis.</b> Simulated invocation (§3.7) is a zero-risk training method that accelerates fidelity and practice depth without ever touching comprehension. What it grants is a caster who reaches their existing ceiling more reliably — never a caster whose ceiling has moved.</p>
+  </div>
+</section>
+
+<!-- ══ GRAND EQUATION ═══════════════════════════════════════ -->
+<section class="band" id="equation">
+  <div class="shell">
+    <div class="head rv">
+      <div class="head-rule"><span class="sec-num">§3.1</span><span class="line"></span><span class="label">The formal core</span></div>
+      <h2>The Grand Unified<br>Aether Equation</h2>
+      <p class="sub">Read top-down. Reality-selection is a path integral over field configurations, weighted by an exponential of the aether action — everything else is what goes into that action.</p>
+    </div>
+
+    <div class="eq-grid">
+      <div class="plate rv">
+        <div class="eqrow lead">
+          <span class="k"><b>Eq. 3.1</b> Grand Unified Aether Equation</span>
+          <code>A_op = Loop_<span class="tm" data-t="dM">dM</span>[ Dpath(<span class="tm" data-t="Ae">Ae</span>) * exp( (i/hbar) * Action ) ]</code>
+        </div>
+        <div class="eqrow">
+          <span class="k"><b>Eq. 3.1a</b> Aether Action</span>
+          <code>Action = Int[ sqrt(-g) * L_total ] d4x</code>
+        </div>
+        <div class="eqrow">
+          <span class="k"><b>Eq. 3.1b</b> Total Lagrangian Density</span>
+          <code>L_total = L_gauge + L_quark + <span class="tm" data-t="Xi">Xi(Ae, g)</span></code>
+        </div>
+        <div class="eqrow">
+          <span class="k"><b>Eq. 3.1c</b> Gauge term — the four forces</span>
+          <code>L_gauge = Sum_f[ <span class="tm" data-t="kf">k_f</span> * Tr(<span class="tm" data-t="Ff">F_f</span> . <span class="tm" data-t="Ff">F_f</span>) ]</code>
+        </div>
+        <div class="eqrow">
+          <span class="k"><b>Eq. 3.1d</b> Quark term — matter coupling</span>
+          <code>L_quark = q_bar * (i*gam^u*D_u - <span class="tm" data-t="Mop">M_op</span>) * q</code>
+        </div>
+      </div>
+
+      <div class="rv">
+        <div class="terms">
+          <div class="term" data-t="Ae"><span class="sym">Ae</span><span class="def">The aether field itself — the substance every technique draws from.<em>Eq. 3.1</em></span></div>
+          <div class="term" data-t="kf"><span class="sym">k_f</span><span class="def">Coupling constant for fundamental force f. Decides which force a caster's power expresses through.<em>Eq. 3.1c · gauge sector</em></span></div>
+          <div class="term" data-t="Ff"><span class="sym">F_f</span><span class="def">Field-strength tensor — the raw material being bent.<em>Eq. 3.1c</em></span></div>
+          <div class="term" data-t="Mop"><span class="sym">M_op</span><span class="def">Mass operator: a matrix, not a scalar. Must be diagonalized before matter manipulation is safe.<em>Eq. 3.1d · quark sector</em></span></div>
+          <div class="term" data-t="Xi"><span class="sym">Xi(Ae, g)</span><span class="def">Aether-to-spacetime coupling — the one place Ae is written directly into the Lagrangian. Governs geometry and causality.<em>Eq. 3.1b · metric sector</em></span></div>
+          <div class="term" data-t="dM"><span class="sym">dM</span><span class="def">The boundary of a caster's comprehension. Nothing outside it is reachable, however favourably the rest of the integral might weight it.<em>Eq. 3.1</em></span></div>
+        </div>
+        <p class="note-line" style="margin-top:24px">Ae appears explicitly only inside Xi(Ae, g) — never inside L_gauge or L_quark. A caster does not write Ae into those terms. They source a ripple that couples in from outside L_total altogether, distorting the values those terms take on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ POWER HIERARCHY ══════════════════════════════════════ -->
+<section class="band" id="hierarchy">
+  <div class="shell">
+    <div class="head rv">
+      <div class="head-rule"><span class="sec-num">§3.3</span><span class="line"></span><span class="label">Who can do what</span></div>
+      <h2>The Power Hierarchy</h2>
+      <p class="sub">Five tiers mark qualitative jumps in comprehension — a whole term of the Grand Equation opened up. Between the first three of those sits a named subclass: a rung defined not by a new term, but by an incomplete version of the next one. Tier sets the ceiling, never the outcome of any single casting.</p>
+    </div>
+
+    <div class="channels rv">
+      <span class="chan gauge"><i></i>delta(F_f) — gauge sector</span>
+      <span class="chan quark"><i></i>delta(M_op) — quark sector</span>
+      <span class="chan metric"><i></i>delta(g) — metric sector</span>
+      <span class="chan none"><i></i>unreached</span>
+    </div>
+
+    <div class="ladder rv">
+      <button class="tier" style="--c:var(--gauge)" aria-expanded="false">
+        <span class="spine"><span class="node"></span></span>
+        <span><span class="tname">Novice</span><span class="tsolved">One k_f term, closed form</span></span>
+        <span class="tcap">Single-force effects — fire and lightning through electromagnetism, localized strong- and weak-force bursts. The worked examples of §4.0.</span>
+        <span class="tprev"><span class="prev-l">Common</span><span class="pips"><b class="f"></b><b class="f"></b><b class="f"></b><b class="f"></b><b class="f"></b><b class="f"></b></span></span>
+        <span class="chev">+</span>
+        <span class="tdetail"><span class="tdetail-in"><span class="dp">Four worked examples teach the whole pattern: heat injection, lift, cohesion, and a decay nudge. A Novice with excellent fidelity reliably outperforms an Adept who casts carelessly.</span><code>dE/dt = k_EM * Fid * Ae_local        — Eq. 4.0a</code></span></span>
+      </button>
+
+      <button class="tier" style="--c:var(--gauge)" aria-expanded="false">
+        <span class="spine"><span class="node"></span></span>
+        <span><span class="tname">Journeyman</span><span class="tsolved">Two or more k_f terms, not yet cross-coupled</span></span>
+        <span class="tcap">Can produce more than one single-force effect, but must switch between them rather than blend. The gap between the two is the tier.</span>
+        <span class="tprev"><span class="prev-l">Common</span><span class="pips"><b class="f"></b><b class="f"></b><b class="f"></b><b class="f"></b><b class="f"></b><b class="f"></b></span></span>
+        <span class="chev">+</span>
+        <span class="tdetail"><span class="tdetail-in"><span class="dp">Eq. 4.13 formalizes the pattern: disjoint activation windows separated by a switching cost. Duelists drill that cost toward zero without ever reaching it — which is exactly the standing proof they are still Journeyman.</span><code>tau_switch &gt; 0 — disjoint windows, never blended</code></span></span>
+      </button>
+
+      <button class="tier" style="--c:var(--gauge)" aria-expanded="false">
+        <span class="spine"><span class="node"></span></span>
+        <span><span class="tname">Adept</span><span class="tsolved">Multiple k_f terms, combined</span></span>
+        <span class="tcap">Cross-force effects and true combination techniques — one sourced ripple satisfying two coupling channels at once.</span>
+        <span class="tprev"><span class="prev-l">Uncommon</span><span class="pips"><b class="f"></b><b class="f"></b><b class="f"></b><b class="f"></b><b></b><b></b></span></span>
+        <span class="chev">+</span>
+        <span class="tdetail"><span class="tdetail-in"><span class="dp">Fidelity enters squared rather than linearly: both halves of a blend must hold at once, so a combination punishes sloppy execution harder than either parent effect would alone. There are exactly six unordered pairs among four forces — and no seventh.</span><code>X_combo = k_f1 * k_f2 * Fid^2 * Chi(f1, f2)   — Eq. 4.15</code></span></span>
+      </button>
+
+      <button class="tier" style="--c:var(--quark)" aria-expanded="false">
+        <span class="spine"><span class="node"></span></span>
+        <span><span class="tname">Artisan</span><span class="tsolved">Partial diagonalization of M_op</span></span>
+        <span class="tcap">Narrow, proven matter-tricks on specific known materials. General transmutation is not yet safe, and reaching for it is not merely harder — it is unmodeled.</span>
+        <span class="tprev"><span class="prev-l">Uncommon</span><span class="pips"><b class="f"></b><b class="f"></b><b class="f"></b><b class="f"></b><b></b><b></b></span></span>
+        <span class="chev">+</span>
+        <span class="tdetail"><span class="tdetail-in"><span class="dp">S is the finite subset of eigenvectors an Artisan has actually solved. It grows one hard-won eigenvector at a time — which is why Artisans are known by a signature material rather than a percentage of general competence.</span><code>M_op_partial = Sum_{i in S} lam_i * |e_i&gt;&lt;e_i|   — Eq. 3.1e</code></span></span>
+      </button>
+
+      <button class="tier" style="--c:var(--quark)" aria-expanded="false">
+        <span class="spine"><span class="node"></span></span>
+        <span><span class="tname">Master</span><span class="tsolved">Full eigenbasis of M_op</span></span>
+        <span class="tcap">Transmutation, accelerated decay and healing, binding-energy control — general-purpose rather than tied to one solved material.</span>
+        <span class="tprev"><span class="prev-l">Rare</span><span class="pips"><b class="f"></b><b class="f"></b><b class="f"></b><b></b><b></b><b></b></span></span>
+        <span class="chev">+</span>
+        <span class="tdetail"><span class="tdetail-in"><span class="dp">Masters commonly lead orders. The same complete eigenbasis that turns lead to gold also lets a quarry-hand arrest decay in a stone lintel. The tier's machinery is general-purpose, not spectacle-only.</span><code>U_transmute — Eq. 4.18 · generalized binding control — Eq. 4.19</code></span></span>
+      </button>
+
+      <button class="tier" style="--c:var(--metric)" aria-expanded="false">
+        <span class="spine"><span class="node"></span></span>
+        <span><span class="tname">Warden</span><span class="tsolved">First-order perturbative Xi(Ae, g)</span></span>
+        <span class="tcap">The first metric-sector effects below Sovereign: narrow, tightly-scoped, and valid only in already-proven special cases.</span>
+        <span class="tprev"><span class="prev-l">Very rare</span><span class="pips"><b class="f"></b><b class="f"></b><b></b><b></b><b></b><b></b></span></span>
+        <span class="chev">+</span>
+        <span class="tdetail"><span class="tdetail-in"><span class="dp">The series was only ever validated near the configurations it was expanded around. Pushing eps past where it was tested is ordinary extrapolation with metric-level consequences instead of merely thermal ones.</span><code>Xi_pert(Ae, g) = Xi_0 + eps * Xi_1 + O(eps^2)   — Eq. 3.1f</code></span></span>
+      </button>
+
+      <button class="tier" style="--c:var(--metric)" aria-expanded="false">
+        <span class="spine"><span class="node"></span></span>
+        <span><span class="tname">Sovereign</span><span class="tsolved">Closed-form Xi(Ae, g) over a bounded domain</span></span>
+        <span class="tcap">Localized spacetime warps, minor time dilation, small causality bends, the Overlay Fold, a held Bound Singularity.</span>
+        <span class="tprev"><span class="prev-l">A handful per era</span><span class="pips"><b class="f"></b><b></b><b></b><b></b><b></b><b></b></span></span>
+        <span class="chev">+</span>
+        <span class="tdetail"><span class="tdetail-in"><span class="dp">Genuinely complete — no perturbative gap, unlike a Warden's — but only within a bounded radius and for a bounded duration. A held fold, a contained singularity, a warp that must eventually be released.</span><code>Xi_valid(x, t): |x - x0| &lt; R_dom and t &lt; t_dom   — Eq. 3.1g</code></span></span>
+      </button>
+
+      <button class="tier" style="--c:var(--metric)" aria-expanded="false">
+        <span class="spine"><span class="node"></span></span>
+        <span><span class="tname">Legend</span><span class="tsolved">R_dom pushed to effective permanence</span></span>
+        <span class="tcap">Regional-scale metric engineering. Standing folds; singularities held long enough to become geography.</span>
+        <span class="tprev"><span class="prev-l">A handful in history</span><span class="pips"><b class="f"></b><b></b><b></b><b></b><b></b><b></b></span></span>
+        <span class="chev">+</span>
+        <span class="tdetail"><span class="tdetail-in"><span class="dp">Sovereign and Legend are the same mathematics at different scales of R_dom and t_dom, not different equations. Neither dial is ever literally infinite — Legend is a very large finite number, not an exception to the rule that finite numbers are all this system permits.</span><code>same Eq. 3.1g — two dials turned far, never to infinity</code></span></span>
+      </button>
+    </div>
+
+    <div class="ceiling-band rv">
+      <div><span class="cl">The Unsolved Ceiling</span><span class="cn">§3.4 · not a tier</span></div>
+      <div>
+        <p>The full A_op integral — total, unconditional reality rewriting. It is occupied by no one and cannot be: the complete equation admits no closed-form solution by any finite mind. It is the limit the whole ladder points at without reaching, and it is what keeps power in this system from ever being a matter of permission.</p>
+        <code>A_op — no closed form exists for any finite dM</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPELL DIRECTORY ══════════════════════════════════════ -->
+<section class="band" id="directory">
+  <div class="shell">
+    <div class="head rv">
+      <div class="head-rule"><span class="sec-num">§4.4</span><span class="line"></span><span class="label">Applied techniques</span></div>
+      <h2>The Spell Directory</h2>
+      <p class="sub">A coded catalogue of named techniques, Novice through the Ascent Beyond Legend — every rank except Sovereign, whose two canonical workings are written up in full in §4.1–§4.3. Entries carry directory codes rather than equation numbers; they draw on mathematics already indexed in §6.</p>
+    </div>
+
+    <div class="filters rv" id="filters" role="group" aria-label="Filter techniques by tier"></div>
+    <div class="grid-spells rv" id="spells"></div>
+    <p class="dir-foot rv" id="dirfoot"></p>
+  </div>
+</section>
+
+<!-- ══ ASCENT ═══════════════════════════════════════════════ -->
+<section class="band" id="ascent">
+  <div class="shell">
+    <div class="head rv">
+      <div class="head-rule"><span class="sec-num">§3.3</span><span class="line"></span><span class="label">Beyond Legend</span></div>
+      <h2>Four paths toward<br>divinity. None of them arrive.</h2>
+      <p class="sub">Legend is where the one-term-at-a-time discipline runs out of room. What lies past it is not a ninth tier but a fork — four historically attested directions, each reaching for something the Grand Equation was never decomposed to make easy. None has ever been completed. None ever can be. A character can spend several lifetimes closing the distance, and the distance does not reach zero.</p>
+    </div>
+
+    <div class="paths rv">
+      <article class="path" data-c="gauge">
+        <span class="pn">Path I · Eq. 4.24</span>
+        <h3>The Tetrarch</h3>
+        <div class="ptarget">Gauge unification — the whole channel at once</div>
+        <p>One coupling in place of all four. A caster near this limit no longer chooses which force an effect expresses through: fire, gravity, and the strong force become facets of one coupling rather than four separate ones. It never touches matter or geometry.</p>
+        <code>L_gauge -&gt; k_unified * Tr(F_unified . F_unified)
+no closed form for k_unified is known</code>
+        <span class="never">Never completed</span>
+      </article>
+
+      <article class="path" data-c="quark">
+        <span class="pn">Path II · Eq. 4.25</span>
+        <h3>The Demiurge</h3>
+        <div class="ptarget">Matter generation — the rule, not the list</div>
+        <p>Past a Master's full diagonalization toward the generating structure of M_op itself — not a complete list of solved eigenvectors but the rule that produces them, letting a caster originate stable matter never observed before. The most overtly creator-god path, and the most narrowly bounded.</p>
+        <code>M_op -&gt; Gen(dM)
+no closed form for Gen is known</code>
+        <span class="never">Never completed</span>
+      </article>
+
+      <article class="path" data-c="metric">
+        <span class="pn">Path III · Eq. 4.26</span>
+        <h3>The Cosmographer</h3>
+        <div class="ptarget">Unbounded geometry — past where Legend stopped</div>
+        <p>Legend's own trajectory carried further: terrain, climate, and the causal structure of a region reshaped as a permanent fact of geography rather than a held effect. The limit is the Unsolved Ceiling wearing a single term's clothing.</p>
+        <code>Xi_valid(x, t) as R_dom -&gt; infinity, t_dom -&gt; infinity
+never attained; see Eq. 3.1g</code>
+        <span class="never">Never completed</span>
+      </article>
+
+      <article class="path" data-c="dm">
+        <span class="pn">Path IV · Eq. 4.27</span>
+        <h3>The Communion</h3>
+        <div class="ptarget">Comprehension itself — the boundary, not a term</div>
+        <p>The only path that targets no term of L_total at all. Several practitioners' proven comprehension domains merged into one acting boundary — fastest to dramatic gains, and the most explicitly horrifying in every tradition that has attempted it, since what is merged is not knowledge alone but the minds that held it.</p>
+        <code>dM_total = Union(dM_1, dM_2, ..., dM_n)
+a Communion of a thousand Novices is a very large Novice</code>
+        <span class="never">Never completed</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CLOSING ══════════════════════════════════════════════ -->
+<section class="closing">
+  <div class="shell rv">
+    <blockquote>If a term has been solved, any effect it describes can be produced, at any scale.</blockquote>
+    <p class="attr">§2 — Core Philosophy</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="shell foot-in">
+    <span class="fl">The Aether Codex · v2.4 · Living document</span>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="#premise">§1 Foundations</a>
+      <a href="#equation">§3 Grand Equation</a>
+      <a href="#hierarchy">§3.3 Hierarchy</a>
+      <a href="#directory">§4.4 Directory</a>
+      <a href="#top">Top</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ── 1. Hero: the layered-field ripple ───────────────────── */
+var cv = document.getElementById("ripple");
+if (cv && cv.getContext) {
+  var ctx = cv.getContext("2d"), W = 0, H = 0, dpr = 1;
+  var CH = [
+    { d:0.24, a:-0.5, c:"216,163,64"  },
+    { d:0.46, a:2.35, c:"194,112,63"  },
+    { d:0.72, a:0.55, c:"175,182,192" }
+  ];
+  var rings = [], dust = [], last = 0, emit = 0;
+
+  function size(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    dust = [];
+    for (var i = 0; i < 46; i++) dust.push({
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 1.1 + 0.3, p: Math.random() * 6.28, s: Math.random() * 0.4 + 0.15
+    });
+  }
+
+  function geo(){
+    var cx = W * 0.62, yLow = H * 0.64, yUp = H * 0.22;
+    return { cx: cx, yLow: yLow, yUp: yUp, R: Math.min(W * 0.52, 700), k: 0.26 };
+  }
+
+  function ellipse(cx, cy, rx, ry, stroke, alpha, w){
+    if (rx <= 0.5) return;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, rx, Math.max(ry, 0.6), 0, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(" + stroke + "," + alpha.toFixed(3) + ")";
+    ctx.lineWidth = w || 1;
+    ctx.stroke();
+  }
+
+  function plane(y, alpha){
+    var g = ctx.createLinearGradient(0, 0, W, 0);
+    g.addColorStop(0, "rgba(190,175,150,0)");
+    g.addColorStop(0.5, "rgba(190,175,150," + alpha + ")");
+    g.addColorStop(1, "rgba(190,175,150,0)");
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y);
+    ctx.strokeStyle = g; ctx.lineWidth = 1; ctx.stroke();
+  }
+
+  function channel(ch, g, fire, now){
+    var x = g.cx + ch.d * g.R * Math.cos(ch.a);
+    var y = g.yLow + ch.d * g.R * g.k * Math.sin(ch.a);
+    var lit = 0;
+    if (fire > 0) {
+      var age = (now - fire) / 2600;
+      if (age >= 0 && age < 1) lit = Math.sin(Math.min(age, 1) * Math.PI);
+    }
+    var base = 0.07 + lit * 0.64;
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, g.yUp);
+    ctx.strokeStyle = "rgba(" + ch.c + "," + base.toFixed(3) + ")";
+    ctx.lineWidth = 1; ctx.stroke();
+
+    if (lit > 0.02) {
+      var travel = fire > 0 ? Math.min((now - fire) / 900, 1) : 1;
+      var py = y + (g.yUp - y) * (travel * travel * (3 - 2 * travel));
+      ctx.beginPath(); ctx.arc(x, py, 1.8, 0, 6.284);
+      ctx.fillStyle = "rgba(" + ch.c + "," + (lit * 0.9).toFixed(3) + ")"; ctx.fill();
+
+      var rg = ctx.createRadialGradient(x, g.yUp, 0, x, g.yUp, 130);
+      rg.addColorStop(0, "rgba(" + ch.c + "," + (lit * travel * 0.30).toFixed(3) + ")");
+      rg.addColorStop(1, "rgba(" + ch.c + ",0)");
+      ctx.fillStyle = rg;
+      ctx.beginPath(); ctx.ellipse(x, g.yUp, 130, 34, 0, 0, 6.284); ctx.fill();
+    }
+    ctx.beginPath(); ctx.arc(x, y, 1.6, 0, 6.284);
+    ctx.fillStyle = "rgba(" + ch.c + "," + (0.22 + lit * 0.7).toFixed(3) + ")"; ctx.fill();
+  }
+
+  function frame(now){
+    var g = geo();
+    ctx.clearRect(0, 0, W, H);
+
+    for (var i = 0; i < dust.length; i++) {
+      var p = dust[i];
+      var tw = 0.14 + 0.12 * Math.sin(now / 1400 * p.s + p.p);
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.284);
+      ctx.fillStyle = "rgba(198,182,152," + tw.toFixed(3) + ")"; ctx.fill();
+    }
+
+    plane(g.yUp, 0.10);
+    plane(g.yLow, 0.16);
+
+    for (var r = rings.length - 1; r >= 0; r--) {
+      var ring = rings[r];
+      var age = (now - ring.t) / 6600;
+      if (age > 1.18) { rings.splice(r, 1); continue; }
+      var e = 1 - Math.pow(1 - Math.min(age, 1), 2.1);
+      var rad = e * g.R * 1.12;
+      var al = Math.max(0, (1 - age * 0.94)) * 0.64;
+      ellipse(g.cx, g.yLow, rad, rad * g.k, "228,192,121", al, 1);
+      for (var c = 0; c < CH.length; c++) {
+        if (!ring.hit[c] && rad >= CH[c].d * g.R) { ring.hit[c] = true; CH[c].fire = now; }
+      }
+    }
+
+    var sg = ctx.createRadialGradient(g.cx, g.yLow, 0, g.cx, g.yLow, 190);
+    sg.addColorStop(0, "rgba(228,192,121,0.2)");
+    sg.addColorStop(1, "rgba(228,192,121,0)");
+    ctx.fillStyle = sg;
+    ctx.beginPath(); ctx.ellipse(g.cx, g.yLow, 190, 52, 0, 0, 6.284); ctx.fill();
+    ctx.beginPath(); ctx.arc(g.cx, g.yLow, 2.4, 0, 6.284);
+    ctx.fillStyle = "rgba(245,225,175,0.9)"; ctx.fill();
+
+    for (var k = 0; k < CH.length; k++) channel(CH[k], g, CH[k].fire || 0, now);
+  }
+
+  function loop(now){
+    if (now - emit > 2500) { rings.push({ t: now, hit: [false, false, false] }); emit = now; }
+    frame(now);
+    last = now;
+    requestAnimationFrame(loop);
+  }
+
+  function still(){
+    var now = performance.now();
+    rings = [{ t: now - 3300, hit: [true, true, false] }];
+    CH[0].fire = now - 900; CH[1].fire = now - 400;
+    frame(now);
+  }
+
+  size();
+  window.addEventListener("resize", function(){ size(); if (reduce) still(); });
+  if (reduce) { still(); }
+  else { rings.push({ t: performance.now(), hit: [false, false, false] }); emit = performance.now(); requestAnimationFrame(loop); }
+}
+
+/* ── 2. Reveals ──────────────────────────────────────────── */
+var rv = document.querySelectorAll(".rv");
+if ("IntersectionObserver" in window && !reduce) {
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.06 });
+  rv.forEach(function(el){ io.observe(el); });
+} else {
+  rv.forEach(function(el){ el.classList.add("in"); });
+}
+
+/* ── 3. Progress bar + section tracking ──────────────────── */
+var bar = document.getElementById("progress");
+function onScroll(){
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+var sections = ["premise", "axes", "equation", "hierarchy", "directory", "ascent"];
+if ("IntersectionObserver" in window) {
+  var so = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var id = e.target.id;
+      document.querySelectorAll(".topnav a").forEach(function(a){
+        a.classList.toggle("on", a.getAttribute("href") === "#" + id);
+      });
+      document.querySelectorAll(".rail-item").forEach(function(r){
+        r.classList.toggle("on", r.getAttribute("data-for") === id);
+      });
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  sections.forEach(function(id){ var el = document.getElementById(id); if (el) so.observe(el); });
+}
+
+/* ── 4. Equation ↔ term cross-highlight ─────────────────── */
+function link(t, on){
+  document.querySelectorAll('.tm[data-t="' + t + '"]').forEach(function(el){ el.classList.toggle("hot", on); });
+  document.querySelectorAll('.term[data-t="' + t + '"]').forEach(function(el){ el.classList.toggle("hot", on); });
+}
+document.querySelectorAll(".term, .tm").forEach(function(el){
+  var t = el.getAttribute("data-t");
+  el.addEventListener("mouseenter", function(){ link(t, true); });
+  el.addEventListener("mouseleave", function(){ link(t, false); });
+});
+
+/* ── 5. Hierarchy rows ───────────────────────────────────── */
+document.querySelectorAll(".tier").forEach(function(b){
+  b.addEventListener("click", function(){
+    b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") === "true" ? "false" : "true");
+  });
+});
+
+/* ── 6. Spell Directory ──────────────────────────────────── */
+var SPELLS = [
+  { c:"N-EM-01", n:"Spark Draw", t:"Novice", ch:"gauge",
+    d:"A small, controlled static discharge between the caster's fingers and a target — enough to light kindling, startle, or send a visible signal at range. The first technique most students cast that is not Eq. 4.0a itself.",
+    f:"V_out = k_EM * Fid * Ae_local" },
+  { c:"N-EM-02", n:"Cold Ember", t:"Novice", ch:"gauge",
+    d:"Eq. 4.0a run in reverse: heat is drawn out rather than pushed in. Chilling drinks, slowing spoilage over a single evening, cooling a wagon axle that has started to seize.",
+    f:"P_in = -k_EM * Fid * Ae_local^2" },
+  { c:"N-EM-03", n:"Lumen Thread", t:"Novice", ch:"gauge",
+    d:"A sustained, low, flameless glow along a treated wick rather than a single discharge. The skill is holding Ae_local constant over time instead of releasing it all at once.",
+    f:"L_out = k_EM * Fid * Ae_local(t)" },
+  { c:"N-EM-04", n:"Static Ward", t:"Novice", ch:"gauge",
+    d:"A faint, continuous repulsive charge held at the skin or on clothing — deflects dust, light debris and insects. Popular with travellers, archivists, and anyone who spends the day around things they would rather not carry home.",
+    f:"held charge, never discharged" },
+  { c:"N-EM-05", n:"Ripple Sense", t:"Novice", ch:"gauge",
+    d:"A passive read on the same channel every other EM technique sources into: the caster notices a nearby working before a bystander would feel its heat, light or static. Nothing is sourced, so it carries no fizzle and no backlash.",
+    f:"S_detect(x, t) = k_EM * dAe_nearby(x, t)" },
+  { c:"N-GR-01", n:"Feather Fall", t:"Novice", ch:"gauge",
+    d:"Eq. 4.0b deliberately undershot — a controlled slow descent rather than full cancellation. Taught before levitation precisely because undershooting on purpose is safer to practise than aiming for zero and occasionally overshooting into a shove.",
+    f:"F_net = m_obj * g_local * (1 - k_grav * Fid)" },
+  { c:"N-GR-02", n:"Anchor Step", t:"Novice", ch:"gauge",
+    d:"A temporary increase in effective weight at the caster's own feet: better footing on ice, a listing deck, or a narrow ledge in wind.",
+    f:"F_net = m_obj * g_local * (1 + k_grav * Fid)" },
+  { c:"N-GR-03", n:"Light Load", t:"Novice", ch:"gauge",
+    d:"Eq. 4.0b applied to a carried object rather than the caster. A porter's trick, and one of the first Novice techniques to see routine commercial use rather than staying in a training hall.",
+    f:"Eq. 4.0b, applied off-body" },
+  { c:"N-ST-01", n:"Seal Bind", t:"Novice", ch:"gauge",
+    d:"Cohesion narrowed to a single point of contact — rope ends, a cracked seam, torn fibres held together. Fails safely: a dropped Fid loosens the join rather than fusing it wrong.",
+    f:"E_bind_eff(x) = E_bind(x) * (1 + k_strong * Fid)" },
+  { c:"N-ST-02", n:"Brittle Ease", t:"Novice", ch:"gauge",
+    d:"The deliberate inverse: a small, precise weakening at one point, for a clean split rather than a ragged one. Common among fletchers, coopers and quarry hands.",
+    f:"E_bind_eff(x) = E_bind(x) * (1 - k_strong * Fid)" },
+  { c:"N-WK-01", n:"Quick Ripen", t:"Novice", ch:"gauge",
+    d:"A decay nudge applied to produce already ripening, moving a process underway forward by a day or two rather than starting one from nothing. An orchard-keeper's convenience, not a transformation.",
+    f:"Gamma_eff = Gamma_0 * (1 + k_weak * Fid)" },
+  { c:"N-WK-02", n:"Faint Ward-Light", t:"Novice", ch:"gauge",
+    d:"Eq. 4.0d held at the lowest sustainable output — a dim, steady, personal glow. The standard still-breathing marker-light wherever a torch would be a liability: mines, powder stores, night watches.",
+    f:"Eq. 4.0d at minimum sustained output" },
+
+  { c:"J-01", n:"Ember Handoff", t:"Journeyman", ch:"gauge",
+    d:"Heat a coal, then briefly lighten it to toss it accurately. Two separate, complete castings back to back — not one continuous effect.",
+    f:"Eq. 4.0a, then N-GR-03" },
+  { c:"J-02", n:"Ward and Weld", t:"Journeyman", ch:"gauge",
+    d:"Bind one seam, split one length, never both at once. A cooper's or fletcher's routine across a single working session.",
+    f:"N-ST-01, then N-ST-02" },
+  { c:"J-03", n:"Lantern-Keeper's Round", t:"Journeyman", ch:"gauge",
+    d:"Steady glow or ward-light, chosen by available margin rather than blended between. A night-watch specialty precisely because the choice, not a combination, is the skill being exercised.",
+    f:"N-EM-03 or N-WK-02, held as either/or" },
+  { c:"J-04", n:"Porter's Relief", t:"Journeyman", ch:"gauge",
+    d:"A companion's litter lightened; a seizing wagon axle cooled. Applied in turn over the course of a journey rather than together.",
+    f:"N-GR-03, then N-EM-02" },
+  { c:"J-05", n:"Two-Handed Smith", t:"Journeyman", ch:"gauge",
+    d:"Heat the workpiece, then set the join, in strict alternation for as long as the work lasts. Guild-standard precisely because an Adept's Flash-Forge replaces it with one technique instead of two.",
+    f:"Eq. 4.0a, then Eq. 4.0c, alternating" },
+  { c:"J-06", n:"Watch-Fire Relay", t:"Journeyman", ch:"gauge",
+    d:"Relight a signal fire, or throw a brief bright flash where a full fire would be too slow. A chain of watchers relaying a message this way is switching, station to station, never combining.",
+    f:"Eq. 4.0a, then N-EM-01" },
+  { c:"J-07", n:"Bladeline Feint", t:"Journeyman", ch:"gauge",
+    d:"Lighten the step mid-lunge, then snap a startling spark at the guard the instant the lightening window closes. The tightness of the gap is the entire training regimen — and how close it gets to zero without ever reaching it is the standing proof the duelist is not yet Adept.",
+    f:"tau_switch -> minimum, never 0   (Eq. 4.13)" },
+
+  { c:"AD-01", n:"Flash-Forge", t:"Adept", ch:"gauge",
+    d:"EM + Strong. Heating and cohesion-boosting blended into one continuous pass rather than two separate steps. The signature technique of any smith who has made Adept, and usually the reason they are described that way rather than as a very fast Journeyman.",
+    f:"X_combo = k_EM * k_strong * Fid^2 * Chi(EM, strong)" },
+  { c:"AD-02", n:"Storm-Step", t:"Adept", ch:"gauge",
+    d:"EM + Gravity. A static discharge and a lightened stance blended into a single short, controlled leap kicked off by the discharge itself. Popular with couriers and scouts: no visible gap between the spark and the motion.",
+    f:"X_combo = k_EM * k_grav * Fid^2 * Chi(EM, grav)" },
+  { c:"AD-03", n:"Cinder-Fall", t:"Adept", ch:"gauge",
+    d:"EM + Weak. Heat injection blended with a decay nudge to produce a sustained, low, self-feeding flame from poor fuel — damp wood, old peat. Widely taught to quartermasters precisely because it is useful rather than impressive.",
+    f:"X_combo = k_EM * k_weak * Fid^2 * Chi(EM, weak)" },
+  { c:"AD-04", n:"Sunder Weight", t:"Adept", ch:"gauge",
+    d:"Gravity + Strong. An object made heavier and more fragile in the same casting. A demolition specialist's standard tool.",
+    f:"X_combo = k_grav * k_strong * Fid^2 * Chi(grav, strong)" },
+  { c:"AD-05", n:"Quiet Mend", t:"Adept", ch:"gauge",
+    d:"Strong + Weak. A cohesion boost blended with a decay nudge run in reverse, stabilizing an already-aging bind — old rope, brittle leather — rather than merely strengthening a fresh one. One of the few Adept combinations built around slowing something down.",
+    f:"X_combo = k_strong * k_weak * Fid^2 * Chi(strong, weak)" },
+  { c:"AD-06", n:"Grave Lantern", t:"Adept", ch:"gauge",
+    d:"Gravity + Weak. A marked object hovers just barely off true rest while glowing faintly. Ceremonial rather than practical; several regional death-rites use a version of it over a grave-marker or burial buoy.",
+    f:"X_combo = k_grav * k_weak * Fid^2 * Chi(grav, weak)" },
+
+  { c:"AR-01", n:"Artisan of Salt", t:"Artisan", ch:"quark",
+    d:"The solved eigenvector governs salt's crystal lattice: precise purification, preservation, or selective dissolution and reformation. Does not extend to sugar or quartz, whatever their surface similarity.",
+    f:"lam_salt in S   (Eq. 3.1e, Eq. 4.16)" },
+  { c:"AR-02", n:"Artisan of Iron", t:"Artisan", ch:"quark",
+    d:"A solved eigenvector for iron's lattice lets a warped blade be trued or its temper shifted without a forge. Bronze and silver are unmodeled and are not touched.",
+    f:"lam_iron in S   (Eq. 4.16)" },
+  { c:"AR-03", n:"Artisan of Bone", t:"Artisan", ch:"quark",
+    d:"A solved eigenvector for bone's mineral structure, used by menders and, less happily, morticians, to realign or preserve it precisely. One of the more common specialties in settlements without a trained surgeon.",
+    f:"lam_bone in S   (Eq. 4.16)" },
+  { c:"AR-04", n:"Artisan of Rot", t:"Artisan", ch:"quark",
+    d:"Not a strengthening eigenvector but a specific, solved decay pathway in organic matter: controlled composting, curing, tanning. A closely guarded trade secret among tanners and vintners rather than a battlefield technique.",
+    f:"solved decay pathway in S   (Eq. 4.16)" },
+  { c:"AR-05", n:"Artisan of Glass", t:"Artisan", ch:"quark",
+    d:"A solved eigenvector for silica's amorphous structure allows cold reshaping without a furnace. Prized by lens-makers and glaziers, and nearly useless for anything crystalline — glass's structure is specifically the thing that has been solved.",
+    f:"lam_silica in S   (Eq. 4.16)" },
+  { c:"AR-06", n:"Artisan of Ash", t:"Artisan", ch:"quark",
+    d:"Rare and largely ceremonial: a solved eigenvector for post-combustion residue lets a caster bind ash into a temporary, brittle shape. Associated almost exclusively with funerary sculpture.",
+    f:"lam_ash in S   (Eq. 4.16)" },
+  { c:"AR-07", n:"Artisan of Clay", t:"Artisan", ch:"quark",
+    d:"Precise, localized vitrification — true firing without a kiln — shaping and hardening a vessel wall by wall rather than all at once. Porcelain and stoneware are close cousins but unmodeled, and firing them on clay's eigenvalue risks off-basis backlash rather than a merely uneven glaze.",
+    f:"lam_clay in S; outside S -> Eq. 4.17 backlash" },
+
+  { c:"M-01", n:"Full Mend", t:"Master", ch:"quark",
+    d:"Binding energy raised across an entire injury site at once rather than at one bound seam. Where an Artisan of Bone can only realign what their single solved eigenvector covers, a complete S reaches muscle, vessel and bone together in one casting.",
+    f:"Eq. 4.19 with s = +1, applied broadly" },
+  { c:"M-02", n:"Grave Turn", t:"Master", ch:"quark",
+    d:"Decay arrested, or aging hastened, in ordinary matter — a quarry-hand's or embalmer's use of the same complete eigenbasis that, turned through transmutation instead, changes lead to gold. Proof the tier's machinery is general-purpose, not spectacle-only.",
+    f:"Eq. 4.19, s = -1 on Gamma_eff to arrest decay" },
+
+  { c:"W-01", n:"Threshold Ease", t:"Warden", ch:"metric",
+    d:"A single, specific, previously-mapped threshold — a doorway or gate — briefly made lighter to cross. The proven radius is that one threshold and no other, and the effect ends abruptly at its bounds. Pushing eps past what was tested risks backlash rather than a merely weaker effect.",
+    f:"Eq. 4.20 within eps_valid(R_proven)" },
+
+  { c:"LG-01", n:"The Standing Fold", t:"Legend", ch:"metric",
+    d:"An inhabited, permanent Overlay linking two settlements, held open across a generational domain. A hereditary order resurveys the far side's true conformal factor on a fixed cadence so mismatch never creeps toward collapse — the order's real craft is scheduling, not spellwork.",
+    f:"Eq. 4.1 unmodified, held across t_dom_legend   (Eq. 4.22)" },
+  { c:"LG-02", n:"The Held Star", t:"Legend", ch:"metric",
+    d:"A Bound Singularity maintained for generations as a regional landmark and power source rather than released. Its shell is periodically re-inscribed so the residual field never rises above background and betrays an uncontained mass at range.",
+    f:"Eq. 4.12 held; re-inscribed on t_recert   (Eq. 4.23)" },
+
+  { c:"AS-01", n:"The Four-Fold Feint", t:"Beyond Legend", ch:"dm",
+    d:"A historical Tetrarch aspirant's signature working: all six solved cross-couplings chained in tight, unbroken sequence so that all four forces seemed to flow as one. Records treat it as proof the caster's coherence sat near unity — and, in the same breath, as proof unification was never reached, since it still required four couplings performed seamlessly rather than one coupling performed at all.",
+    f:"Coh_tetrarch -> 1, k_unified never reached   (Eq. 4.24)" },
+  { c:"AS-02", n:"The Bound Chorus", t:"Beyond Legend", ch:"dm",
+    d:"A historical Communion working in which several practitioners pooled their individually-proven comprehension into a single acting boundary for one collective casting, reaching an effect no member could have supported alone. Read since as both proof and cautionary tale — what was merged was not knowledge alone.",
+    f:"dM_total = Union(dM_1 ... dM_n)   (Eq. 4.27)" }
+];
+
+var TIERS = ["Novice","Journeyman","Adept","Artisan","Master","Warden","Legend","Beyond Legend"];
+var grid = document.getElementById("spells");
+var filters = document.getElementById("filters");
+var dirfoot = document.getElementById("dirfoot");
+
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+if (grid && filters) {
+  grid.innerHTML = SPELLS.map(function(s){
+    return '<article class="spell" data-tier="' + s.t + '" style="--c:var(--' + s.ch + ')">' +
+      '<div class="code">[' + s.c + ']</div>' +
+      '<h3 class="nm">' + esc(s.n) + '</h3>' +
+      '<p class="desc">' + esc(s.d) + '</p>' +
+      '<div class="f">' + esc(s.f) + '</div>' +
+    '</article>';
+  }).join("");
+
+  var btns = [{ k:"All", n:SPELLS.length }].concat(TIERS.map(function(t){
+    return { k:t, n:SPELLS.filter(function(s){ return s.t === t; }).length };
+  }));
+  filters.innerHTML = btns.map(function(b, i){
+    return '<button class="fbtn" type="button" data-k="' + b.k + '" aria-pressed="' + (i === 0) + '">' +
+      b.k + '<span class="cnt">' + b.n + '</span></button>';
+  }).join("");
+
+  function apply(k){
+    var shown = 0;
+    grid.querySelectorAll(".spell").forEach(function(el){
+      var hit = (k === "All" || el.getAttribute("data-tier") === k);
+      el.classList.toggle("hide", !hit);
+      if (hit) shown++;
+    });
+    filters.querySelectorAll(".fbtn").forEach(function(b){
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-k") === k));
+    });
+    dirfoot.textContent = "Showing " + shown + " of " + SPELLS.length +
+      " catalogued techniques · Sovereign workings are written up in full at §4.1–§4.3";
+  }
+  filters.addEventListener("click", function(e){
+    var b = e.target.closest(".fbtn");
+    if (b) apply(b.getAttribute("data-k"));
+  });
+  apply("All");
+}
+})();
+</script>
+</body>
+</html>
