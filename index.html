@@ -16,22 +16,22 @@
 :root{
   color-scheme: dark;
 
-  --void:#06090D;
-  --void-2:#080D13;
-  --plate:#0C1219;
-  --plate-2:#111A22;
-  --rule:#1C2831;
-  --rule-soft:#141E26;
+  --void:#0A0908;
+  --void-2:#0D0B09;
+  --plate:#13100C;
+  --plate-2:#1A1610;
+  --rule:#2B2419;
+  --rule-soft:#1D1811;
 
-  --ink:#DCE7EE;
-  --ink-dim:#8B9CA9;
-  --ink-faint:#5A6B78;
+  --ink:#EBE3D5;
+  --ink-dim:#A79A88;
+  --ink-faint:#857866;
 
-  --aether:#64DCE0;
-  --gauge:#E0A85A;
-  --quark:#55C48F;
-  --metric:#9D8BF2;
-  --ceiling:#6B7A87;
+  --aether:#E4C079;
+  --gauge:#D8A340;
+  --quark:#C2703F;
+  --metric:#AFB6C0;
+  --ceiling:#7A7160;
 
   --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --body:"Spectral", Georgia, "Times New Roman", serif;
@@ -66,7 +66,7 @@ body{
   overflow-x:hidden;
 }
 
-::selection{background:rgba(100,220,224,.24); color:#EAF6F7}
+::selection{background:rgba(228,192,121,.24); color:#F5EEDF}
 
 a{color:var(--aether); text-decoration:none}
 a:focus-visible,button:focus-visible{
@@ -93,7 +93,7 @@ p{margin:0}
 /* ── top bar ─────────────────────────────────────────────────── */
 .topbar{
   position:fixed; inset:0 0 auto 0; z-index:60;
-  background:rgba(6,9,13,.72);
+  background:rgba(10,9,8,.72);
   backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--rule-soft);
 }
@@ -114,7 +114,7 @@ p{margin:0}
 .topnav a:hover,.topnav a.on{color:var(--ink)}
 .progress{
   position:absolute; left:0; bottom:-1px; height:1px; width:0;
-  background:linear-gradient(90deg, rgba(100,220,224,0), var(--aether));
+  background:linear-gradient(90deg, rgba(228,192,121,0), var(--aether));
 }
 @media (max-width:820px){ .topnav{display:none} }
 
@@ -141,8 +141,8 @@ p{margin:0}
 .hero-veil{
   position:absolute; inset:0;
   background:
-    radial-gradient(120% 68% at 50% 88%, rgba(6,9,13,0) 0%, rgba(6,9,13,.62) 58%, var(--void) 100%),
-    linear-gradient(180deg, rgba(6,9,13,.92) 0%, rgba(6,9,13,0) 26%);
+    radial-gradient(120% 68% at 50% 88%, rgba(10,9,8,0) 0%, rgba(10,9,8,.62) 58%, var(--void) 100%),
+    linear-gradient(180deg, rgba(10,9,8,.92) 0%, rgba(10,9,8,0) 26%);
   pointer-events:none;
 }
 .hero-in{position:relative; z-index:2; width:100%; padding-bottom:clamp(40px,7vh,84px); padding-top:120px}
@@ -150,7 +150,7 @@ p{margin:0}
 .hero-eyebrow .dot{width:5px; height:5px; border-radius:50%; background:var(--aether); box-shadow:0 0 12px var(--aether)}
 .hero h1{
   font-size:var(--fs-hero); line-height:.88; font-weight:300;
-  letter-spacing:-.022em; margin:0 0 26px; color:#EEF6F8;
+  letter-spacing:-.022em; margin:0 0 26px; color:#F4EDE0;
 }
 .hero h1 em{font-style:italic; font-weight:300; color:var(--aether)}
 .hero-deck{max-width:52ch; font-size:clamp(17px,2vw,20px); line-height:1.62; color:var(--ink-dim)}
@@ -159,15 +159,15 @@ p{margin:0}
 .btn{
   font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase;
   padding:13px 22px; border:1px solid var(--rule); color:var(--ink-dim);
-  background:rgba(12,18,25,.5); transition:border-color .28s ease, color .28s ease, background .28s ease;
+  background:rgba(19,16,12,.5); transition:border-color .28s ease, color .28s ease, background .28s ease;
 }
-.btn:hover{border-color:var(--aether); color:var(--ink); background:rgba(100,220,224,.07)}
-.btn-key{border-color:rgba(100,220,224,.42); color:var(--aether)}
-.btn-key:hover{background:rgba(100,220,224,.11)}
+.btn:hover{border-color:var(--aether); color:var(--ink); background:rgba(228,192,121,.07)}
+.btn-key{border-color:rgba(228,192,121,.42); color:var(--aether)}
+.btn-key:hover{background:rgba(228,192,121,.11)}
 
 .hero-strip{
   position:relative; z-index:2; border-top:1px solid var(--rule-soft);
-  background:linear-gradient(180deg, rgba(6,9,13,.6), var(--void));
+  background:linear-gradient(180deg, rgba(10,9,8,.6), var(--void));
 }
 .strip-in{
   max-width:var(--shell); margin:0 auto; padding:0 clamp(20px,5vw,56px);
@@ -189,7 +189,7 @@ section[id],header[id]{scroll-margin-top:58px}
 .band + .band{border-top:1px solid var(--rule-soft)}
 .head{margin-bottom:clamp(38px,6vh,64px)}
 .head-rule{display:flex; align-items:center; gap:14px; margin-bottom:20px}
-.head-rule .line{height:1px; flex:1; background:linear-gradient(90deg,var(--rule),rgba(28,40,49,0))}
+.head-rule .line{height:1px; flex:1; background:linear-gradient(90deg,var(--rule),rgba(43,36,25,0))}
 .head h2{margin-bottom:16px}
 .head .sub{max-width:60ch; color:var(--ink-dim); font-size:var(--fs-small); line-height:1.7}
 
@@ -199,7 +199,7 @@ section[id],header[id]{scroll-margin-top:58px}
 
 .pull{
   font-family:var(--display); font-size:clamp(21px,2.7vw,29px); line-height:1.3; font-weight:300;
-  color:#E9F3F5; border-left:1px solid rgba(100,220,224,.4); padding-left:24px; margin-bottom:30px;
+  color:#F1E9DA; border-left:1px solid rgba(228,192,121,.4); padding-left:24px; margin-bottom:30px;
 }
 .pull em{font-style:italic; color:var(--aether)}
 .figure{border:1px solid var(--rule); background:linear-gradient(180deg,var(--plate),var(--void-2)); padding:18px 18px 14px}
@@ -215,7 +215,7 @@ section[id],header[id]{scroll-margin-top:58px}
   background:var(--plate); padding:14px 18px;
 }
 .eqline .eqk{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-bottom:7px}
-.eqline code{font-family:var(--mono); font-size:14px; color:#CFE9EA; white-space:pre-wrap}
+.eqline code{font-family:var(--mono); font-size:14px; color:#E8DCC2; white-space:pre-wrap}
 
 /* ── axes ────────────────────────────────────────────────────── */
 .axes{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
@@ -244,8 +244,8 @@ section[id],header[id]{scroll-margin-top:58px}
 .eqrow:hover{background:var(--plate-2)}
 .eqrow .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); display:flex; gap:10px; align-items:baseline}
 .eqrow .k b{color:var(--aether); font-weight:500; letter-spacing:.1em}
-.eqrow code{display:block; margin-top:9px; font-family:var(--mono); font-size:13.5px; line-height:1.6; color:#CFE9EA; white-space:pre}
-.eqrow.lead code{font-size:15.5px; color:#E4F5F6}
+.eqrow code{display:block; margin-top:9px; font-family:var(--mono); font-size:13.5px; line-height:1.6; color:#E8DCC2; white-space:pre}
+.eqrow.lead code{font-size:15.5px; color:#F2E8D2}
 .eqrow .tm{color:var(--ink); border-bottom:1px dotted var(--ink-faint); cursor:default}
 .eqrow .tm.hot{color:var(--aether); border-bottom-color:var(--aether)}
 
@@ -279,7 +279,7 @@ section[id],header[id]{scroll-margin-top:58px}
   color:inherit; font:inherit; cursor:pointer; position:relative;
   transition:background .28s ease;
 }
-.tier:hover{background:rgba(17,26,34,.6)}
+.tier:hover{background:rgba(26,22,16,.6)}
 .tier .spine{position:relative; height:100%; min-height:34px}
 .tier .spine::before{content:""; position:absolute; left:11px; top:-20px; bottom:-20px; width:1px; background:var(--rule)}
 .tier:first-child .spine::before{top:14px}
@@ -303,7 +303,7 @@ section[id],header[id]{scroll-margin-top:58px}
 .tier[aria-expanded="true"] .tdetail{max-height:340px; opacity:1; margin-top:16px}
 .tdetail-in{display:block; border-left:1px solid var(--c); padding:2px 0 2px 18px}
 .tdetail-in .dp{display:block; font-size:var(--fs-small); color:var(--ink-dim); line-height:1.7; max-width:62ch}
-.tdetail-in code{display:inline-block; margin-top:10px; font-family:var(--mono); font-size:12px; color:#CFE9EA}
+.tdetail-in code{display:inline-block; margin-top:10px; font-family:var(--mono); font-size:12px; color:#E8DCC2}
 .tier .chev{padding-top:6px; text-align:right; font-family:var(--mono); font-size:13px; color:var(--ink-faint); transition:transform .3s ease, color .3s ease}
 .tier[aria-expanded="true"] .chev{transform:rotate(45deg); color:var(--c)}
 .tier .chev{display:inline-block}
@@ -318,7 +318,7 @@ section[id],header[id]{scroll-margin-top:58px}
 
 .ceiling-band{
   margin-top:2px; border:1px solid var(--rule-soft); border-top:0;
-  background:repeating-linear-gradient(135deg, rgba(107,122,135,.05) 0 6px, rgba(6,9,13,0) 6px 12px);
+  background:repeating-linear-gradient(135deg, rgba(122,113,96,.05) 0 6px, rgba(10,9,8,0) 6px 12px);
   padding:26px 24px; display:grid; grid-template-columns:168px minmax(0,1fr); gap:22px;
 }
 @media (max-width:900px){ .ceiling-band{grid-template-columns:1fr; gap:12px} }
@@ -335,7 +335,7 @@ section[id],header[id]{scroll-margin-top:58px}
   cursor:pointer; transition:color .25s ease, border-color .25s ease, background .25s ease;
 }
 .fbtn:hover{color:var(--ink-dim); border-color:var(--ink-faint)}
-.fbtn[aria-pressed="true"]{color:var(--void); background:var(--ink); border-color:var(--ink)}
+.fbtn[aria-pressed="true"]{color:var(--void); background:var(--aether); border-color:var(--aether)}
 .fbtn .cnt{opacity:.5; margin-left:7px; font-variant-numeric:tabular-nums}
 
 .grid-spells{display:grid; grid-template-columns:repeat(auto-fill,minmax(288px,1fr)); gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
@@ -360,14 +360,14 @@ section[id],header[id]{scroll-margin-top:58px}
 @media (max-width:820px){ .paths{grid-template-columns:1fr} }
 .path{background:var(--plate); padding:30px 28px 32px; position:relative; overflow:hidden; display:flex; flex-direction:column}
 .path .pn{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint)}
-.path h3{margin:12px 0 4px; font-size:27px; color:#E7F1F3}
+.path h3{margin:12px 0 4px; font-size:27px; color:#EFE7D8}
 .path .ptarget{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:16px}
 .path p{font-size:var(--fs-small); line-height:1.7; color:var(--ink-dim); max-width:46ch}
-.path code{display:block; margin-top:auto; padding-top:22px; border-top:1px solid var(--rule-soft); font-family:var(--mono); font-size:11.5px; line-height:1.6; color:#BFDDDE; white-space:pre-wrap}
+.path code{display:block; margin-top:auto; padding-top:22px; border-top:1px solid var(--rule-soft); font-family:var(--mono); font-size:11.5px; line-height:1.6; color:#DCCEB0; white-space:pre-wrap}
 .path .never{
   position:absolute; right:24px; top:26px; font-family:var(--mono); font-size:9px;
   letter-spacing:.2em; text-transform:uppercase; color:var(--ceiling);
-  border:1px solid rgba(107,122,135,.34); padding:5px 9px; opacity:.7; pointer-events:none;
+  border:1px solid rgba(122,113,96,.34); padding:5px 9px; opacity:.7; pointer-events:none;
 }
 @media (max-width:520px){ .path .never{position:static; display:inline-block; margin-bottom:14px} }
 .path[data-c="gauge"] .ptarget{color:var(--gauge)}
@@ -379,7 +379,7 @@ section[id],header[id]{scroll-margin-top:58px}
 .closing{padding:clamp(80px,13vh,150px) 0 clamp(60px,9vh,100px); text-align:left}
 .closing blockquote{
   margin:0; font-family:var(--display); font-weight:300; font-style:italic;
-  font-size:clamp(25px,3.7vw,42px); line-height:1.28; color:#E9F3F5; max-width:22ch;
+  font-size:clamp(25px,3.7vw,42px); line-height:1.28; color:#F1E9DA; max-width:22ch;
 }
 .closing .attr{margin-top:22px; font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint)}
 
@@ -481,55 +481,55 @@ footer{border-top:1px solid var(--rule-soft); padding:34px 0 46px}
         <svg viewBox="0 0 720 320" role="img" aria-label="Diagram: a ripple sourced in the lower aether layer travels outward and couples up through a channel into the upper field layer, where it appears as a visible effect.">
           <defs>
             <radialGradient id="bloom" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#E0A85A" stop-opacity=".55"/>
-              <stop offset="100%" stop-color="#E0A85A" stop-opacity="0"/>
+              <stop offset="0%" stop-color="#D8A340" stop-opacity=".55"/>
+              <stop offset="100%" stop-color="#D8A340" stop-opacity="0"/>
             </radialGradient>
             <radialGradient id="src" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#64DCE0" stop-opacity=".5"/>
-              <stop offset="100%" stop-color="#64DCE0" stop-opacity="0"/>
+              <stop offset="0%" stop-color="#E4C079" stop-opacity=".5"/>
+              <stop offset="100%" stop-color="#E4C079" stop-opacity="0"/>
             </radialGradient>
           </defs>
 
           <!-- upper surface -->
-          <text x="34" y="24" fill="#5A6B78" font-family="IBM Plex Mono, monospace" font-size="15" letter-spacing="2.2">UPPER SURFACE — THE FOUR FUNDAMENTAL FIELDS</text>
+          <text x="34" y="24" fill="#857866" font-family="IBM Plex Mono, monospace" font-size="15" letter-spacing="2.2">UPPER SURFACE — THE FOUR FUNDAMENTAL FIELDS</text>
           <ellipse cx="330" cy="86" rx="120" ry="26" fill="url(#bloom)"/>
-          <line x1="34" y1="86" x2="686" y2="86" stroke="#2C3D49" stroke-width="1.3"/>
-          <g stroke="#1C2831" stroke-width="1.3">
+          <line x1="34" y1="86" x2="686" y2="86" stroke="#4A4032" stroke-width="1.3"/>
+          <g stroke="#2B2419" stroke-width="1.3">
             <line x1="90" y1="86" x2="90" y2="78"/><line x1="190" y1="86" x2="190" y2="78"/>
             <line x1="430" y1="86" x2="430" y2="78"/><line x1="530" y1="86" x2="530" y2="78"/>
             <line x1="630" y1="86" x2="630" y2="78"/>
           </g>
-          <circle cx="330" cy="86" r="6" fill="#E0A85A"/>
-          <text x="356" y="52" fill="#E0A85A" font-family="IBM Plex Mono, monospace" font-size="15">visible effect: heat, light, lift</text>
-          <text x="356" y="70" fill="#5A6B78" font-family="IBM Plex Mono, monospace" font-size="14">delta(F_f) — gauge sector</text>
+          <circle cx="330" cy="86" r="6" fill="#D8A340"/>
+          <text x="356" y="52" fill="#D8A340" font-family="IBM Plex Mono, monospace" font-size="15">visible effect: heat, light, lift</text>
+          <text x="356" y="70" fill="#857866" font-family="IBM Plex Mono, monospace" font-size="14">delta(F_f) — gauge sector</text>
 
           <!-- channels -->
-          <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#5A6B78">
-            <line x1="330" y1="232" x2="330" y2="92" stroke="#E0A85A" stroke-width="1.6" stroke-opacity=".85"/>
-            <polygon points="330,88 326,97 334,97" fill="#E0A85A"/>
-            <line x1="510" y1="232" x2="510" y2="90" stroke="#28353F" stroke-width="1.3" stroke-dasharray="3 8"/>
-            <line x1="168" y1="232" x2="168" y2="90" stroke="#28353F" stroke-width="1.3" stroke-dasharray="3 8"/>
+          <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#857866">
+            <line x1="330" y1="232" x2="330" y2="92" stroke="#D8A340" stroke-width="1.6" stroke-opacity=".85"/>
+            <polygon points="330,88 326,97 334,97" fill="#D8A340"/>
+            <line x1="510" y1="232" x2="510" y2="90" stroke="#3A3226" stroke-width="1.3" stroke-dasharray="3 8"/>
+            <line x1="168" y1="232" x2="168" y2="90" stroke="#3A3226" stroke-width="1.3" stroke-dasharray="3 8"/>
             <text x="530" y="160">k_f · M_op · Xi(Ae, g)</text>
-            <text x="530" y="180" fill="#42525E">unsourced channels</text>
-            <text x="36" y="160" text-anchor="start" fill="#42525E">coupling channels</text>
-            <text x="36" y="180" text-anchor="start" fill="#42525E">§1.3</text>
+            <text x="530" y="180" fill="#6B6152">unsourced channels</text>
+            <text x="36" y="160" text-anchor="start" fill="#6B6152">coupling channels</text>
+            <text x="36" y="180" text-anchor="start" fill="#6B6152">§1.3</text>
           </g>
 
           <!-- lower surface -->
           <ellipse cx="330" cy="232" rx="150" ry="30" fill="url(#src)"/>
-          <g fill="none" stroke="#64DCE0">
+          <g fill="none" stroke="#E4C079">
             <ellipse cx="330" cy="232" rx="52" ry="9" stroke-opacity=".85"/>
             <ellipse cx="330" cy="232" rx="104" ry="17" stroke-opacity=".45"/>
             <ellipse cx="330" cy="232" rx="158" ry="26" stroke-opacity=".22"/>
             <ellipse cx="330" cy="232" rx="214" ry="35" stroke-opacity=".1"/>
           </g>
-          <line x1="34" y1="232" x2="686" y2="232" stroke="#2C3D49" stroke-width="1.3"/>
-          <circle cx="330" cy="232" r="5" fill="#64DCE0"/>
-          <text x="330" y="262" text-anchor="middle" fill="#64DCE0" font-family="IBM Plex Mono, monospace" font-size="15">J_cast</text>
-          <text x="34" y="288" fill="#5A6B78" font-family="IBM Plex Mono, monospace" font-size="15" letter-spacing="2.2">LOWER SURFACE — THE AETHER FIELD  Ae</text>
-          <text x="34" y="308" fill="#42525E" font-family="IBM Plex Mono, monospace" font-size="14">not observable except through the coupling above</text>
+          <line x1="34" y1="232" x2="686" y2="232" stroke="#4A4032" stroke-width="1.3"/>
+          <circle cx="330" cy="232" r="5" fill="#E4C079"/>
+          <text x="330" y="262" text-anchor="middle" fill="#E4C079" font-family="IBM Plex Mono, monospace" font-size="15">J_cast</text>
+          <text x="34" y="288" fill="#857866" font-family="IBM Plex Mono, monospace" font-size="15" letter-spacing="2.2">LOWER SURFACE — THE AETHER FIELD  Ae</text>
+          <text x="34" y="308" fill="#6B6152" font-family="IBM Plex Mono, monospace" font-size="14">not observable except through the coupling above</text>
         </svg>
-        <figcaption class="figcap"><b>Fig. 1.1</b> — A ripple <span style="color:#64DCE0">dAe</span> is sourced by <span style="color:#64DCE0">J_cast</span> at the lower surface and propagates outward. Where it meets a channel the caster has proven, it couples upward and the upper field takes a shape it would not otherwise have taken. Unsourced channels stay dark.</figcaption>
+        <figcaption class="figcap"><b>Fig. 1.1</b> — A ripple <span style="color:#E4C079">dAe</span> is sourced by <span style="color:#E4C079">J_cast</span> at the lower surface and propagates outward. Where it meets a channel the caster has proven, it couples upward and the upper field takes a shape it would not otherwise have taken. Unsourced channels stay dark.</figcaption>
       </figure>
     </div>
   </div>
@@ -824,9 +824,9 @@ var cv = document.getElementById("ripple");
 if (cv && cv.getContext) {
   var ctx = cv.getContext("2d"), W = 0, H = 0, dpr = 1;
   var CH = [
-    { d:0.24, a:-0.5, c:"224,168,90"  },
-    { d:0.46, a:2.35, c:"85,196,143"  },
-    { d:0.72, a:0.55, c:"157,139,242" }
+    { d:0.24, a:-0.5, c:"216,163,64"  },
+    { d:0.46, a:2.35, c:"194,112,63"  },
+    { d:0.72, a:0.55, c:"175,182,192" }
   ];
   var rings = [], dust = [], last = 0, emit = 0;
 
@@ -858,9 +858,9 @@ if (cv && cv.getContext) {
 
   function plane(y, alpha){
     var g = ctx.createLinearGradient(0, 0, W, 0);
-    g.addColorStop(0, "rgba(140,168,182,0)");
-    g.addColorStop(0.5, "rgba(140,168,182," + alpha + ")");
-    g.addColorStop(1, "rgba(140,168,182,0)");
+    g.addColorStop(0, "rgba(190,175,150,0)");
+    g.addColorStop(0.5, "rgba(190,175,150," + alpha + ")");
+    g.addColorStop(1, "rgba(190,175,150,0)");
     ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y);
     ctx.strokeStyle = g; ctx.lineWidth = 1; ctx.stroke();
   }
@@ -873,7 +873,7 @@ if (cv && cv.getContext) {
       var age = (now - fire) / 2600;
       if (age >= 0 && age < 1) lit = Math.sin(Math.min(age, 1) * Math.PI);
     }
-    var base = 0.07 + lit * 0.55;
+    var base = 0.07 + lit * 0.64;
     ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, g.yUp);
     ctx.strokeStyle = "rgba(" + ch.c + "," + base.toFixed(3) + ")";
     ctx.lineWidth = 1; ctx.stroke();
@@ -902,7 +902,7 @@ if (cv && cv.getContext) {
       var p = dust[i];
       var tw = 0.14 + 0.12 * Math.sin(now / 1400 * p.s + p.p);
       ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.284);
-      ctx.fillStyle = "rgba(150,182,196," + tw.toFixed(3) + ")"; ctx.fill();
+      ctx.fillStyle = "rgba(198,182,152," + tw.toFixed(3) + ")"; ctx.fill();
     }
 
     plane(g.yUp, 0.10);
@@ -914,20 +914,20 @@ if (cv && cv.getContext) {
       if (age > 1.18) { rings.splice(r, 1); continue; }
       var e = 1 - Math.pow(1 - Math.min(age, 1), 2.1);
       var rad = e * g.R * 1.12;
-      var al = Math.max(0, (1 - age * 0.94)) * 0.55;
-      ellipse(g.cx, g.yLow, rad, rad * g.k, "100,220,224", al, 1);
+      var al = Math.max(0, (1 - age * 0.94)) * 0.64;
+      ellipse(g.cx, g.yLow, rad, rad * g.k, "228,192,121", al, 1);
       for (var c = 0; c < CH.length; c++) {
         if (!ring.hit[c] && rad >= CH[c].d * g.R) { ring.hit[c] = true; CH[c].fire = now; }
       }
     }
 
     var sg = ctx.createRadialGradient(g.cx, g.yLow, 0, g.cx, g.yLow, 190);
-    sg.addColorStop(0, "rgba(100,220,224,0.16)");
-    sg.addColorStop(1, "rgba(100,220,224,0)");
+    sg.addColorStop(0, "rgba(228,192,121,0.2)");
+    sg.addColorStop(1, "rgba(228,192,121,0)");
     ctx.fillStyle = sg;
     ctx.beginPath(); ctx.ellipse(g.cx, g.yLow, 190, 52, 0, 0, 6.284); ctx.fill();
     ctx.beginPath(); ctx.arc(g.cx, g.yLow, 2.4, 0, 6.284);
-    ctx.fillStyle = "rgba(160,240,242,0.9)"; ctx.fill();
+    ctx.fillStyle = "rgba(245,225,175,0.9)"; ctx.fill();
 
     for (var k = 0; k < CH.length; k++) channel(CH[k], g, CH[k].fire || 0, now);
   }
