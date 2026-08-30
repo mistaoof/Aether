@@ -165,7 +165,7 @@ code,kbd{font-family:var(--mono)}
 main{margin-left:var(--side-w); padding-top:var(--top-h); min-height:100vh; min-width:0}
 @media (max-width:1100px){
   .menu-btn{display:block}
-  .side{top:0; padding-top:78px; transform:translateX(-102%); transition:transform .32s cubic-bezier(.2,.7,.2,1); box-shadow:24px 0 60px rgba(0,0,0,.5)}
+  .side{top:0; padding-top:78px; transform:translateX(-102%); transition:transform .32s cubic-bezier(.2,.7,.2,1)}
   body.nav-open .side{transform:none}
   body.nav-open .scrim{opacity:1; pointer-events:auto}
   body.nav-open{overflow:hidden}
@@ -179,7 +179,7 @@ main{margin-left:var(--side-w); padding-top:var(--top-h); min-height:100vh; min-
 
 .pagehead{padding:clamp(48px,8vh,84px) 0 clamp(30px,4vh,44px); border-bottom:1px solid var(--rule-soft)}
 .kicker{display:flex; align-items:center; gap:14px; margin-bottom:22px; flex-wrap:wrap}
-.kicker .line{height:1px; flex:1; min-width:40px; background:linear-gradient(90deg,var(--rule),rgba(43,36,25,0))}
+.kicker .line{height:1px; flex:1; min-width:40px; background:var(--rule)}
 .pagehead h1{margin-bottom:18px}
 .lede{max-width:64ch; color:var(--ink-dim); font-size:clamp(16px,1.8vw,18px); line-height:1.7}
 .lede strong{color:var(--ink); font-weight:400}
@@ -190,7 +190,7 @@ section.band{padding:clamp(44px,7vh,76px) 0; position:relative}
 .band + .band{border-top:1px solid var(--rule-soft)}
 .head{margin-bottom:clamp(26px,4vh,42px)}
 .head-rule{display:flex; align-items:center; gap:14px; margin-bottom:18px}
-.head-rule .line{height:1px; flex:1; background:linear-gradient(90deg,var(--rule),rgba(43,36,25,0))}
+.head-rule .line{height:1px; flex:1; background:var(--rule)}
 .head h2{margin-bottom:14px}
 .head .sub{max-width:62ch; color:var(--ink-dim); font-size:var(--fs-small); line-height:1.7}
 
@@ -252,7 +252,7 @@ section.band{padding:clamp(44px,7vh,76px) 0; position:relative}
 @media (max-width:520px){ .term{grid-template-columns:1fr; gap:6px} }
 
 /* ── figures & plots ─────────────────────────────────────────── */
-.figure{border:1px solid var(--rule); background:linear-gradient(180deg,var(--plate),var(--void-2)); padding:18px 18px 14px}
+.figure{border:1px solid var(--rule); background:var(--plate); padding:18px 18px 14px}
 .figure svg{display:block; width:100%; height:auto}
 .figcap{
   margin-top:12px; padding-top:12px; border-top:1px solid var(--rule-soft);
@@ -274,7 +274,7 @@ input[type="range"]{
 input[type="range"]::-webkit-slider-runnable-track{height:2px; background:var(--rule)}
 input[type="range"]::-webkit-slider-thumb{
   -webkit-appearance:none; width:13px; height:13px; border-radius:50%; margin-top:-5.5px;
-  background:var(--aether); border:1px solid #0A0908; box-shadow:0 0 0 1px rgba(228,192,121,.5);
+  background:var(--aether); border:1px solid #0A0908;
 }
 input[type="range"]::-moz-range-track{height:2px; background:var(--rule)}
 input[type="range"]::-moz-range-thumb{width:12px; height:12px; border-radius:50%; background:var(--aether); border:1px solid #0A0908}
@@ -315,6 +315,18 @@ input[type="range"]::-moz-range-thumb{width:12px; height:12px; border-radius:50%
 .chan.gauge i{background:var(--gauge)} .chan.quark i{background:var(--quark)}
 .chan.metric i{background:var(--metric)} .chan.none i{background:var(--ceiling)}
 .chan.dm i{background:var(--aether)}
+button.chan{background:none; border:0; padding:6px 2px; cursor:pointer; transition:color .2s ease}
+button.chan:hover{color:var(--ink-dim)}
+button.chan[aria-pressed="true"]{color:var(--ink)}
+.ladder .tier{transition:background .28s ease, opacity .3s ease}
+.ladder[data-filter="gauge"] .tier:not([data-sec="gauge"]),
+.ladder[data-filter="quark"] .tier:not([data-sec="quark"]),
+.ladder[data-filter="metric"] .tier:not([data-sec="metric"]){opacity:.22}
+select.search{cursor:pointer; appearance:none; -webkit-appearance:none}
+.advrow{display:flex; flex-wrap:wrap; gap:10px 14px; align-items:center; margin-top:18px}
+.advrow output{font-family:var(--mono); font-size:11px; color:var(--ink); font-variant-numeric:tabular-nums}
+.advrow .advmsg{display:block; width:100%; font-family:var(--mono); font-size:10.5px; line-height:1.6; color:var(--ink-faint); min-height:1.6em}
+.btn.sm{padding:8px 13px; font-size:10px}
 
 /* ── cards / grids ───────────────────────────────────────────── */
 .cardgrid{display:grid; gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
@@ -364,9 +376,9 @@ input[type="range"]::-moz-range-thumb{width:12px; height:12px; border-radius:50%
 .tier:first-child .spine::before{top:14px}
 .tier .node{
   position:absolute; left:6px; top:9px; width:11px; height:11px; border-radius:50%;
-  border:1px solid var(--c); background:var(--void); transition:box-shadow .3s ease, background .3s ease;
+  border:1px solid var(--c); background:var(--void); transition:background .3s ease;
 }
-.tier:hover .node,.tier[aria-expanded="true"] .node{background:var(--c); box-shadow:0 0 14px var(--c)}
+.tier:hover .node,.tier[aria-expanded="true"] .node{background:var(--c)}
 .tier .tname{font-family:var(--display); font-size:25px; font-weight:500; line-height:1.1; color:var(--ink)}
 .tier .tsolved{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--c); margin-top:7px; display:block}
 .tier .tcap{font-size:var(--fs-small); line-height:1.65; color:var(--ink-dim); padding-top:4px}
@@ -395,7 +407,7 @@ input[type="range"]::-moz-range-thumb{width:12px; height:12px; border-radius:50%
 }
 .ceiling-band{
   margin-top:2px; border:1px solid var(--rule-soft); border-top:0;
-  background:repeating-linear-gradient(135deg, rgba(122,113,96,.05) 0 6px, rgba(10,9,8,0) 6px 12px);
+  background:rgba(122,113,96,.05);
   padding:26px 24px; display:grid; grid-template-columns:158px minmax(0,1fr); gap:22px;
 }
 @media (max-width:880px){ .ceiling-band{grid-template-columns:1fr; gap:12px} }
@@ -459,7 +471,7 @@ input[type="range"]::-moz-range-thumb{width:12px; height:12px; border-radius:50%
 .asym{margin-top:22px}
 .asym .aslab{display:flex; justify-content:space-between; font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:7px}
 .asym .track{position:relative; height:3px; background:var(--rule)}
-.asym .fill{position:absolute; left:0; top:0; bottom:0; width:86%; background:linear-gradient(90deg, rgba(228,192,121,.15), var(--ac,var(--aether)))}
+.asym .fill{position:absolute; left:0; top:0; bottom:0; width:86%; background:var(--ac,var(--aether)); transition:width .45s cubic-bezier(.2,.7,.2,1)}
 .asym .lim{position:absolute; right:0; top:-5px; bottom:-5px; width:1px; background:var(--ceiling)}
 .path[data-c="gauge"] .fill{--ac:var(--gauge)} .path[data-c="quark"] .fill{--ac:var(--quark)}
 .path[data-c="metric"] .fill{--ac:var(--metric)} .path[data-c="dm"] .fill{--ac:var(--aether)}
@@ -528,8 +540,8 @@ table.ref tr.hide{display:none}
 }
 .chi-cell:hover{background:rgba(216,163,64,.08); border-color:rgba(216,163,64,.4)}
 .chi-cell[aria-pressed="true"]{background:rgba(216,163,64,.14); border-color:var(--gauge); color:#F2E8D2}
-.chi-cell.dead{cursor:default; color:#4A4032; background:repeating-linear-gradient(135deg, rgba(43,36,25,.25) 0 5px, rgba(10,9,8,0) 5px 10px); border-color:var(--rule-soft)}
-.chi-cell.dead:hover{background:repeating-linear-gradient(135deg, rgba(43,36,25,.25) 0 5px, rgba(10,9,8,0) 5px 10px); border-color:var(--rule-soft)}
+.chi-cell.dead{cursor:default; color:#4A4032; background:var(--void); border-color:var(--rule-soft)}
+.chi-cell.dead:hover{background:var(--void); border-color:var(--rule-soft)}
 .chi-detail{border:1px solid var(--rule); border-left:2px solid var(--gauge); background:var(--plate); padding:20px 22px; min-height:180px}
 .chi-detail .code{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:var(--gauge)}
 .chi-detail h3{margin:8px 0 10px}
@@ -569,21 +581,14 @@ footer.site{border-top:1px solid var(--rule-soft); padding:30px 0 44px}
 /* ── hero (home) ─────────────────────────────────────────────── */
 .hero{position:relative; min-height:calc(88svh - var(--top-h)); display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden}
 #ripple{position:absolute; inset:0; width:100%; height:100%; display:block}
-.hero-veil{
-  position:absolute; inset:0;
-  background:
-    radial-gradient(120% 68% at 50% 88%, rgba(10,9,8,0) 0%, rgba(10,9,8,.62) 58%, var(--void) 100%),
-    linear-gradient(180deg, rgba(10,9,8,.9) 0%, rgba(10,9,8,0) 26%);
-  pointer-events:none;
-}
 .hero-in{position:relative; z-index:2; width:100%; padding-bottom:clamp(36px,6vh,72px); padding-top:90px}
 .hero-eyebrow{display:flex; align-items:center; gap:12px; margin-bottom:24px}
-.hero-eyebrow .dot{width:5px; height:5px; border-radius:50%; background:var(--aether); box-shadow:0 0 12px var(--aether)}
+.hero-eyebrow .dot{width:5px; height:5px; border-radius:50%; background:var(--aether)}
 .hero h1{font-size:clamp(52px,8.5vw,110px); line-height:.9; margin-bottom:24px}
 .hero-deck{max-width:54ch; font-size:clamp(16px,1.9vw,19px); line-height:1.64; color:var(--ink-dim)}
 .hero-deck strong{color:var(--ink); font-weight:400}
 .hero-cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px}
-.hero-strip{position:relative; z-index:2; border-top:1px solid var(--rule-soft); background:linear-gradient(180deg, rgba(10,9,8,.6), var(--void))}
+.hero-strip{position:relative; z-index:2; border-top:1px solid var(--rule-soft); background:var(--void)}
 .strip-in{
   max-width:var(--shell); margin:0 auto; padding:0 clamp(20px,4.5vw,52px);
   display:grid; grid-template-columns:repeat(4,1fr);
@@ -651,8 +656,7 @@ footer.site{border-top:1px solid var(--rule-soft); padding:30px 0 44px}
 <div class="page">
   <header class="hero">
     <canvas id="ripple" aria-hidden="true"></canvas>
-    <div class="hero-veil"></div>
-    <div class="hero-in shell">
+        <div class="hero-in shell">
       <div class="hero-eyebrow">
         <span class="dot"></span>
         <span class="label">Aether Power System · Complete Reference · v2.4</span>
@@ -664,6 +668,7 @@ footer.site{border-top:1px solid var(--rule-soft); padding:30px 0 44px}
         <a class="btn" href="#/hierarchy">The Power Hierarchy</a>
         <a class="btn" href="#/directory">Spell Directory</a>
       </div>
+      <p class="label" style="margin-top:26px; color:var(--ink-faint)">Click anywhere in the field to source a ripple — every disturbance is a dAe</p>
     </div>
     <div class="hero-strip">
       <div class="strip-in">
@@ -883,6 +888,27 @@ delta(g) = Xi(Ae, g)   whenever the metric channel is engaged
         </div>
       </div>
       <p class="note-line rv"><b>Sim[…] is not a fourth axis.</b> Simulated invocation (§3.7) accelerates fidelity and practice depth without ever touching comprehension. What it grants is a caster who reaches their existing ceiling more reliably — never a caster whose ceiling has moved.</p>
+
+      <div class="plot rv" id="caster" style="margin-top:36px">
+        <div class="plot-tools" style="border-top:0">
+          <div class="ctl-row">
+            <div class="ctl"><label>Archetype</label>
+              <span class="seg" id="cx-preset" role="group" aria-label="Archetype presets">
+                <button type="button" data-v="archivist" aria-pressed="true">the archivist</button>
+                <button type="button" data-v="duelist" aria-pressed="false">the duelist</button>
+                <button type="button" data-v="prodigy" aria-pressed="false">the prodigy</button>
+              </span>
+            </div>
+          </div>
+          <div class="ctl-row">
+            <div class="ctl"><label for="cx-comp">Channels proven</label><input type="range" id="cx-comp" min="1" max="12" value="11"><output id="cx-comp-out">11</output></div>
+            <div class="ctl"><label for="cx-fid">Fid under pressure</label><input type="range" id="cx-fid" min="8" max="98" value="34"><output id="cx-fid-out">0.34</output></div>
+            <div class="ctl"><label for="cx-prac">Terms past prac_min</label><input type="range" id="cx-prac" min="0" max="12" value="1"><output id="cx-prac-out">1</output></div>
+          </div>
+          <p class="readout" id="cx-read"></p>
+        </div>
+      </div>
+      <p class="figcap rv" style="border:0; margin-top:10px"><b>Fig. 2.1 — three axes, one caster.</b> Drag any dial and the preset releases; no axis moves another. Any description of a character's power that tracks only one of them misrepresents what that character can actually do.</p>
     </section>
   </div>
 </div>
@@ -1065,6 +1091,24 @@ Loop_dM[ ... ]  not evaluated</pre>
           <div class="cfoot" style="color:var(--danger)">theory — untouched, unprovable by rehearsal</div>
         </div>
       </div>
+      <div class="plot rv" id="simlab" style="margin-top:26px">
+        <div class="plot-tools" style="border-top:0">
+          <div class="ctl-row">
+            <div class="ctl"><label>The term under study</label>
+              <span class="seg" id="sim-state" role="group" aria-label="State of the term being drilled">
+                <button type="button" data-v="solved" aria-pressed="true">fully solved</button>
+                <button type="button" data-v="wrong" aria-pressed="false">believed solved — actually wrong</button>
+              </span>
+            </div>
+            <div class="ctl"><label>prac(x) accrued</label><output id="sim-prac">0 reps</output></div>
+          </div>
+          <div class="ctl-row">
+            <button class="btn" type="button" id="sim-run">Run under Sim[…]</button>
+            <button class="btn btn-key" type="button" id="sim-live">Commit to reality</button>
+          </div>
+          <p class="readout" id="sim-read">Drill the term as many times as you like — then decide whether the mathematics was ever actually yours. Note that the simulation reads identically in both states. That is the point.</p>
+        </div>
+      </div>
       <p class="note-line rv"><b>Why the asymmetry is load-bearing.</b> Simulated invocation makes craft free to perfect. It makes no comparable promise about theory — the caster learns the mathematics was wrong at the same moment reality does.</p>
     </section>
   </div>
@@ -1078,19 +1122,19 @@ Loop_dM[ ... ]  not evaluated</pre>
     <header class="pagehead">
       <div class="kicker"><span class="sec-num">PART III · §3.3</span><span class="line"></span><span class="label">Who can do what</span></div>
       <h1>The Power <em>Hierarchy</em></h1>
-      <p class="lede">Five tiers mark qualitative jumps in comprehension — a whole term of the Grand Equation opened up. Between the first three of those pairs sits a named subclass: a rung defined not by a new term but by an <strong>incomplete version of the next one</strong>. Tier reflects comprehension only — it sets the ceiling, never the outcome of any single casting.</p>
+      <p class="lede">Five tiers mark qualitative jumps in comprehension — a whole term of the Grand Equation opened up. Between the first three of those pairs sits a named subclass: a rung defined not by a new term but by an <strong>incomplete version of the next one</strong>. Tier reflects comprehension only — it sets the ceiling, never the outcome of any single casting. Select a sector in the legend below to isolate the tiers that live inside its channel; select a tier to open it.</p>
       <p class="srcline">SOURCE — <a href="https://github.com/mistaoof/Aether/blob/main/codex/power-hierarchy.md">codex/power-hierarchy.md</a></p>
     </header>
 
     <section class="band">
-      <div class="channels rv">
-        <span class="chan gauge"><i></i>delta(F_f) — gauge sector</span>
-        <span class="chan quark"><i></i>delta(M_op) — quark sector</span>
-        <span class="chan metric"><i></i>delta(g) — metric sector</span>
+      <div class="channels rv" role="group" aria-label="Filter tiers by coupling channel">
+        <button type="button" class="chan gauge" data-f="gauge" aria-pressed="false"><i></i>delta(F_f) — gauge sector</button>
+        <button type="button" class="chan quark" data-f="quark" aria-pressed="false"><i></i>delta(M_op) — quark sector</button>
+        <button type="button" class="chan metric" data-f="metric" aria-pressed="false"><i></i>delta(g) — metric sector</button>
         <span class="chan none"><i></i>unreached</span>
       </div>
       <div class="ladder rv" id="ladder">
-        <button class="tier" style="--c:var(--gauge)" aria-expanded="false">
+        <button class="tier" data-sec="gauge" style="--c:var(--gauge)" aria-expanded="false">
           <span class="spine"><span class="node"></span></span>
           <span><span class="tname">Novice</span><span class="tsolved">One k_f term, closed form</span></span>
           <span class="tcap">Single-force effects — fire and lightning through electromagnetism, localized strong- and weak-force bursts. The worked examples of §4.0.</span>
@@ -1098,7 +1142,7 @@ Loop_dM[ ... ]  not evaluated</pre>
           <span class="chev">+</span>
           <span class="tdetail"><span class="tdetail-in"><span class="dp">Four worked examples teach the whole pattern: heat injection, lift, cohesion, a decay nudge — plus a passive read of the EM channel. A Novice with excellent fidelity reliably outperforms an Adept who casts carelessly.</span><code>P_in = k_EM * Fid * Ae_local^2   — Eq. 4.0a</code><a class="golink" href="#/techniques/novice">Read §4.0 — Novice techniques →</a></span></span>
         </button>
-        <button class="tier" style="--c:var(--gauge)" aria-expanded="false">
+        <button class="tier" data-sec="gauge" style="--c:var(--gauge)" aria-expanded="false">
           <span class="spine"><span class="node"></span></span>
           <span><span class="tname">Journeyman</span><span class="tsolved">Two or more k_f terms, not yet cross-coupled</span></span>
           <span class="tcap">Can produce more than one single-force effect, but must switch between them rather than blend. The gap between the two is the tier.</span>
@@ -1106,7 +1150,7 @@ Loop_dM[ ... ]  not evaluated</pre>
           <span class="chev">+</span>
           <span class="tdetail"><span class="tdetail-in"><span class="dp">Eq. 4.13 formalizes the pattern: disjoint activation windows separated by a switching cost. Duelists drill that cost toward zero without ever reaching it — which is exactly the standing proof they are still Journeyman.</span><code>Win_1(t) . Win_2(t) = 0 for all t   — Eq. 4.13</code><a class="golink" href="#/techniques/journeyman">Read §4.5 — Journeyman techniques →</a></span></span>
         </button>
-        <button class="tier" style="--c:var(--gauge)" aria-expanded="false">
+        <button class="tier" data-sec="gauge" style="--c:var(--gauge)" aria-expanded="false">
           <span class="spine"><span class="node"></span></span>
           <span><span class="tname">Adept</span><span class="tsolved">Multiple k_f terms, combined</span></span>
           <span class="tcap">Cross-force effects and true combination techniques — one sourced ripple satisfying two coupling channels at once.</span>
@@ -1114,7 +1158,7 @@ Loop_dM[ ... ]  not evaluated</pre>
           <span class="chev">+</span>
           <span class="tdetail"><span class="tdetail-in"><span class="dp">Fidelity enters squared rather than linearly: both halves of a blend must hold at once. There are exactly six unordered pairs among four forces — and no seventh.</span><code>X_combo = k_f1 * k_f2 * Fid^2 * Chi(f1, f2)   — Eq. 4.15</code><a class="golink" href="#/techniques/adept">Read §4.6 — Adept techniques →</a></span></span>
         </button>
-        <button class="tier" style="--c:var(--quark)" aria-expanded="false">
+        <button class="tier" data-sec="quark" style="--c:var(--quark)" aria-expanded="false">
           <span class="spine"><span class="node"></span></span>
           <span><span class="tname">Artisan</span><span class="tsolved">Partial diagonalization of M_op</span></span>
           <span class="tcap">Narrow, proven matter-tricks on specific known materials. General transmutation is not yet safe — and reaching for it is not merely harder, it is unmodeled.</span>
@@ -1122,7 +1166,7 @@ Loop_dM[ ... ]  not evaluated</pre>
           <span class="chev">+</span>
           <span class="tdetail"><span class="tdetail-in"><span class="dp">S is the finite subset of eigenvectors an Artisan has actually solved. It grows one hard-won eigenvector at a time — which is why Artisans are known by a signature material rather than a percentage of general competence.</span><code>M_op_partial = Sum_{i in S} lam_i * |e_i&gt;&lt;e_i|   — Eq. 3.1e</code><a class="golink" href="#/techniques/artisan">Read §4.7 — Artisan techniques →</a></span></span>
         </button>
-        <button class="tier" style="--c:var(--quark)" aria-expanded="false">
+        <button class="tier" data-sec="quark" style="--c:var(--quark)" aria-expanded="false">
           <span class="spine"><span class="node"></span></span>
           <span><span class="tname">Master</span><span class="tsolved">Full eigenbasis of M_op</span></span>
           <span class="tcap">Transmutation, accelerated decay and healing, binding-energy control — general-purpose rather than tied to one solved material.</span>
@@ -1130,7 +1174,7 @@ Loop_dM[ ... ]  not evaluated</pre>
           <span class="chev">+</span>
           <span class="tdetail"><span class="tdetail-in"><span class="dp">Masters commonly lead orders. The same complete eigenbasis that turns lead toward gold also lets a quarry-hand arrest decay in a stone lintel — the tier's machinery is general-purpose, not spectacle-only.</span><code>U_transmute(M_op_full) — Eq. 4.18 · universal binding control — Eq. 4.19</code><a class="golink" href="#/techniques/master">Read §4.8 — Master techniques →</a></span></span>
         </button>
-        <button class="tier" style="--c:var(--metric)" aria-expanded="false">
+        <button class="tier" data-sec="metric" style="--c:var(--metric)" aria-expanded="false">
           <span class="spine"><span class="node"></span></span>
           <span><span class="tname">Warden</span><span class="tsolved">First-order perturbative Xi(Ae, g)</span></span>
           <span class="tcap">The first metric-sector effects below Sovereign: narrow, tightly scoped, and valid only in already-proven special cases.</span>
@@ -1138,7 +1182,7 @@ Loop_dM[ ... ]  not evaluated</pre>
           <span class="chev">+</span>
           <span class="tdetail"><span class="tdetail-in"><span class="dp">The series was only ever validated near the configurations it was expanded around. Pushing eps past where it was tested is ordinary extrapolation — with metric-level consequences instead of merely thermal ones.</span><code>Xi_pert(Ae, g) = Xi_0 + eps * Xi_1 + O(eps^2)   — Eq. 3.1f</code><a class="golink" href="#/techniques/warden">Read §4.9 — Warden techniques →</a></span></span>
         </button>
-        <button class="tier" style="--c:var(--metric)" aria-expanded="false">
+        <button class="tier" data-sec="metric" style="--c:var(--metric)" aria-expanded="false">
           <span class="spine"><span class="node"></span></span>
           <span><span class="tname">Sovereign</span><span class="tsolved">Closed-form Xi(Ae, g) over a bounded domain</span></span>
           <span class="tcap">Localized spacetime warps, minor time dilation, small causality bends, the Overlay Fold, a held Bound Singularity.</span>
@@ -1146,7 +1190,7 @@ Loop_dM[ ... ]  not evaluated</pre>
           <span class="chev">+</span>
           <span class="tdetail"><span class="tdetail-in"><span class="dp">Genuinely complete — no perturbative gap, unlike a Warden's — but only within a bounded radius and for a bounded duration. A held fold, a contained singularity, a warp that must eventually be released.</span><code>Xi_valid(x, t): |x - x0| &lt; R_dom and t &lt; t_dom   — Eq. 3.1g</code><a class="golink" href="#/techniques/sovereign">Read §4.1–§4.3 — Sovereign workings →</a></span></span>
         </button>
-        <button class="tier" style="--c:var(--metric)" aria-expanded="false">
+        <button class="tier" data-sec="metric" style="--c:var(--metric)" aria-expanded="false">
           <span class="spine"><span class="node"></span></span>
           <span><span class="tname">Legend</span><span class="tsolved">R_dom and t_dom pushed to effective permanence</span></span>
           <span class="tcap">Regional-scale metric engineering. Standing folds; singularities held long enough to become geography.</span>
@@ -1233,6 +1277,7 @@ Loop_dM[ ... ]  not evaluated</pre>
           <div>
             <p class="ct" id="chain-text"></p>
             <code class="ceq" id="chain-eq"></code>
+            <button class="btn sm" type="button" id="chain-play" style="margin-top:18px" aria-pressed="false">Play the chain</button>
           </div>
           <div class="figure" style="padding:12px 12px 8px">
             <canvas id="chaincv" height="220" aria-label="Diagram of the currently selected step in the casting chain."></canvas>
@@ -1480,6 +1525,20 @@ q_new = U_transmute(M_op_full) * q_old</pre>
         <div class="prose rv">
           <p><span class="mono">M_op_full</span> removes the Artisan's restriction <b style="font-weight:500">by exhaustion rather than by any new operator</b>: every eigenvalue is known, so <span class="mono">S</span> is no longer a proper subset of anything — it <em>is</em> the eigenbasis. Wood becomes stone, lead becomes something nearer gold, decayed tissue becomes sound tissue — not by analogy, but because <span class="mono">q_new</span> is a different solution of the same operator <span class="mono">q_old</span> was.</p>
           <p>This is the mechanical content of "true transmutation": not a nudge to one property of a known material, but a rewrite of which material the field is, using an operator that Eq. 4.0c's authors never had the eigenbasis to write.</p>
+          <div class="plot" id="translab" style="margin-top:22px">
+            <div class="plot-tools" style="border-top:0">
+              <div class="ctl-row">
+                <div class="ctl"><label for="tr-old">q_old</label>
+                  <select id="tr-old" class="search" style="margin-left:0; min-width:130px"></select>
+                </div>
+                <span class="mono" style="color:var(--ink-faint)">— U_transmute →</span>
+                <div class="ctl"><label for="tr-new">q_new</label>
+                  <select id="tr-new" class="search" style="margin-left:0; min-width:130px"></select>
+                </div>
+              </div>
+              <p class="readout ok" id="tr-read"></p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1729,6 +1788,9 @@ t_recert = max interval between Fid_shell re-inscriptions
                 <div class="ctl"><label for="dcad">Re-survey cadence</label>
                   <input type="range" id="dcad" min="10" max="100" value="40"><output id="dcad-out"></output>
                 </div>
+                <div class="ctl"><label for="drate">Site volatility — drift rate</label>
+                  <input type="range" id="drate" min="10" max="50" value="20"><output id="drate-out"></output>
+                </div>
               </div>
               <p class="readout" id="drift-read"></p>
             </div>
@@ -1762,7 +1824,8 @@ t_recert = max interval between Fid_shell re-inscriptions
           <p>One coupling in place of all four. A caster can solve all six pairwise cross-couplings — entirely ordinary Adept mathematics, exhaustively completed — and drive the coherence fraction toward 1. Necessary, never sufficient: six forces agreeing everywhere they've been made to meet is not the single coupling that would make them one term instead of six agreeing ones.</p>
           <pre>Coh_tetrarch = avg of Chi(f1,f2) over all 6 pairs
 Coh_tetrarch -&gt; 1 as k_unified is approached (never reached)</pre>
-          <div class="asym"><div class="aslab"><span>Coh_tetrarch</span><span>k_unified — unreachable</span></div><div class="track"><div class="fill" style="width:88%"></div><div class="lim"></div></div></div>
+          <div class="asym"><div class="aslab"><span>Coh_tetrarch</span><span>k_unified — unreachable</span></div><div class="track"><div class="fill" id="fill-tet" style="width:55%"></div><div class="lim"></div></div></div>
+          <div class="advrow"><button class="btn sm" type="button" data-adv="tet">Spend a lifetime</button><button class="btn sm" type="button" data-rst="tet">reset</button><output id="adv-tet"></output><span class="advmsg" id="msg-tet"></span></div>
           <span class="never">Never completed</span>
         </article>
         <article class="path" data-c="quark">
@@ -1772,7 +1835,8 @@ Coh_tetrarch -&gt; 1 as k_unified is approached (never reached)</pre>
           <p>Past a Master's full diagonalization, toward the generating structure of M_op itself: predicting and originating stable matter never observed, rather than manipulating the known. An aspirant proves narrower rules — "every alloy along this one proven mixing ratio" — and counts verified predictions. A large count is a genuine accomplishment, and the complete mastery of one proven rule among an unknown, possibly unbounded, number of others.</p>
           <pre>Gen_partial(dM) = { e_new derived from S by proven rule r }
 N_family = |Gen_partial(dM)|      -- grows without bound, inside its family</pre>
-          <div class="asym"><div class="aslab"><span>N_family</span><span>Gen(dM) — unreachable</span></div><div class="track"><div class="fill" style="width:72%"></div><div class="lim"></div></div></div>
+          <div class="asym"><div class="aslab"><span>rule coverage</span><span>Gen(dM) — unreachable</span></div><div class="track"><div class="fill" id="fill-dem" style="width:30%"></div><div class="lim"></div></div></div>
+          <div class="advrow"><button class="btn sm" type="button" data-adv="dem">Spend a lifetime</button><button class="btn sm" type="button" data-rst="dem">reset</button><output id="adv-dem"></output><span class="advmsg" id="msg-dem"></span></div>
           <span class="never">Never completed</span>
         </article>
         <article class="path" data-c="metric">
@@ -1782,7 +1846,8 @@ N_family = |Gen_partial(dM)|      -- grows without bound, inside its family</pre
           <p>Sovereign and Legend's own dials pushed toward true global, permanent scope: terrain, climate, the causal structure of a region as a fact of geography. A cruel metric rather than a merely difficult one — because the metric-sector propagator is reshaped by every prior increment solved, moving the ratio from 4 to 5 costs strictly more proof than moving it from 1 to 2 did. The progress curve bends the wrong way for comfort.</p>
           <pre>rho_cosmo = R_dom_achieved / R_dom_legend_typical
 each increment priced higher than the last  (Eq. 1.4)</pre>
-          <div class="asym"><div class="aslab"><span>rho_cosmo</span><span>R_dom → ∞ — unreachable</span></div><div class="track"><div class="fill" style="width:56%"></div><div class="lim"></div></div></div>
+          <div class="asym"><div class="aslab"><span>rho_cosmo</span><span>R_dom → ∞ — unreachable</span></div><div class="track"><div class="fill" id="fill-cos" style="width:35%"></div><div class="lim"></div></div></div>
+          <div class="advrow"><button class="btn sm" type="button" data-adv="cos">Spend a lifetime</button><button class="btn sm" type="button" data-rst="cos">reset</button><output id="adv-cos"></output><span class="advmsg" id="msg-cos"></span></div>
           <span class="never">Never completed</span>
         </article>
         <article class="path" data-c="dm">
@@ -1792,7 +1857,8 @@ each increment priced higher than the last  (Eq. 1.4)</pre>
           <p>The only path that targets no term of L_total at all: several practitioners' proven comprehension domains merged into one acting boundary. The fastest of the four to dramatic gains, and the most explicitly horrifying in most traditions that attempted it — what is merged is not knowledge alone but the minds that held it. The one fragment whose ratio can exceed 1: a large enough pool can out-mass a single Legend's dM in raw quantity. It measures the size of the pool, never the depth any one proof inside it reaches.</p>
           <pre>N_comm = |dM_total| / |dM_legend_typical|
 a Communion of a thousand Novices is a very large Novice</pre>
-          <div class="asym"><div class="aslab"><span>N_comm</span><span>completion — still forbidden by §3.4</span></div><div class="track"><div class="fill" style="width:81%"></div><div class="lim"></div></div></div>
+          <div class="asym"><div class="aslab"><span>pool vs one Legend</span><span>completion — still forbidden by §3.4</span></div><div class="track"><div class="fill" id="fill-com" style="width:45%"></div><div class="lim"></div></div></div>
+          <div class="advrow"><button class="btn sm" type="button" data-adv="com">Fold in a mind</button><button class="btn sm" type="button" data-rst="com">reset</button><output id="adv-com"></output><span class="advmsg" id="msg-com"></span></div>
           <span class="never">Never completed</span>
         </article>
       </div>
@@ -2332,6 +2398,11 @@ function initTermLinks(root){
     var t = el.getAttribute("data-t");
     el.addEventListener("mouseenter", function(){ link(t, true); });
     el.addEventListener("mouseleave", function(){ link(t, false); });
+    el.addEventListener("click", function(){
+      var on = !el.classList.contains("hot");
+      $all(".tm.hot, .term.hot", root).forEach(function(x){ x.classList.remove("hot"); });
+      if (on) link(t, true);
+    });
   });
 }
 
@@ -2366,12 +2437,8 @@ function initHome(root, token){
     ctx.strokeStyle = "rgba(" + stroke + "," + alpha.toFixed(3) + ")"; ctx.lineWidth = 1; ctx.stroke();
   }
   function plane(y, alpha){
-    var g = ctx.createLinearGradient(0, 0, W, 0);
-    g.addColorStop(0, "rgba(190,175,150,0)");
-    g.addColorStop(0.5, "rgba(190,175,150," + alpha + ")");
-    g.addColorStop(1, "rgba(190,175,150,0)");
     ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y);
-    ctx.strokeStyle = g; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = "rgba(190,175,150," + alpha + ")"; ctx.lineWidth = 1; ctx.stroke();
   }
   function channel(ch, g, now){
     var x = g.cx + ch.d * g.R * Math.cos(ch.a);
@@ -2389,11 +2456,8 @@ function initHome(root, token){
       var py = y + (g.yUp - y) * (travel * travel * (3 - 2 * travel));
       ctx.beginPath(); ctx.arc(x, py, 1.8, 0, 6.284);
       ctx.fillStyle = "rgba(" + ch.c + "," + (lit * 0.9).toFixed(3) + ")"; ctx.fill();
-      var rg = ctx.createRadialGradient(x, g.yUp, 0, x, g.yUp, 130);
-      rg.addColorStop(0, "rgba(" + ch.c + "," + (lit * travel * 0.30).toFixed(3) + ")");
-      rg.addColorStop(1, "rgba(" + ch.c + ",0)");
-      ctx.fillStyle = rg;
-      ctx.beginPath(); ctx.ellipse(x, g.yUp, 130, 34, 0, 0, 6.284); ctx.fill();
+      ctx.fillStyle = "rgba(" + ch.c + "," + (lit * travel * 0.14).toFixed(3) + ")";
+      ctx.beginPath(); ctx.ellipse(x, g.yUp, 110, 26, 0, 0, 6.284); ctx.fill();
     }
     ctx.beginPath(); ctx.arc(x, y, 1.6, 0, 6.284);
     ctx.fillStyle = "rgba(" + ch.c + "," + (0.22 + lit * 0.7).toFixed(3) + ")"; ctx.fill();
@@ -2419,10 +2483,6 @@ function initHome(root, token){
         if (!ring.hit[c] && rad >= CH[c].d * g.R) { ring.hit[c] = true; CH[c].fire = now; }
       }
     }
-    var sg = ctx.createRadialGradient(g.cx, g.yLow, 0, g.cx, g.yLow, 190);
-    sg.addColorStop(0, "rgba(228,192,121,0.2)"); sg.addColorStop(1, "rgba(228,192,121,0)");
-    ctx.fillStyle = sg;
-    ctx.beginPath(); ctx.ellipse(g.cx, g.yLow, 190, 52, 0, 0, 6.284); ctx.fill();
     ctx.beginPath(); ctx.arc(g.cx, g.yLow, 2.4, 0, 6.284);
     ctx.fillStyle = "rgba(245,225,175,0.9)"; ctx.fill();
     for (var k = 0; k < CH.length; k++) channel(CH[k], g, now);
@@ -2441,6 +2501,21 @@ function initHome(root, token){
   }
   size();
   onResize(function(){ size(); if (REDUCE) still(); });
+  var hero = cv.closest(".hero");
+  if (hero) {
+    hero.style.cursor = "crosshair";
+    hero.addEventListener("pointerdown", function(e){
+      if (e.target.closest("a, button")) return;
+      if (REDUCE) {
+        rings = [{ t: performance.now() - 2600, hit: [false, false, false] }];
+        CH.forEach(function(c){ c.fire = 0; });
+        draw(performance.now());
+      } else {
+        rings.push({ t: performance.now(), hit: [false, false, false] });
+        emit = performance.now();
+      }
+    });
+  }
   if (REDUCE) still();
   else { rings.push({ t: performance.now(), hit: [false, false, false] }); emit = performance.now(); requestAnimationFrame(loop); }
 }
@@ -2557,12 +2632,11 @@ function initFoundations(root, token){
           if (t > 1.55) {
             var ba = clamp((t - 1.55) / 0.4, 0, 1) * (anim.done ? 1 : 1);
             var mag = 40 + F * 120;
-            var rg = ctx.createRadialGradient(xs, yUp, 0, xs, yUp, mag);
             var cc = ch === "quark" ? "194,112,63" : (ch === "metric" ? "175,182,192" : "216,163,64");
-            rg.addColorStop(0, "rgba(" + cc + "," + (0.34 * ba).toFixed(3) + ")");
-            rg.addColorStop(1, "rgba(" + cc + ",0)");
-            ctx.fillStyle = rg;
+            ctx.fillStyle = "rgba(" + cc + "," + (0.16 * ba).toFixed(3) + ")";
             ctx.beginPath(); ctx.ellipse(xs, yUp, mag, mag * 0.3, 0, 0, 6.284); ctx.fill();
+            ctx.strokeStyle = "rgba(" + cc + "," + (0.5 * ba).toFixed(3) + ")"; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.ellipse(xs, yUp, mag, mag * 0.3, 0, 0, 6.284); ctx.stroke();
             ctx.beginPath(); ctx.arc(xs, yUp, 3.4, 0, 6.284); ctx.fillStyle = col; ctx.fill();
             tag(ctx, xs, yUp - 16, "delta above resolution — the upper field takes the shape", col, "center");
           }
@@ -2582,11 +2656,10 @@ function initFoundations(root, token){
           }
           if (t > 2.9) {
             var ea = clamp((t - 2.9) / 0.4, 0, 1);
-            var rg2 = ctx.createRadialGradient(xs, yLow, 0, xs, yLow, 90);
-            rg2.addColorStop(0, "rgba(194,84,63," + (0.4 * ea).toFixed(3) + ")");
-            rg2.addColorStop(1, "rgba(194,84,63,0)");
-            ctx.fillStyle = rg2;
-            ctx.beginPath(); ctx.ellipse(xs, yLow, 90, 26, 0, 0, 6.284); ctx.fill();
+            ctx.fillStyle = "rgba(194,84,63," + (0.18 * ea).toFixed(3) + ")";
+            ctx.beginPath(); ctx.ellipse(xs, yLow, 80, 22, 0, 0, 6.284); ctx.fill();
+            ctx.strokeStyle = "rgba(194,84,63," + (0.55 * ea).toFixed(3) + ")"; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.ellipse(xs, yLow, 80, 22, 0, 0, 6.284); ctx.stroke();
             tag(ctx, xs, yLow + 40, "E_back absorbed", C.danger, "center");
           }
           if (t > 3.7) finish(now);
@@ -2625,6 +2698,50 @@ function initFoundations(root, token){
   }
   onResize(function(){ S = null; });
   requestAnimationFrame(loop);
+
+  /* — the caster comparer (§2) — */
+  var cxComp = $("#cx-comp", root), cxFid = $("#cx-fid", root), cxPrac = $("#cx-prac", root);
+  if (cxComp) {
+    var cxRead = $("#cx-read", root);
+    var outs = { comp: $("#cx-comp-out", root), fid: $("#cx-fid-out", root), prac: $("#cx-prac-out", root) };
+    var PRESETS = {
+      archivist: { comp: 11, fid: 34, prac: 1 },
+      duelist:   { comp: 3,  fid: 95, prac: 3 },
+      prodigy:   { comp: 4,  fid: 62, prac: 1 }
+    };
+    var presetEl = $("#cx-preset", root);
+    function cxUpdate(){
+      var comp = +cxComp.value, fid = cxFid.value / 100;
+      var prac = Math.min(+cxPrac.value, comp);
+      cxPrac.max = comp;
+      outs.comp.textContent = comp; outs.fid.textContent = fid.toFixed(2); outs.prac.textContent = prac;
+      var parts = [];
+      parts.push("<b>Ceiling:</b> " + comp + " proven channel" + (comp > 1 ? "s" : "") + " — dM ends exactly there, and no council can extend or revoke it.");
+      if (fid < 0.12) parts.push("<b>Delivery:</b> below Fid_min under pressure — in the field, castings simply fail to resolve (Eq. 3.3).");
+      else parts.push("<b>Delivery:</b> castings land at ≈ " + fid.toFixed(2) + "× their ceiling when it matters.");
+      parts.push("<b>Tells:</b> " + (prac === 0 ? "every technique needs a visible glyph or audible cadence — all of it interruptible." : prac + " of " + comp + " channels castable silently, with nothing for an opponent to read."));
+      var flavor;
+      if (comp >= 9 && fid < 0.5) flavor = "Encyclopedic comprehension, unsteady hands — dangerous for what they know, not for any single casting.";
+      else if (fid >= 0.85 && comp <= 4) flavor = "A narrow repertoire executed flawlessly under pressure — the duelist's shape of dangerous.";
+      else if (prac >= 1 && comp <= 5 && fid >= 0.5 && fid < 0.85) flavor = "A little of everything and one silent, invisible trick — the prodigy's shape of dangerous.";
+      else if (comp >= 7 && fid >= 0.8) flavor = "Broad, precise, and drilled — the profile of an order's master-at-arms, and vanishingly rare.";
+      else flavor = "An unremarkable sheet on any single axis — which is what most working casters look like on paper.";
+      parts.push("<span style='color:var(--ink-faint)'>" + flavor + "</span>");
+      setRead(cxRead, "", parts.join("<br>"));
+    }
+    segCtl(presetEl, function(v){
+      var p = PRESETS[v];
+      cxComp.value = p.comp; cxFid.value = p.fid; cxPrac.max = p.comp; cxPrac.value = p.prac;
+      cxUpdate();
+    });
+    [cxComp, cxFid, cxPrac].forEach(function(el){
+      el.addEventListener("input", function(){
+        $all("button", presetEl).forEach(function(b){ b.setAttribute("aria-pressed", "false"); });
+        cxUpdate();
+      });
+    });
+    cxUpdate();
+  }
 }
 
 /* ═════════ grand equation — kettle + unassisted ═════════ */
@@ -2707,10 +2824,45 @@ function initGrand(root, token){
   if (uprac) uprac.addEventListener("input", drawUnaid);
   onResize(function(){ drawKettle(); drawUnaid(); });
   drawKettle(); drawUnaid();
+
+  /* — the Sim[...] laboratory (§3.7) — */
+  var simRun = $("#sim-run", root), simLive = $("#sim-live", root);
+  if (simRun) {
+    var simRead = $("#sim-read", root), simPrac = $("#sim-prac", root);
+    var reps = 0;
+    var stateGet = segCtl($("#sim-state", root), function(){
+      reps = 0; simPrac.textContent = "0 reps";
+      setRead(simRead, "", "Term swapped. The simulation readout will look exactly the same — Sim[…] scores you against phi_ideal <em>as you believe it</em>.");
+    });
+    simRun.addEventListener("click", function(){
+      reps++;
+      simPrac.textContent = reps + " rep" + (reps > 1 ? "s" : "");
+      setRead(simRead, "ok", "<b>Sim[X] → { Fid 0.94 · X_eff_proj 0.94·X_ideal · E_back_proj 0.00 }.</b> Flawless. Nothing was heated, moved, folded, or curved — the structure was held, measured, and released. prac(x) accrues in full (§3.6)." + (reps >= 5 ? " <span style='color:var(--ink-faint)'>Note it reads flawless in either state: whether the assumed channel is real is a question Sim[…] structurally cannot ask.</span>" : ""));
+    });
+    simLive.addEventListener("click", function(){
+      if (stateGet() === "wrong") {
+        setRead(simRead, "bad", "<b>BACKLASH — on the first live cast" + (reps > 0 ? ", after " + reps + " flawless simulation" + (reps > 1 ? "s" : "") : "") + ".</b> Loop_dM ran for the first time, and the field's channel did not match the believed one. The flaw was never in execution — and execution is all Sim[…] was ever checking. Rehearsal cannot certify a claim comprehension hasn't earned.");
+      } else {
+        setRead(simRead, "ok", "<b>Loop_dM evaluated — the effect lands at 0.94 of ceiling.</b> Believed and true phi_ideal were the same object, so the live cast matches every rehearsal" + (reps > 0 ? " — all " + reps + " of them" : "") + ". This is what a solved term looks like: simulation and reality agree.");
+      }
+    });
+  }
 }
 
 /* ═════════ hierarchy ═════════ */
-function initHierarchy(root){ initTiers(root); }
+function initHierarchy(root){
+  initTiers(root);
+  var ladder = $("#ladder", root);
+  $all("button.chan[data-f]", root).forEach(function(b){
+    b.addEventListener("click", function(){
+      var f = b.getAttribute("data-f");
+      var on = b.getAttribute("aria-pressed") !== "true";
+      $all("button.chan[data-f]", root).forEach(function(x){ x.setAttribute("aria-pressed", "false"); });
+      if (on) { b.setAttribute("aria-pressed", "true"); ladder.setAttribute("data-filter", f); }
+      else ladder.removeAttribute("data-filter");
+    });
+  });
+}
 
 /* ═════════ novice — chain stepper ═════════ */
 function initNovice(root, token){
@@ -2762,10 +2914,10 @@ function initNovice(root, token){
     // effect
     var mag = cur === 3 ? 90 : (cur === 2 ? 46 : 24);
     var al = cur >= 2 ? (cur === 3 ? 0.4 : 0.24) : 0.08;
-    var rg = ctx.createRadialGradient(xtgt, yUp, 0, xtgt, yUp, mag);
-    rg.addColorStop(0, "rgba(216,163,64," + al + ")"); rg.addColorStop(1, "rgba(216,163,64,0)");
-    ctx.fillStyle = rg;
+    ctx.fillStyle = "rgba(216,163,64," + (al * 0.5).toFixed(3) + ")";
     ctx.beginPath(); ctx.ellipse(xtgt, yUp, mag, mag * 0.3, 0, 0, 6.284); ctx.fill();
+    ctx.strokeStyle = "rgba(216,163,64," + al + ")"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.ellipse(xtgt, yUp, mag, mag * 0.3, 0, 0, 6.284); ctx.stroke();
     dot(ctx, xtgt, yUp, cur >= 2 ? 3.4 : 2, cur >= 2 ? C.gauge : "rgba(216,163,64,.4)");
     if (cur === 3) {
       tag(ctx, xtgt, yUp - 18, "dT/dt — ordinary thermodynamics", C.gauge, "center");
@@ -2778,8 +2930,24 @@ function initNovice(root, token){
     eq.textContent = STEPS[i].eq;
     draw();
   }
+  var playing = false, playTimer = null, playBtn = $("#chain-play", root);
+  function stopPlay(){
+    playing = false;
+    if (playTimer) { clearInterval(playTimer); playTimer = null; }
+    if (playBtn) { playBtn.textContent = "Play the chain"; playBtn.setAttribute("aria-pressed", "false"); }
+  }
   $all(".chain-steps button", box).forEach(function(b){
-    b.addEventListener("click", function(){ select(parseInt(b.getAttribute("data-i"), 10)); });
+    b.addEventListener("click", function(){ stopPlay(); select(parseInt(b.getAttribute("data-i"), 10)); });
+  });
+  if (playBtn) playBtn.addEventListener("click", function(){
+    if (playing) { stopPlay(); return; }
+    playing = true;
+    playBtn.textContent = "Pause"; playBtn.setAttribute("aria-pressed", "true");
+    select((cur + 1) % 4);
+    playTimer = setInterval(function(){
+      if (token !== routeToken) { stopPlay(); return; }
+      select((cur + 1) % 4);
+    }, 2600);
   });
   onResize(draw);
   select(0);
@@ -3013,6 +3181,30 @@ function initMaster(root, token){
   segCtl($("#m-target", root), function(v){ target = v; update(); });
   segCtl($("#m-sign", root), function(v){ sign = v; update(); });
   update();
+
+  /* — U_transmute picker (Eq. 4.18) — */
+  var trOld = $("#tr-old", root), trNew = $("#tr-new", root), trRead = $("#tr-read", root);
+  if (trOld) {
+    var MATS = ["lead", "gold", "wood", "stone", "iron", "bronze", "salt", "glass", "decayed tissue", "sound tissue"];
+    var opts = MATS.map(function(m){ return '<option value="' + m + '">' + m + "</option>"; }).join("");
+    trOld.innerHTML = opts; trNew.innerHTML = opts;
+    trOld.value = "lead"; trNew.value = "gold";
+    function trUpdate(){
+      var a = trOld.value, b = trNew.value;
+      if (a === b) {
+        setRead(trRead, "quiet", "<b>U_transmute = identity.</b> q_new is already q_old — there is nothing to reassign. Even a Master cannot make a material more itself.");
+        return;
+      }
+      var flavor = "";
+      if (a === "lead" && b === "gold") flavor = " The classic — and, with S complete, no harder than any other reassignment.";
+      if (a === "decayed tissue" && b === "sound tissue") flavor = " This is healing read as transmutation: the identity rewrite behind what Eq. 4.19's gentler property-nudges approximate.";
+      if ((a === "iron" && b === "bronze") || (a === "bronze" && b === "iron")) flavor = " The pair that ends every Artisan of Iron's career short — and that a complete eigenbasis crosses without ceremony.";
+      setRead(trRead, "ok", "<b>q_new = U_transmute(M_op_full) · q_old</b> — " + esc(a) + " → " + esc(b) + ". Not an analogy, not a nudge to a property: a rewrite of which solution of the same operator the field expresses. Both identities were always solutions of M_op; a Master simply holds the complete basis to move between them." + flavor);
+    }
+    trOld.addEventListener("change", trUpdate);
+    trNew.addEventListener("change", trUpdate);
+    trUpdate();
+  }
 }
 
 /* ═════════ warden — extrapolation plot ═════════ */
@@ -3284,8 +3476,10 @@ function initSovereign(root, token){
 function initLegend(root, token){
   var cv = $("#driftcv", root); if (!cv) return;
   var cad = $("#dcad", root), cadO = $("#dcad-out", root), read = $("#drift-read", root);
-  var YEARS = 50, RATE = 0.02, SAFE = 0.25;
-  var TDRIFT = SAFE / RATE; // 12.5 y
+  var rateIn = $("#drate", root), rateO = $("#drate-out", root);
+  var YEARS = 50, SAFE = 0.25;
+  function RATE(){ return rateIn.value / 1000; }        // 0.010 – 0.050 per year
+  function TDRIFT(){ return SAFE / RATE(); }
   function cadence(){ return cad.value / 5; } // 2 – 20 years
   function draw(){
     var s = setupCanvas(cv), ctx = s.ctx, w = s.w, h = s.h;
@@ -3303,12 +3497,12 @@ function initLegend(root, token){
     ctx.setLineDash([]);
     tag(ctx, w - pad.r, Y(SAFE) - 8, "G_dec safe threshold — past here, drive toward collapse", C.ceiling, "right");
     // sawtooth
-    var T = cadence(), pts = [], crossings = [];
+    var T = cadence(), rr = RATE(), pts = [], crossings = [];
     var step = 0.1;
     for (var t2 = 0; t2 <= YEARS; t2 += step) {
-      var mm = RATE * (t2 % T);
+      var mm = rr * (t2 % T);
       pts.push([X(t2), Y(Math.min(mm, 0.45))]);
-      if (mm >= SAFE && (RATE * ((t2 - step) % T)) < SAFE) crossings.push(t2);
+      if (mm >= SAFE && (rr * ((t2 - step) % T)) < SAFE) crossings.push(t2);
     }
     lineSeries(ctx, pts, C.metric, 2);
     // resurvey ticks
@@ -3319,15 +3513,72 @@ function initLegend(root, token){
     tag(ctx, pad.l + 4, h - pad.b - 12, "gold ticks — re-surveys of Om2(x) at B", C.faint);
     crossings.forEach(function(cx){ dot(ctx, X(cx), Y(SAFE), 4, C.danger, true); });
     cadO.textContent = T.toFixed(0) + " years";
-    if (T <= TDRIFT) {
-      setRead(read, "metric", "<b>The fold stands.</b> Cadence " + T.toFixed(0) + "y ≤ t_drift = " + TDRIFT.toFixed(1) + "y — every re-survey lands before mismatch(Om2) reaches the threshold that lets G_dec (Eq. 4.6) drive toward collapse. The order's craft is exactly this schedule.");
+    rateO.textContent = rr.toFixed(3) + " / yr";
+    if (T <= TDRIFT()) {
+      setRead(read, "metric", "<b>The fold stands.</b> Cadence " + T.toFixed(0) + "y ≤ t_drift = " + TDRIFT().toFixed(1) + "y for a site drifting at " + rr.toFixed(3) + "/yr — every re-survey lands before mismatch(Om2) reaches the threshold that lets G_dec (Eq. 4.6) drive toward collapse. The order's craft is exactly this schedule.");
     } else {
-      setRead(read, "bad", "<b>Schedule slipped past t_drift.</b> First threshold crossing at year " + crossings[0].toFixed(0) + " — with " + crossings.length + " crossing" + (crossings.length > 1 ? "s" : "") + " over 50 years, the caster's assumed conformal factor has wandered far enough that decoherence begins driving toward failure with the fold inhabited. t_drift = " + TDRIFT.toFixed(1) + "y for this site.");
+      setRead(read, "bad", "<b>Schedule slipped past t_drift.</b> First threshold crossing at year " + crossings[0].toFixed(0) + " — with " + crossings.length + " crossing" + (crossings.length > 1 ? "s" : "") + " over 50 years, the assumed conformal factor wanders far enough that decoherence begins driving toward failure with the fold inhabited. At this volatility, t_drift = " + TDRIFT().toFixed(1) + "y; a faster-drifting site demands a tighter institution.");
     }
   }
   cad.addEventListener("input", draw);
+  rateIn.addEventListener("input", draw);
   onResize(draw);
   draw();
+}
+
+/* ═════════ ascension — advancing an unfinishable path ═════════ */
+function initAscension(root, token){
+  var CFG = {
+    tet: { v0: 0.55, k: 0.45,
+      val: function(p){ return "Coh_tetrarch = " + (p.v).toFixed(4); },
+      msg: function(p){
+        if (p.n <= 6) return "pair " + Math.min(p.n, 6) + " of 6 brought nearer coherence — six couplings that agree are still six couplings, not one.";
+        return "all six pairs refined again. The surface behaviour of unification, imitated a little better; k_unified no nearer.";
+      } },
+    dem: { v0: 0.30, k: 0.35,
+      val: function(p){ return "N_family = " + p.aux; },
+      msg: function(){ return "predictions verified inside the one proven rule. Complete mastery of one family among an unknown, possibly unbounded, number of others."; } },
+    cos: { v0: 0.35, k: 0.30,
+      val: function(p){ return "rho_cosmo = " + (1 + p.v * 6).toFixed(2); },
+      msg: function(p){ return "increment solved — at " + (p.n < 2 ? "the base price." : Math.pow(2, p.n - 1) + "× the price of the first: every region already solved reshaped the medium this one propagated through (Eq. 1.4)."); } },
+    com: { v0: 0.45, k: 0.40,
+      val: function(p){ return "N_comm = " + (p.v * 2.6).toFixed(2) + " · minds: " + p.aux; },
+      msg: function(){ return "the pool grows — and no proof inside it deepens. A larger boundary, never a shortcut to comprehension none of them solved."; } }
+  };
+  var state = {};
+  function reset(k){
+    state[k] = { v: CFG[k].v0, n: 0, aux: k === "dem" ? 64 : (k === "com" ? 3 : 0) };
+    paint(k);
+    var m = $("#msg-" + k, root);
+    if (m) m.textContent = "";
+  }
+  function paint(k){
+    var p = state[k];
+    var f = $("#fill-" + k, root), o = $("#adv-" + k, root);
+    if (f) f.style.width = (p.v * 100).toFixed(1) + "%";
+    if (o) o.textContent = CFG[k].val(p);
+  }
+  function advance(k){
+    var p = state[k], c = CFG[k];
+    p.n++;
+    p.v = p.v + (1 - p.v) * c.k;
+    if (k === "dem") p.aux *= 2;
+    if (k === "com") p.aux += Math.max(1, Math.round(p.aux * 0.5));
+    paint(k);
+    var m = $("#msg-" + k, root);
+    if (m) m.textContent = p.n >= 9
+      ? "Another lifetime spent. The distance has not reached zero. It will not."
+      : c.msg(p);
+  }
+  var any = false;
+  $all("[data-adv]", root).forEach(function(b){
+    any = true;
+    b.addEventListener("click", function(){ advance(b.getAttribute("data-adv")); });
+  });
+  $all("[data-rst]", root).forEach(function(b){
+    b.addEventListener("click", function(){ reset(b.getAttribute("data-rst")); });
+  });
+  if (any) Object.keys(CFG).forEach(reset);
 }
 
 /* ═════════ directory ═════════ */
@@ -3435,7 +3686,7 @@ var ROUTES = [
   { p: "techniques/warden",     tpl: "t-warden",       title: "Warden Techniques",             crumb: "Part IV · §4.9 — <b>Warden</b>",              label: "Warden · §4.9",           init: initWarden },
   { p: "techniques/sovereign",  tpl: "t-sovereign",    title: "Sovereign Workings",            crumb: "Part IV · §4.1–§4.3 — <b>Sovereign</b>",      label: "Sovereign · §4.1–4.3",    init: initSovereign },
   { p: "techniques/legend",     tpl: "t-legend",       title: "Legend-Scale Techniques",       crumb: "Part IV · §4.10 — <b>Legend</b>",             label: "Legend · §4.10",          init: initLegend },
-  { p: "techniques/ascension",  tpl: "t-ascension",    title: "The Ascent Beyond Legend",      crumb: "Part IV · §4.11 — <b>The Ascent</b>",         label: "The Ascent · §4.11",      init: null },
+  { p: "techniques/ascension",  tpl: "t-ascension",    title: "The Ascent Beyond Legend",      crumb: "Part IV · §4.11 — <b>The Ascent</b>",         label: "The Ascent · §4.11",      init: initAscension },
   { p: "directory",             tpl: "t-directory",    title: "The Spell Directory",           crumb: "Reference · §4.4 — <b>Spell Directory</b>",   label: "Spell Directory · §4.4",  init: initDirectory },
   { p: "glossary",              tpl: "t-glossary",     title: "Glossary & Equation Index",     crumb: "Reference · §5–6 — <b>Glossary &amp; Index</b>", label: "Glossary &amp; Index · §5–6", init: initGlossary },
   { p: "changelog",             tpl: "t-changelog",    title: "Changelog",                     crumb: "Reference · §7 — <b>Changelog</b>",           label: "Changelog · §7",          init: null }
@@ -3489,6 +3740,18 @@ function render(){
 }
 
 window.addEventListener("hashchange", render);
+
+/* arrow keys page through the Codex in reading order */
+window.addEventListener("keydown", function(e){
+  if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+  var t = e.target;
+  if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+  if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+  var p = currentPath(), idx = 0;
+  ROUTES.forEach(function(r, i){ if (r.p === p) idx = i; });
+  if (e.key === "ArrowRight" && idx < ROUTES.length - 1) location.hash = "#/" + ROUTES[idx + 1].p;
+  if (e.key === "ArrowLeft" && idx > 0) location.hash = "#/" + ROUTES[idx - 1].p;
+});
 
 /* mobile drawer */
 var menubtn = $("#menubtn"), scrim = $("#scrim");
