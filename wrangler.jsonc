@@ -1,0 +1,17 @@
+// Cloudflare Workers deploy config for the Aether Codex site.
+// This is a static-assets-only Worker: no server-side script, no build
+// step -- index.html is the entire site, and its own router works
+// entirely off the URL hash (#/foundations, #/techniques/adept, ...),
+// so the server only ever needs to answer "/" with index.html.
+// Docs: https://developers.cloudflare.com/workers/static-assets/
+{
+	"name": "aether",
+	"compatibility_date": "2026-08-30",
+	"assets": {
+		"directory": "./",
+		// Any path Wrangler can't map to a file (a stray direct link, a
+		// trailing slash variant) falls back to index.html rather than a
+		// bare 404, since every real "page" here is client-side anyway.
+		"not_found_handling": "single-page-application"
+	}
+}
