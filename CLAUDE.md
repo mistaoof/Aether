@@ -60,13 +60,41 @@ Design notes, so edits stay coherent:
 
 - Committed to a single dark visual world: onyx ground, gold accent. Every
   colour is painted explicitly; there is no light theme to keep in sync.
+- Flat throughout, by rule — no glow, no blur, no gradient fill or fade,
+  in CSS or on canvas. Emphasis is drawn with a solid fill, a 1–2px stroke, or
+  a brighter/lighter step of the same token, never a `box-shadow`,
+  `text-shadow`, or `*-gradient()`. If a new element seems to need one to
+  read clearly, that is a signal to widen the shape or lighten the token
+  instead.
 - Colour carries information. The channel palette is a metals set and should
   stay tied to meaning: amber gold `--gauge` for the gauge sector (F_f), copper
   `--quark` for the quark sector (M_op), platinum `--metric` for the metric
   sector (g), iron `--ceiling` for the Unsolved Ceiling, pale gold `--aether`
-  for aether itself and every interactive accent.
+  for aether itself and every interactive accent. `--danger` marks backlash
+  and failure states. The four muted tokens (`--ink-faint`, `--ceiling`,
+  `--danger`, `--quark`) were each tuned to sit at ≥5:1 contrast against both
+  `--void` and `--plate` — check new tokens the same way (WCAG relative
+  luminance) rather than eyeballing them against the editor's colour picker.
+- The cursor is themed, not the system arrow: two small inline-SVG data URIs
+  in the `--cur-default`/`--cur-pointer` custom properties (a hollow ring for
+  ambient, a filled point in a brighter ring for anything clickable — the
+  same idle/coupled distinction the coupling-bench figure draws). Reference
+  them with `cursor:var(--cur-pointer)` on new interactive elements rather
+  than the bare `pointer` keyword, or the browser default will show through.
+  Native cursors stay put on purpose: `text` over prose and form text inputs
+  (so the selection affordance isn't hidden), `default` on disabled controls
+  and inert cells.
 - Type is Cormorant Garamond (display), Spectral (body), IBM Plex Mono (every
   equation, directory code and § marker), loaded from Google Fonts.
+- Prefer a short autoplaying (or click-triggered) animation over an
+  interactive control that only swaps text — a slider or picker earns its
+  keep when moving it changes what you *see*, not just what you read. The
+  bar-gauge on the Master page, the eigenvector map on the Artisan page, and
+  the Sim[…] boundary diagram on the Grand Equation page are the pattern:
+  canvas or CSS-transition state that reacts to an existing control, kept
+  legible without a legend. Loops must check `token !== routeToken` each
+  frame so they stop on navigation, and `prefers-reduced-motion` must land on
+  the same end state a full play-through would reach, not a blank canvas.
 - Keep it dependency-free, respect `prefers-reduced-motion` (interactive
   figures fall back to a meaningful static or single-step state), and check
   there is no horizontal overflow at 390px — grid children that hold `<pre>`
