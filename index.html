@@ -1301,8 +1301,8 @@ Loop_dM[ ... ]  not evaluated</pre>
     <section class="band" id="chain">
       <div class="head rv">
         <div class="head-rule"><span class="sec-num">§4 PREAMBLE</span><span class="line"></span><span class="label">From ripple to result</span></div>
-        <h2>Every technique is the same<br>three-step chain</h2>
-        <p class="sub">Source a ripple, propagate it, couple it into a channel — then let the receiving field behave exactly as it always would once genuinely disturbed. Most write-ups compress this chain into one closed-form line, the way ordinary practice always does; here it is walked in full once, for Eq. 4.0a, so the shorthand everywhere else can be read with the mechanism in mind.</p>
+        <h2>Every technique is the same<br>four-step chain</h2>
+        <p class="sub">Source a ripple, propagate it, couple it into a channel, then let the receiving field behave exactly as it always would once genuinely disturbed — four links, though most write-ups compress them into one closed-form line the way ordinary practice always does. Here the chain is walked in full once, for Eq. 4.0a, so the shorthand everywhere else can be read with the mechanism in mind.</p>
       </div>
       <div class="chain rv" id="chainbox">
         <div class="chain-steps" role="group" aria-label="Steps of the casting chain">
@@ -3022,26 +3022,30 @@ function initNovice(root, token){
   function draw(){
     var s = setupCanvas(cv), ctx = s.ctx, w = s.w, h = s.h;
     ctx.clearRect(0, 0, w, h);
-    var yUp = 52, yLow = h - 52, xsrc = w * 0.2, xtgt = w * 0.66;
-    ctx.font = "10.5px " + MONO;
-    ctx.fillStyle = C.faint2;
-    ctx.fillText("F_EM — upper surface", 12, yUp - 12);
-    ctx.fillText("Ae — lower surface", 12, yLow + 20);
+    // the box is narrow (a paired figure, not a full-width chart) — captions
+    // live outside the plot band entirely so nothing dynamic can share a
+    // row with them, whatever step is showing
+    var yUp = 44, yLow = h - 44, xsrc = w * 0.22, xtgt = w * 0.68;
+    ctx.font = "10px " + MONO;
+    ctx.fillStyle = C.faint2; ctx.textAlign = "left";
+    ctx.fillText("F_EM — upper surface", 10, 16);
+    ctx.fillText("Ae — lower surface", 10, h - 10);
+    ctx.textAlign = "left";
     ctx.strokeStyle = "#4A4032"; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(12, yUp); ctx.lineTo(w - 12, yUp); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(12, yLow); ctx.lineTo(w - 12, yLow); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(10, yUp); ctx.lineTo(w - 10, yUp); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(10, yLow); ctx.lineTo(w - 10, yLow); ctx.stroke();
     function faint(a){ return "rgba(228,192,121," + a + ")"; }
-    // source
+    // source — labelled once, just inside the lower band, clear of the
+    // "Ae — lower surface" caption below the line
     dot(ctx, xsrc, yLow, 3, cur === 0 ? C.aether : faint(0.35));
-    tag(ctx, xsrc, yLow + 20, "J_cast", cur === 0 ? C.aether : C.faint2, "center");
+    tag(ctx, xsrc, yLow - 10, "J_cast", cur === 0 ? C.aether : C.faint2, "center");
     // rings / travel
-    var travCol = cur === 1 ? C.aether : faint(0.3);
-    [26, 52, 84].forEach(function(r, i){
-      ctx.beginPath(); ctx.ellipse(xsrc + (xtgt - xsrc) * (cur >= 1 ? 0.5 : 0), yLow, r + (cur >= 1 ? 30 : 0), (r + (cur >= 1 ? 30 : 0)) * 0.14, 0, 0, 6.284);
+    [22, 42, 64].forEach(function(r, i){
+      ctx.beginPath(); ctx.ellipse(xsrc + (xtgt - xsrc) * (cur >= 1 ? 0.5 : 0), yLow, r + (cur >= 1 ? 22 : 0), (r + (cur >= 1 ? 22 : 0)) * 0.14, 0, 0, 6.284);
       ctx.strokeStyle = cur === 1 ? "rgba(228,192,121," + (0.55 - i * 0.15) + ")" : "rgba(228,192,121," + (0.2 - i * 0.05) + ")";
       ctx.lineWidth = 1; ctx.stroke();
     });
-    if (cur === 1) tag(ctx, (xsrc + xtgt) / 2, yLow - 26, "G — flat, unperturbed", C.dim, "center");
+    if (cur === 1) tag(ctx, (xsrc + xtgt) / 2, (yUp + yLow) / 2, "G — flat, unperturbed", C.dim, "center");
     // channel
     ctx.strokeStyle = cur === 2 ? C.gauge : "rgba(216,163,64,.22)";
     ctx.lineWidth = cur === 2 ? 1.8 : 1;
@@ -3049,10 +3053,10 @@ function initNovice(root, token){
     if (cur === 2) {
       ctx.beginPath(); ctx.moveTo(xtgt, yUp + 10); ctx.lineTo(xtgt - 4, yUp + 19); ctx.lineTo(xtgt + 4, yUp + 19); ctx.closePath();
       ctx.fillStyle = C.gauge; ctx.fill();
-      tag(ctx, xtgt + 10, (yUp + yLow) / 2, "k_EM", C.gauge);
+      tag(ctx, Math.min(xtgt + 8, w - 14), (yUp + yLow) / 2, "k_EM", C.gauge, xtgt + 60 > w ? "right" : "left");
     }
     // effect
-    var mag = cur === 3 ? 90 : (cur === 2 ? 46 : 24);
+    var mag = cur === 3 ? Math.min(60, w * 0.22) : (cur === 2 ? 36 : 20);
     var al = cur >= 2 ? (cur === 3 ? 0.4 : 0.24) : 0.08;
     ctx.fillStyle = "rgba(216,163,64," + (al * 0.5).toFixed(3) + ")";
     ctx.beginPath(); ctx.ellipse(xtgt, yUp, mag, mag * 0.3, 0, 0, 6.284); ctx.fill();
@@ -3060,7 +3064,7 @@ function initNovice(root, token){
     ctx.beginPath(); ctx.ellipse(xtgt, yUp, mag, mag * 0.3, 0, 0, 6.284); ctx.stroke();
     dot(ctx, xtgt, yUp, cur >= 2 ? 3.4 : 2, cur >= 2 ? C.gauge : "rgba(216,163,64,.4)");
     if (cur === 3) {
-      tag(ctx, xtgt, yUp - 18, "dT/dt — ordinary thermodynamics", C.gauge, "center");
+      tag(ctx, xtgt, yUp + 20, "dT/dt", C.gauge, "center");
     }
   }
   function select(i){
