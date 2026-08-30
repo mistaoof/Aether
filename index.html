@@ -32,14 +32,14 @@
 
   --ink:#EBE3D5;
   --ink-dim:#A79A88;
-  --ink-faint:#857866;
+  --ink-faint:#9C8F7A;
 
   --aether:#E4C079;
   --gauge:#D8A340;
-  --quark:#C2703F;
+  --quark:#CD7C48;
   --metric:#AFB6C0;
-  --ceiling:#7A7160;
-  --danger:#C2543F;
+  --ceiling:#938870;
+  --danger:#D2725A;
 
   --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --body:"Spectral", Georgia, "Times New Roman", serif;
@@ -57,6 +57,9 @@
   --top-h:58px;
   --shell:1060px;
   --prose:68ch;
+
+  --cur-default:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4KPGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iNi41IiBmaWxsPSJub25lIiBzdHJva2U9IiNBNzlBODgiIHN0cm9rZS13aWR0aD0iMSIvPgo8Y2lyY2xlIGN4PSIxMCIgY3k9IjEwIiByPSIxLjIiIGZpbGw9IiNBNzlBODgiLz4KPC9zdmc+") 10 10, auto;
+  --cur-pointer:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgdmlld0JveD0iMCAwIDIyIDIyIj4KPGNpcmNsZSBjeD0iMTEiIGN5PSIxMSIgcj0iNy41IiBmaWxsPSJub25lIiBzdHJva2U9IiNFNEMwNzkiIHN0cm9rZS13aWR0aD0iMS4zIi8+CjxjaXJjbGUgY3g9IjExIiBjeT0iMTEiIHI9IjIuMSIgZmlsbD0iI0U0QzA3OSIvPgo8L3N2Zz4=") 11 11, pointer;
 }
 
 *{box-sizing:border-box}
@@ -74,6 +77,19 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
+
+/* ── cursor: a small aether ripple in place of the system arrow ──
+   Hollow ring + point = ambient (the field, undisturbed). Filled point
+   in a brighter ring = a channel engaged (something here couples).
+   Falls back to the native arrow/pointer/text if the image fails to load. */
+html{ cursor:var(--cur-default); }
+a, button, select, input[type="range"], .menu-btn, [role="button"], .hero{
+  cursor:var(--cur-pointer);
+}
+button:disabled, .chi-cell.dead{ cursor:default; }
+input[type="search"], input[type="text"]{ cursor:text; }
+p, li, dd, dt, td, th, blockquote, pre, code, h1, h2, h3,
+.prose, .lede, .pull, .desc, .eqnote, .readout, .ct, .figcap, .def{ cursor:text; }
 
 ::selection{background:rgba(228,192,121,.24); color:#F5EEDF}
 
@@ -120,7 +136,7 @@ code,kbd{font-family:var(--mono)}
 }
 .menu-btn{
   display:none; background:none; border:1px solid var(--rule); color:var(--ink-dim);
-  width:38px; height:38px; cursor:pointer; font-size:0; position:relative; flex:0 0 auto;
+  width:38px; height:38px; cursor:var(--cur-pointer); font-size:0; position:relative; flex:0 0 auto;
 }
 .menu-btn::before,.menu-btn::after{
   content:""; position:absolute; left:10px; right:10px; height:1px; background:currentColor;
@@ -146,7 +162,7 @@ code,kbd{font-family:var(--mono)}
   overflow-y:auto; padding:26px 0 48px; scrollbar-width:thin;
 }
 .side-group{padding:18px 24px 6px}
-.side-group .label{font-size:9.5px; color:#6B6152}
+.side-group .label{font-size:9.5px; color:#948773}
 .side a.nav{
   display:flex; align-items:baseline; gap:12px; padding:7.5px 24px 7.5px 22px;
   border-left:2px solid transparent; color:var(--ink-dim);
@@ -183,7 +199,7 @@ main{margin-left:var(--side-w); padding-top:var(--top-h); min-height:100vh; min-
 .pagehead h1{margin-bottom:18px}
 .lede{max-width:64ch; color:var(--ink-dim); font-size:clamp(16px,1.8vw,18px); line-height:1.7}
 .lede strong{color:var(--ink); font-weight:400}
-.srcline{margin-top:20px; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:#6B6152}
+.srcline{margin-top:20px; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:#948773}
 .srcline a{color:var(--ink-faint)} .srcline a:hover{color:var(--aether)}
 
 section.band{padding:clamp(44px,7vh,76px) 0; position:relative}
@@ -238,7 +254,7 @@ section.band{padding:clamp(44px,7vh,76px) 0; position:relative}
 .eqrow .k b{color:var(--aether); font-weight:500; letter-spacing:.1em}
 .eqrow code{display:block; margin-top:9px; font-family:var(--mono); font-size:13.5px; line-height:1.6; color:#E8DCC2; white-space:pre}
 .eqrow.lead code{font-size:15px; color:#F2E8D2}
-.eqrow .tm{color:var(--ink); border-bottom:1px dotted var(--ink-faint); cursor:default}
+.eqrow .tm{color:var(--ink); border-bottom:1px dotted var(--ink-faint); cursor:var(--cur-pointer)}
 .eqrow .tm.hot{color:var(--aether); border-bottom-color:var(--aether)}
 .terms{display:flex; flex-direction:column; border-top:1px solid var(--rule-soft)}
 .term{
@@ -269,7 +285,7 @@ section.band{padding:clamp(44px,7vh,76px) 0; position:relative}
 .ctl label{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap}
 .ctl output{font-family:var(--mono); font-size:11.5px; color:var(--ink); min-width:44px; font-variant-numeric:tabular-nums}
 input[type="range"]{
-  appearance:none; -webkit-appearance:none; width:150px; min-width:70px; flex:1 1 90px; max-width:180px; height:22px; background:transparent; cursor:pointer; margin:0;
+  appearance:none; -webkit-appearance:none; width:150px; min-width:70px; flex:1 1 90px; max-width:180px; height:22px; background:transparent; cursor:var(--cur-pointer); margin:0;
 }
 input[type="range"]::-webkit-slider-runnable-track{height:2px; background:var(--rule)}
 input[type="range"]::-webkit-slider-thumb{
@@ -281,7 +297,7 @@ input[type="range"]::-moz-range-thumb{width:12px; height:12px; border-radius:50%
 .seg{display:inline-flex; border:1px solid var(--rule)}
 .seg button{
   font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
-  background:transparent; border:0; color:var(--ink-faint); padding:9px 14px; cursor:pointer;
+  background:transparent; border:0; color:var(--ink-faint); padding:9px 14px; cursor:var(--cur-pointer);
   border-left:1px solid var(--rule); transition:color .2s ease, background .2s ease;
 }
 .seg button:first-child{border-left:0}
@@ -290,7 +306,7 @@ input[type="range"]::-moz-range-thumb{width:12px; height:12px; border-radius:50%
 .btn{
   font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
   padding:11px 18px; border:1px solid var(--rule); color:var(--ink-dim); display:inline-block;
-  background:rgba(19,16,12,.5); cursor:pointer; transition:border-color .25s ease, color .25s ease, background .25s ease;
+  background:rgba(19,16,12,.5); cursor:var(--cur-pointer); transition:border-color .25s ease, color .25s ease, background .25s ease;
 }
 .btn:hover{border-color:var(--aether); color:var(--ink); background:rgba(228,192,121,.07)}
 .btn:disabled{opacity:.4; cursor:default}
@@ -315,18 +331,38 @@ input[type="range"]::-moz-range-thumb{width:12px; height:12px; border-radius:50%
 .chan.gauge i{background:var(--gauge)} .chan.quark i{background:var(--quark)}
 .chan.metric i{background:var(--metric)} .chan.none i{background:var(--ceiling)}
 .chan.dm i{background:var(--aether)}
-button.chan{background:none; border:0; padding:6px 2px; cursor:pointer; transition:color .2s ease}
+button.chan{background:none; border:0; padding:6px 2px; cursor:var(--cur-pointer); transition:color .2s ease}
 button.chan:hover{color:var(--ink-dim)}
 button.chan[aria-pressed="true"]{color:var(--ink)}
 .ladder .tier{transition:background .28s ease, opacity .3s ease}
 .ladder[data-filter="gauge"] .tier:not([data-sec="gauge"]),
 .ladder[data-filter="quark"] .tier:not([data-sec="quark"]),
 .ladder[data-filter="metric"] .tier:not([data-sec="metric"]){opacity:.22}
-select.search{cursor:pointer; appearance:none; -webkit-appearance:none}
+select.search{cursor:var(--cur-pointer); appearance:none; -webkit-appearance:none}
 .advrow{display:flex; flex-wrap:wrap; gap:10px 14px; align-items:center; margin-top:18px}
 .advrow output{font-family:var(--mono); font-size:11px; color:var(--ink); font-variant-numeric:tabular-nums}
 .advrow .advmsg{display:block; width:100%; font-family:var(--mono); font-size:10.5px; line-height:1.6; color:var(--ink-faint); min-height:1.6em}
 .btn.sm{padding:8px 13px; font-size:10px}
+
+/* q_old -> U_transmute -> q_new: a small transform diagram, not just two dropdowns */
+.xmute{display:flex; align-items:center; gap:16px; margin:22px 0 4px}
+.xm-box{
+  flex:0 0 auto; min-width:112px; text-align:center; padding:11px 14px;
+  border:1px solid var(--rule); background:var(--plate); color:var(--ink);
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.02em;
+  transition:border-color .4s ease, color .4s ease;
+}
+.xm-box.hit{border-color:var(--quark); color:var(--quark)}
+.xm-arrow{position:relative; flex:1; min-width:44px; height:1px; background:var(--rule)}
+.xm-arrow::before{
+  content:"U_transmute"; position:absolute; left:50%; top:-18px; transform:translateX(-50%);
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap;
+}
+.xm-arrow::after{content:"→"; position:absolute; right:-3px; top:50%; transform:translate(50%,-52%); color:var(--ink-faint); font-family:var(--mono); font-size:13px}
+.xm-pulse{
+  position:absolute; top:50%; left:0%; width:6px; height:6px; margin:-3px 0 0 -3px;
+  border-radius:50%; background:var(--quark); opacity:0;
+}
 
 /* ── cards / grids ───────────────────────────────────────────── */
 .cardgrid{display:grid; gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
@@ -367,7 +403,7 @@ select.search{cursor:pointer; appearance:none; -webkit-appearance:none}
   display:grid; grid-template-columns:26px 158px minmax(0,1fr) 150px 18px;
   gap:0 20px; width:100%; text-align:left; align-items:start;
   padding:19px 6px 19px 0; background:none; border:0; border-bottom:1px solid var(--rule-soft);
-  color:inherit; font:inherit; cursor:pointer; position:relative;
+  color:inherit; font:inherit; cursor:var(--cur-pointer); position:relative;
   transition:background .28s ease;
 }
 .tier:hover{background:rgba(26,22,16,.6)}
@@ -421,7 +457,7 @@ select.search{cursor:pointer; appearance:none; -webkit-appearance:none}
 .fbtn{
   font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
   padding:9px 14px; border:1px solid var(--rule); background:transparent; color:var(--ink-faint);
-  cursor:pointer; transition:color .25s ease, border-color .25s ease, background .25s ease;
+  cursor:var(--cur-pointer); transition:color .25s ease, border-color .25s ease, background .25s ease;
 }
 .fbtn:hover{color:var(--ink-dim); border-color:var(--ink-faint)}
 .fbtn[aria-pressed="true"]{color:var(--void); background:var(--aether); border-color:var(--aether)}
@@ -431,7 +467,7 @@ select.search{cursor:pointer; appearance:none; -webkit-appearance:none}
   background:var(--plate); border:1px solid var(--rule); color:var(--ink);
   font-family:var(--mono); font-size:12px; padding:10px 14px; letter-spacing:.04em;
 }
-.search::placeholder{color:#6B6152}
+.search::placeholder{color:#948773}
 .grid-spells{display:grid; grid-template-columns:repeat(auto-fill,minmax(288px,1fr)); gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
 .spell{
   --c:var(--gauge);
@@ -511,7 +547,7 @@ table.ref tr.hide{display:none}
 .chain-steps{display:flex; border-bottom:1px solid var(--rule-soft); overflow-x:auto}
 .chain-steps button{
   flex:1; min-width:120px; background:none; border:0; border-left:1px solid var(--rule-soft);
-  padding:14px 12px; cursor:pointer; text-align:left; color:var(--ink-faint);
+  padding:14px 12px; cursor:var(--cur-pointer); text-align:left; color:var(--ink-faint);
   font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
   transition:color .2s ease, background .2s ease;
 }
@@ -534,7 +570,7 @@ table.ref tr.hide{display:none}
 .chi-grid .hd.rowhd{justify-content:flex-end; padding-right:8px}
 .chi-cell{
   min-height:52px; border:1px solid var(--rule-soft); background:var(--void-2);
-  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; cursor:var(--cur-pointer);
   font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--gauge);
   transition:background .2s ease, border-color .2s ease;
 }
@@ -553,7 +589,7 @@ table.ref tr.hide{display:none}
 .chip{
   font-family:var(--mono); font-size:11px; letter-spacing:.08em;
   padding:9px 14px; border:1px solid rgba(194,112,63,.4); background:rgba(194,112,63,.07);
-  color:#E0B294; cursor:pointer; transition:background .2s ease, border-color .2s ease;
+  color:#E0B294; cursor:var(--cur-pointer); transition:background .2s ease, border-color .2s ease;
 }
 .chip:hover{background:rgba(194,112,63,.16)}
 .chip[aria-pressed="true"]{background:rgba(194,112,63,.24); border-color:var(--quark); color:#F2DECE}
@@ -1092,7 +1128,8 @@ Loop_dM[ ... ]  not evaluated</pre>
         </div>
       </div>
       <div class="plot rv" id="simlab" style="margin-top:26px">
-        <div class="plot-tools" style="border-top:0">
+        <canvas id="simlabcv" height="130" aria-label="Diagram of a simulation boundary: a ripple held and released inside it under Sim[...], or sent crossing into reality to resolve cleanly or shatter as backlash."></canvas>
+        <div class="plot-tools">
           <div class="ctl-row">
             <div class="ctl"><label>The term under study</label>
               <span class="seg" id="sim-state" role="group" aria-label="State of the term being drilled">
@@ -1408,6 +1445,10 @@ tau_switch = t_start(Win_2) - t_end(Win_1)</pre>
         <pre>Chi(f1, f2) = Overlap[ delta(F_f1), delta(F_f2) ; dAe ]      0 &lt;= Chi &lt;= 1</pre>
         <p class="eqnote">How coherently a <em>single</em> sourced ripple can be shaped to satisfy two gauge-sector channels at once — not a measure of two separate ripples close together in time. <span class="mono">Chi = 0</span> is exactly the Journeyman condition; <span class="mono">Chi = 1</span> is a limit no known technique reaches.</p>
       </div>
+      <div class="plot rv" id="chicompare" style="margin-bottom:10px">
+        <canvas id="chicomparecv" height="130" aria-label="Looping comparison: a Journeyman firing the EM and gravity channels one after another from two separate castings, against an Adept firing both at once from a single ripple."></canvas>
+      </div>
+      <p class="figcap rv" style="border:0; margin:0 0 26px"><b>One ripple, not two.</b> A Journeyman's two channels take turns because a separate casting feeds each. An Adept's Chi(f1,f2) lets a single ripple satisfy both channels at the same instant — which is exactly why a wobble in that one ripple now costs both at once.</p>
       <div class="chi-wrap rv">
         <div class="chi">
           <div class="chi-grid" id="chigrid" role="group" aria-label="Force-pair matrix"></div>
@@ -1472,6 +1513,10 @@ tau_switch = t_start(Win_2) - t_end(Win_1)</pre>
         <h2>A signature material,<br>one eigenvector at a time</h2>
         <p class="sub">Select a material. Those inside S draw on Eq. 4.16 — the quark-sector analogue of boiling water. Those outside it have only Eq. 4.17 waiting.</p>
       </div>
+      <div class="plot rv" id="eigenmap" style="margin-bottom:10px">
+        <canvas id="eigenmapcv" height="120" aria-label="Twelve eigenvector slots of M_op: seven lit, proven by this Artisan's order; five dashed and empty, unsolved by anyone. Selecting a material below lights its slot, or sparks beside the map if the material has none."></canvas>
+      </div>
+      <p class="figcap rv" style="border:0; margin:0 0 26px"><b>The map of S.</b> Lit squares are the seven proven eigenvectors below; dashed squares are the rest of the eigenbasis — unsolved by anyone, not merely by this Artisan. Selecting a material in S lights its own slot; selecting one outside it sparks below the map instead, because there is no slot for it to light.</p>
       <div class="cols-2">
         <div class="rv">
           <div class="chips" id="archips" role="group" aria-label="Materials, solved and unsolved"></div>
@@ -1531,10 +1576,14 @@ q_new = U_transmute(M_op_full) * q_old</pre>
                 <div class="ctl"><label for="tr-old">q_old</label>
                   <select id="tr-old" class="search" style="margin-left:0; min-width:130px"></select>
                 </div>
-                <span class="mono" style="color:var(--ink-faint)">— U_transmute →</span>
                 <div class="ctl"><label for="tr-new">q_new</label>
                   <select id="tr-new" class="search" style="margin-left:0; min-width:130px"></select>
                 </div>
+              </div>
+              <div class="xmute" id="xmute" aria-hidden="true">
+                <span class="xm-box" id="xm-old">lead</span>
+                <span class="xm-arrow"><i class="xm-pulse" id="xm-pulse"></i></span>
+                <span class="xm-box" id="xm-new">gold</span>
               </div>
               <p class="readout ok" id="tr-read"></p>
             </div>
@@ -1561,7 +1610,8 @@ s = +1 (boost / hasten)  or  s = -1 (weaken / arrest),  chosen at inscription</p
         </div>
         <div class="rv">
           <div class="plot" id="mdial">
-            <div class="plot-tools" style="border-top:0">
+            <canvas id="mdialcv" height="190" aria-label="Animated diagram: E_bind and Gamma bars moving away from baseline 1 as the target term and direction change."></canvas>
+            <div class="plot-tools">
               <div class="ctl-row">
                 <div class="ctl"><label>Target term</label>
                   <span class="seg" id="m-target" role="group" aria-label="Target term">
@@ -2003,9 +2053,9 @@ function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").rep
 function clamp(v, a, b){ return v < a ? a : (v > b ? b : v); }
 
 var C = {
-  gauge:"#D8A340", quark:"#C2703F", metric:"#AFB6C0", aether:"#E4C079",
-  ceiling:"#7A7160", danger:"#C2543F", ink:"#EBE3D5", dim:"#A79A88",
-  faint:"#857866", faint2:"#6B6152", rule:"#2B2419", ruleSoft:"#1D1811"
+  gauge:"#D8A340", quark:"#CD7C48", metric:"#AFB6C0", aether:"#E4C079",
+  ceiling:"#938870", danger:"#D2725A", ink:"#EBE3D5", dim:"#A79A88",
+  faint:"#9C8F7A", faint2:"#948773", rule:"#2B2419", ruleSoft:"#1D1811"
 };
 var MONO = "IBM Plex Mono, ui-monospace, monospace";
 
@@ -2034,7 +2084,7 @@ function frame(ctx, w, h, pad, xd, yd, xlab, ylab){
   ctx.beginPath();
   ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, h - pad.b); ctx.lineTo(w - pad.r, h - pad.b);
   ctx.stroke();
-  ctx.fillStyle = C.faint2; ctx.font = "9.5px " + MONO;
+  ctx.fillStyle = C.faint2; ctx.font = "10.5px " + MONO;
   if (xlab){ ctx.textAlign = "right"; ctx.fillText(xlab, w - pad.r, h - pad.b + 16); }
   if (ylab){ ctx.textAlign = "left"; ctx.fillText(ylab, pad.l, pad.t - 8); }
   ctx.textAlign = "left";
@@ -2069,7 +2119,7 @@ function dot(ctx, x, y, r, color, ring){
 }
 
 function tag(ctx, x, y, text, color, align){
-  ctx.font = "10px " + MONO; ctx.fillStyle = color;
+  ctx.font = "10.5px " + MONO; ctx.fillStyle = color;
   ctx.textAlign = align || "left";
   ctx.fillText(text, x, y);
   ctx.textAlign = "left";
@@ -2503,7 +2553,6 @@ function initHome(root, token){
   onResize(function(){ size(); if (REDUCE) still(); });
   var hero = cv.closest(".hero");
   if (hero) {
-    hero.style.cursor = "crosshair";
     hero.addEventListener("pointerdown", function(e){
       if (e.target.closest("a, button")) return;
       if (REDUCE) {
@@ -2554,7 +2603,7 @@ function initFoundations(root, token){
     var yUp = 78, yLow = h - 92, xs = w * 0.5;
     var col = colors(), ch = chGet();
 
-    ctx.font = "10px " + MONO; ctx.fillStyle = C.faint;
+    ctx.font = "10.5px " + MONO; ctx.fillStyle = C.faint;
     ctx.fillText(upperLabel(), 18, 26);
     ctx.fillText("LOWER SURFACE — THE AETHER FIELD  Ae", 18, h - 40);
     ctx.fillStyle = C.faint2;
@@ -2825,25 +2874,115 @@ function initGrand(root, token){
   onResize(function(){ drawKettle(); drawUnaid(); });
   drawKettle(); drawUnaid();
 
-  /* — the Sim[...] laboratory (§3.7) — */
+  /* — the Sim[...] laboratory (§3.7): a boundary diagram plus the drill/commit buttons — */
+  var simcv = $("#simlabcv", root);
   var simRun = $("#sim-run", root), simLive = $("#sim-live", root);
   if (simRun) {
     var simRead = $("#sim-read", root), simPrac = $("#sim-prac", root);
-    var reps = 0;
+    var reps = 0, anim = { type: "idle", t0: 0, outcome: null };
+
+    function drawSimScene(now){
+      if (!simcv) return;
+      var s2 = setupCanvas(simcv), ctx = s2.ctx, w = s2.w, h = s2.h;
+      ctx.clearRect(0, 0, w, h);
+      var bx = w * 0.44, midY = h * 0.54;
+      ctx.strokeStyle = C.rule; ctx.setLineDash([3, 5]); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(bx, 14); ctx.lineTo(bx, h - 16); ctx.stroke();
+      ctx.setLineDash([]);
+      tag(ctx, bx - 12, 24, "SIMULATION — Loop_dM not evaluated", C.faint2, "right");
+      tag(ctx, bx + 12, 24, "REALITY — Loop_dM evaluated", C.faint2, "left");
+
+      var homeX = w * 0.20, farX = w * 0.76;
+      var t = anim.t0 ? (now - anim.t0) : 0;
+
+      if (anim.type === "sim") {
+        var d = clamp(t / 900, 0, 1);
+        var x = homeX + Math.sin(d * Math.PI * 3) * 14 * (1 - d * 0.3);
+        var ringA = Math.max(0, 1 - d) * 0.5;
+        ctx.beginPath(); ctx.arc(x, midY, 8 + d * 10, 0, 6.284);
+        ctx.strokeStyle = "rgba(228,192,121," + ringA.toFixed(3) + ")"; ctx.lineWidth = 1; ctx.stroke();
+        dot(ctx, x, midY, 3.6, C.aether);
+        tag(ctx, homeX, midY + 26, "held, measured, released — nothing crosses", C.faint2, "center");
+        if (d < 1) return true;
+        anim = { type: "idle", t0: 0, outcome: null };
+        dot(ctx, homeX, midY, 3, "rgba(228,192,121,.4)");
+        tag(ctx, homeX, midY + 22, "phi_actual, at rest", C.faint2, "center");
+        return false;
+      } else if (anim.type === "commit") {
+        var travel = clamp(t / 550, 0, 1);
+        var x2 = homeX + (bx - homeX) * travel;
+        if (travel < 1) {
+          dot(ctx, x2, midY, 3.6, C.aether);
+          return true;
+        }
+        var settle = clamp((t - 550) / 500, 0, 1);
+        if (anim.outcome === "ok") {
+          var x3 = bx + (farX - bx) * settle;
+          dot(ctx, x3, midY, 4, C.aether, settle >= 1);
+          if (settle >= 1) {
+            ctx.beginPath(); ctx.arc(x3, midY, 9, 0, 6.284);
+            ctx.strokeStyle = "rgba(228,192,121,.5)"; ctx.lineWidth = 1; ctx.stroke();
+            tag(ctx, x3, midY + 24, "resolved", C.aether, "center");
+          }
+          if (settle < 1) return true;
+        } else {
+          if (settle < 0.35) {
+            dot(ctx, bx + (farX - bx) * (settle / 0.35) * 0.3, midY, 4, C.danger);
+            return true;
+          }
+          var frag = clamp((settle - 0.35) / 0.65, 0, 1);
+          var fx = bx + (farX - bx) * 0.3;
+          [-1, 1].forEach(function(sgn){
+            [0, 1, 2].forEach(function(i){
+              var ang = sgn * (0.5 + i * 0.35);
+              var len = 10 + frag * 16;
+              var px = fx + Math.cos(ang) * frag * 22, py = midY + Math.sin(ang) * frag * 16;
+              ctx.strokeStyle = "rgba(210,114,90," + (0.75 - frag * 0.3).toFixed(3) + ")"; ctx.lineWidth = 1.4;
+              ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px + Math.cos(ang) * len * 0.3, py + Math.sin(ang) * len * 0.3); ctx.stroke();
+            });
+          });
+          tag(ctx, fx, midY + 26, "backlash — unresolved mismatch", C.danger, "center");
+        }
+      } else {
+        dot(ctx, homeX, midY, 3, "rgba(228,192,121,.4)");
+        tag(ctx, homeX, midY + 22, "phi_actual, at rest", C.faint2, "center");
+      }
+      return false;
+    }
+    function simLoop(now){
+      if (token !== routeToken) return;
+      var active = drawSimScene(now);
+      if (active) requestAnimationFrame(simLoop);
+    }
+    function playSim(type, outcome){
+      anim = { type: type, t0: performance.now(), outcome: outcome || null };
+      if (REDUCE) {
+        anim.t0 = performance.now() - 5000; // snap straight to the resting/resolved frame
+        drawSimScene(performance.now());
+      } else requestAnimationFrame(simLoop);
+    }
+    drawSimScene(performance.now());
+    onResize(function(){ drawSimScene(performance.now()); });
+
     var stateGet = segCtl($("#sim-state", root), function(){
       reps = 0; simPrac.textContent = "0 reps";
       setRead(simRead, "", "Term swapped. The simulation readout will look exactly the same — Sim[…] scores you against phi_ideal <em>as you believe it</em>.");
+      anim = { type: "idle", t0: 0, outcome: null };
+      drawSimScene(performance.now());
     });
     simRun.addEventListener("click", function(){
       reps++;
       simPrac.textContent = reps + " rep" + (reps > 1 ? "s" : "");
       setRead(simRead, "ok", "<b>Sim[X] → { Fid 0.94 · X_eff_proj 0.94·X_ideal · E_back_proj 0.00 }.</b> Flawless. Nothing was heated, moved, folded, or curved — the structure was held, measured, and released. prac(x) accrues in full (§3.6)." + (reps >= 5 ? " <span style='color:var(--ink-faint)'>Note it reads flawless in either state: whether the assumed channel is real is a question Sim[…] structurally cannot ask.</span>" : ""));
+      playSim("sim");
     });
     simLive.addEventListener("click", function(){
       if (stateGet() === "wrong") {
         setRead(simRead, "bad", "<b>BACKLASH — on the first live cast" + (reps > 0 ? ", after " + reps + " flawless simulation" + (reps > 1 ? "s" : "") : "") + ".</b> Loop_dM ran for the first time, and the field's channel did not match the believed one. The flaw was never in execution — and execution is all Sim[…] was ever checking. Rehearsal cannot certify a claim comprehension hasn't earned.");
+        playSim("commit", "bad");
       } else {
         setRead(simRead, "ok", "<b>Loop_dM evaluated — the effect lands at 0.94 of ceiling.</b> Believed and true phi_ideal were the same object, so the live cast matches every rehearsal" + (reps > 0 ? " — all " + reps + " of them" : "") + ". This is what a solved term looks like: simulation and reality agree.");
+        playSim("commit", "ok");
       }
     });
   }
@@ -2883,7 +3022,7 @@ function initNovice(root, token){
     var s = setupCanvas(cv), ctx = s.ctx, w = s.w, h = s.h;
     ctx.clearRect(0, 0, w, h);
     var yUp = 52, yLow = h - 52, xsrc = w * 0.2, xtgt = w * 0.66;
-    ctx.font = "9.5px " + MONO;
+    ctx.font = "10.5px " + MONO;
     ctx.fillStyle = C.faint2;
     ctx.fillText("F_EM — upper surface", 12, yUp - 12);
     ctx.fillText("Ae — lower surface", 12, yLow + 20);
@@ -2976,7 +3115,7 @@ function initJourneyman(root, token){
     var span = 2 * cycle();
     var X = scale(0, span, pad.l, w - pad.r);
     var yOut = 88, y1 = 168, y2 = 218, rh = 26;
-    ctx.font = "9.5px " + MONO;
+    ctx.font = "10.5px " + MONO;
     tag(ctx, pad.l, 26, "X_seq(t) — total output", C.faint2);
     tag(ctx, pad.l - 8, y1 + 16, "Win_1", C.gauge, "right");
     tag(ctx, pad.l - 8, y2 + 16, "Win_2", C.dim, "right");
@@ -3037,6 +3176,42 @@ function initJourneyman(root, token){
 
 /* ═════════ adept — chi matrix + fid² ═════════ */
 function initAdept(root, token){
+  /* — one ripple vs two: an autoplay comparison, no controls to fiddle with — */
+  var cmpcv = $("#chicomparecv", root);
+  if (cmpcv) {
+    var CYCLE = 3400;
+    function drawCompare(t){
+      var s2 = setupCanvas(cmpcv), ctx = s2.ctx, w = s2.w, h = s2.h;
+      ctx.clearRect(0, 0, w, h);
+      var midX = w / 2;
+      ctx.strokeStyle = C.ruleSoft; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(midX, 8); ctx.lineTo(midX, h - 8); ctx.stroke();
+      tag(ctx, w * 0.25, 16, "JOURNEYMAN — sequential", C.faint2, "center");
+      tag(ctx, w * 0.75, 16, "ADEPT — simultaneous", C.faint2, "center");
+      function panel(cx, on1, on2){
+        var y1 = h * 0.52 - 15, y2 = h * 0.52 + 15, barW = Math.min(w * 0.32, 130);
+        ctx.fillStyle = on1 ? "rgba(216,163,64,.6)" : "rgba(216,163,64,.1)";
+        ctx.fillRect(cx - barW / 2, y1 - 6, barW, 12);
+        ctx.fillStyle = on2 ? "rgba(216,163,64,.6)" : "rgba(216,163,64,.1)";
+        ctx.fillRect(cx - barW / 2, y2 - 6, barW, 12);
+        tag(ctx, cx - barW / 2 - 8, y1 + 4, "EM", C.faint2, "right");
+        tag(ctx, cx - barW / 2 - 8, y2 + 4, "grav", C.faint2, "right");
+        dot(ctx, cx, h - 14, 3, (on1 || on2) ? C.aether : "rgba(228,192,121,.25)");
+      }
+      var p = t % 1;
+      panel(w * 0.25, p < 0.32, p >= 0.42 && p < 0.74);
+      panel(w * 0.75, p < 0.5, p < 0.5);
+    }
+    function cmpLoop(now){
+      if (token !== routeToken) return;
+      drawCompare(now / CYCLE);
+      requestAnimationFrame(cmpLoop);
+    }
+    if (REDUCE) drawCompare(0.15);
+    else requestAnimationFrame(cmpLoop);
+    onResize(function(){ if (REDUCE) drawCompare(0.15); });
+  }
+
   var FORCES = ["EM", "Weak", "Strong", "Gravity"];
   var PAIRS = {
     "EM|Strong":  { c: "AD-01", n: "Flash-Forge", d: "Heating and cohesion-boosting blended into one continuous pass rather than Two-Handed Smith's two separate steps. The signature technique of any smith who has made Adept — and usually the reason they are described that way rather than as a very fast Journeyman.", f: "X_combo = k_EM * k_strong * Fid^2 * Chi(EM, strong)" },
@@ -3134,6 +3309,83 @@ function initArtisan(root, token){
     ["Silver", "reasoned from iron"],
     ["Tallow", "reasoned from rot"]
   ];
+
+  /* — the eigenmap: 12 conceptual slots in M_op, 7 lit (solved by this order), 5 dashed (unsolved by anyone) — */
+  var SLOTS = ["Salt", null, "Iron", null, "Bone", "Rot", null, "Glass", null, "Ash", "Clay", null];
+  var mapcv = $("#eigenmapcv", root);
+  var pulse = null, spark = null; // {t0}
+  var PULSE_MS = 700, SPARK_MS = 650;
+  function slotX(i, w){ return 40 + (w - 80) * (i / (SLOTS.length - 1)); }
+  function drawMap(now){
+    if (!mapcv) return;
+    var s2 = setupCanvas(mapcv), ctx = s2.ctx, w = s2.w, h = s2.h;
+    ctx.clearRect(0, 0, w, h);
+    var y = h * 0.42, sz = 26;
+    SLOTS.forEach(function(m, i){
+      var x = slotX(i, w);
+      var lit = !!m;
+      var pulsing = pulse && pulse.i === i ? clamp(1 - (now - pulse.t0) / PULSE_MS, 0, 1) : 0;
+      ctx.save();
+      if (lit) {
+        ctx.strokeStyle = pulsing > 0 ? C.quark : "rgba(205,124,72,.55)";
+        ctx.lineWidth = pulsing > 0 ? 1.8 : 1.1;
+        ctx.fillStyle = pulsing > 0 ? "rgba(205,124,72," + (0.1 + pulsing * 0.22).toFixed(3) + ")" : "rgba(205,124,72,.06)";
+      } else {
+        ctx.setLineDash([2, 3]);
+        ctx.strokeStyle = "rgba(167,154,136,.35)";
+        ctx.lineWidth = 1;
+        ctx.fillStyle = "transparent";
+      }
+      ctx.beginPath(); ctx.rect(x - sz / 2, y - sz / 2, sz, sz);
+      ctx.fill(); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+      if (lit) tag(ctx, x, y + 4, m[0], pulsing > 0 ? C.ink : C.quark, "center");
+      if (lit && pulsing > 0) tag(ctx, x, y + sz / 2 + 17, m, "rgba(205,124,72," + pulsing.toFixed(3) + ")", "center");
+      if (pulsing > 0) {
+        var r = sz / 2 + (1 - pulsing) * 20;
+        ctx.beginPath(); ctx.arc(x, y, r, 0, 6.284);
+        ctx.strokeStyle = "rgba(205,124,72," + (pulsing * 0.5).toFixed(3) + ")"; ctx.lineWidth = 1.4; ctx.stroke();
+        var dy = y + (1 - pulsing) * 34;
+        dot(ctx, x, dy, 2.4, "rgba(205,124,72," + pulsing.toFixed(3) + ")");
+      }
+    });
+    if (spark) {
+      var sp = clamp(1 - (now - spark.t0) / SPARK_MS, 0, 1);
+      if (sp > 0) {
+        var sx = w / 2 + Math.sin((now - spark.t0) / 22) * 6 * sp;
+        var sy = h * 0.86;
+        ctx.strokeStyle = "rgba(210,114,90," + sp.toFixed(3) + ")"; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.moveTo(sx - 6, sy - 6); ctx.lineTo(sx + 6, sy + 6); ctx.moveTo(sx + 6, sy - 6); ctx.lineTo(sx - 6, sy + 6); ctx.stroke();
+        tag(ctx, sx + 12, sy + 4, "no slot — unmodeled", "rgba(210,114,90," + sp.toFixed(3) + ")", "left");
+      } else spark = null;
+    }
+  }
+  var mapRaf = null;
+  function mapLoop(now){
+    if (token !== routeToken) return;
+    drawMap(now);
+    var active = (pulse && now - pulse.t0 < PULSE_MS) || (spark && now - spark.t0 < SPARK_MS);
+    mapRaf = active ? requestAnimationFrame(mapLoop) : null;
+  }
+  function fireMap(){
+    if (!mapRaf) mapRaf = requestAnimationFrame(mapLoop);
+  }
+  function pulseSlot(material){
+    var i = SLOTS.indexOf(material);
+    if (i < 0) return;
+    if (REDUCE) { drawMap(performance.now()); return; }
+    pulse = { i: i, t0: performance.now() };
+    fireMap();
+  }
+  function sparkMiss(){
+    if (REDUCE) { drawMap(performance.now()); return; }
+    spark = { t0: performance.now() };
+    fireMap();
+  }
+  drawMap(performance.now());
+  onResize(function(){ drawMap(performance.now()); });
+
   var chips = $("#archips", root); if (!chips) return;
   var read = $("#ar-read", root);
   var pk = $("#arplate-k", root), pe = $("#arplate-eq", root), pn = $("#arplate-note", root), plate = $("#arplate", root);
@@ -3152,6 +3404,7 @@ function initArtisan(root, token){
       pe.textContent = "Effect_" + lo + " = lam_" + lo + " * Fid * dAe_local,      e_" + lo + " in S";
       pn.textContent = "The solved eigenvector governs " + rec[2] + ". Fid scales the outcome linearly; a flawless technique at low fidelity produces a correct but weak effect, never an incorrect one.";
       setRead(read, "ok", "<b>e_" + lo + " ∈ S — proven.</b> The eigenvalue lam_" + lo + " exists in this Artisan's working equations only because the eigenvector already sits inside their proven subset. This casting behaves exactly as Eq. 3.1d describes.");
+      pulseSlot(name);
     } else {
       var rec2 = OUT_S.filter(function(m){ return m[0] === name; })[0];
       plate.style.borderLeftColor = C.danger;
@@ -3159,54 +3412,119 @@ function initArtisan(root, token){
       pe.textContent = "E_back_mat = Int_V[ | lam_guess - lam_true |^2 ] dV,      e_" + lo + " not in S";
       pn.textContent = "The ripple goes out shaped for lam_guess; the material answers according to lam_true — which was never measured, because e_" + lo + " was never in S to begin with, and which the caster has no way to know in advance.";
       setRead(read, "bad", "<b>e_" + lo + " ∉ S — a comprehension gamble.</b> Proceeding on the strength of a resemblance (" + rec2[1] + ") is not harder Artisan work; it is Master-tier work attempted without Master-tier comprehension. The mismatch does not dissipate — it integrates over the working volume as absorbed stress. Never survivable to extrapolate from twice.");
+      sparkMiss();
     }
   });
   $(".chip", chips).click();
 }
-
 /* ═════════ master — direction dial ═════════ */
 function initMaster(root, token){
   var read = $("#m-read", root); if (!read) return;
   var target = "bind", sign = "+1";
   var MSG = {
-    "bind|+1": ["ok", "<b>E_bind_eff(x) = E_bind(x) · (1 + c_M·Fid)</b> — binding energy raised, any material. At living tissue this is accelerated healing: wounds closing at a pace no Novice cohesion boost could sustain across a whole body. Cast broadly, this is Full Mend (M-01)."],
-    "bind|-1": ["ok", "<b>E_bind_eff(x) = E_bind(x) · (1 − c_M·Fid)</b> — binding energy weakened, any material. A precise, controlled loosening for a clean parting: the Master-scale descendant of Brittle Ease, no longer confined to one point of one material."],
+    "bind|+1": ["ok", "<b>E_bind_eff(x) = E_bind(x) · (1 + c_M·Fid)</b> — binding energy raised, any material. At living tissue this is accelerated healing, sustained across a whole body rather than one bound seam. Cast broadly, this is Full Mend (M-01)."],
+    "bind|-1": ["ok", "<b>E_bind_eff(x) = E_bind(x) · (1 − c_M·Fid)</b> — binding energy weakened, any material. A precise, controlled loosening for a clean parting — the Master-scale descendant of Brittle Ease, no longer confined to one point of one material."],
     "decay|+1": ["ok", "<b>Gamma_eff(x) = Gamma_0(x) · (1 + c_M·Fid)</b> — decay hastened. Controlled decomposition, curing, aging on demand — as precise a working as any healing, pointed the other way."],
-    "decay|-1": ["ok", "<b>Gamma_eff(x) = Gamma_0(x) · (1 − c_M·Fid)</b> — decay arrested. Preservation at any timescale: an embalmer's or archivist's working. This is Grave Turn (M-02) — the same complete eigenbasis that, wielded through U_transmute instead, changes lead to gold."]
+    "decay|-1": ["ok", "<b>Gamma_eff(x) = Gamma_0(x) · (1 − c_M·Fid)</b> — decay arrested. Preservation at any timescale — an embalmer's or archivist's working. This is Grave Turn (M-02), the same eigenbasis that, wielded through U_transmute instead, changes lead to gold."]
   };
+
+  /* the bar diagram: both terms sit at baseline 1 until one is cast, then eases toward 1 +/- c_M*Fid */
+  var cv = $("#mdialcv", root);
+  var CM_FID = 0.42;
+  var cur = { bind: 1, decay: 1 }, tgt = { bind: 1, decay: 1 };
+  function retarget(){
+    tgt.bind = 1; tgt.decay = 1;
+    tgt[target] = 1 + (sign === "+1" ? 1 : -1) * CM_FID;
+  }
+  function drawDial(){
+    if (!cv) return;
+    var s2 = setupCanvas(cv), ctx = s2.ctx, w = s2.w, h = s2.h;
+    ctx.clearRect(0, 0, w, h);
+    var pad = { l: 30, r: 30, t: 22, b: 30 };
+    var Y = scale(0.45, 1.65, h - pad.b, pad.t);
+    ctx.strokeStyle = C.rule; ctx.setLineDash([3, 5]); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.l, Y(1)); ctx.lineTo(w - pad.r, Y(1)); ctx.stroke();
+    ctx.setLineDash([]);
+    tag(ctx, pad.l, Y(1) - 9, "baseline — value 1, uncast", C.faint2);
+    [{ key: "bind", label: "E_bind_eff", x: w * 0.32 }, { key: "decay", label: "Gamma_eff", x: w * 0.68 }].forEach(function(c){
+      var active = target === c.key, v = cur[c.key];
+      var y0 = Y(1), y1 = Y(v), top = Math.min(y0, y1), ht = Math.max(Math.abs(y1 - y0), 1);
+      ctx.fillStyle = active ? "rgba(205,124,72,.18)" : "rgba(167,154,136,.07)";
+      ctx.fillRect(c.x - 30, top, 60, ht);
+      ctx.strokeStyle = active ? C.quark : "rgba(167,154,136,.3)"; ctx.lineWidth = active ? 1.6 : 1;
+      ctx.strokeRect(c.x - 30, top, 60, ht);
+      dot(ctx, c.x, y1, active ? 4 : 2.5, active ? C.quark : C.faint2, active);
+      tag(ctx, c.x, h - pad.b + 18, c.label, active ? C.ink : C.faint2, "center");
+      if (active) tag(ctx, c.x, y1 + (v > 1 ? 16 : -10), "×" + v.toFixed(2), C.quark, "center");
+    });
+  }
+  var raf = null;
+  function tick(now){
+    if (token !== routeToken) return;
+    var settled = true;
+    ["bind", "decay"].forEach(function(k){
+      var d = tgt[k] - cur[k];
+      if (Math.abs(d) > 0.002) { cur[k] += d * 0.16; settled = false; } else cur[k] = tgt[k];
+    });
+    drawDial();
+    raf = settled ? null : requestAnimationFrame(tick);
+  }
+  function animateDial(){
+    if (REDUCE) { cur.bind = tgt.bind; cur.decay = tgt.decay; drawDial(); return; }
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+
   function update(){
+    retarget(); animateDial();
     var m = MSG[target + "|" + sign];
     setRead(read, m[0], m[1] + "<br><span style='color:var(--ink-faint)'>The direction s is an operator-level choice at inscription — never a sign on Fid, which Eq. 3.2 bounds to [0, 1].</span>");
   }
   segCtl($("#m-target", root), function(v){ target = v; update(); });
   segCtl($("#m-sign", root), function(v){ sign = v; update(); });
+  onResize(drawDial);
   update();
 
   /* — U_transmute picker (Eq. 4.18) — */
   var trOld = $("#tr-old", root), trNew = $("#tr-new", root), trRead = $("#tr-read", root);
   if (trOld) {
     var MATS = ["lead", "gold", "wood", "stone", "iron", "bronze", "salt", "glass", "decayed tissue", "sound tissue"];
-    var opts = MATS.map(function(m){ return '<option value="' + m + '">' + m + "</option>"; }).join("");
+    var opts = MATS.map(function(m){ return "<option value=\"" + m + "\">" + m + "</option>"; }).join("");
     trOld.innerHTML = opts; trNew.innerHTML = opts;
     trOld.value = "lead"; trNew.value = "gold";
+    var xmOld = $("#xm-old", root), xmNew = $("#xm-new", root), xmPulse = $("#xm-pulse", root);
+    function pulseXmute(){
+      if (!xmPulse) return;
+      if (REDUCE) { xmNew.classList.add("hit"); setTimeout(function(){ xmNew.classList.remove("hit"); }, 450); return; }
+      xmPulse.style.transition = "none"; xmPulse.style.left = "0%"; xmPulse.style.opacity = "1";
+      xmOld.classList.add("hit");
+      void xmPulse.offsetWidth;
+      requestAnimationFrame(function(){
+        xmPulse.style.transition = "left .6s cubic-bezier(.2,.7,.2,1), opacity .6s ease";
+        xmPulse.style.left = "100%"; xmPulse.style.opacity = "0";
+      });
+      setTimeout(function(){ xmOld.classList.remove("hit"); xmNew.classList.add("hit"); }, 520);
+      setTimeout(function(){ xmNew.classList.remove("hit"); }, 1000);
+    }
     function trUpdate(){
       var a = trOld.value, b = trNew.value;
+      if (xmOld) xmOld.textContent = a;
+      if (xmNew) xmNew.textContent = b;
       if (a === b) {
         setRead(trRead, "quiet", "<b>U_transmute = identity.</b> q_new is already q_old — there is nothing to reassign. Even a Master cannot make a material more itself.");
         return;
       }
+      pulseXmute();
       var flavor = "";
       if (a === "lead" && b === "gold") flavor = " The classic — and, with S complete, no harder than any other reassignment.";
       if (a === "decayed tissue" && b === "sound tissue") flavor = " This is healing read as transmutation: the identity rewrite behind what Eq. 4.19's gentler property-nudges approximate.";
       if ((a === "iron" && b === "bronze") || (a === "bronze" && b === "iron")) flavor = " The pair that ends every Artisan of Iron's career short — and that a complete eigenbasis crosses without ceremony.";
-      setRead(trRead, "ok", "<b>q_new = U_transmute(M_op_full) · q_old</b> — " + esc(a) + " → " + esc(b) + ". Not an analogy, not a nudge to a property: a rewrite of which solution of the same operator the field expresses. Both identities were always solutions of M_op; a Master simply holds the complete basis to move between them." + flavor);
+      setRead(trRead, "ok", "<b>q_new = U_transmute(M_op_full) · q_old</b> — " + esc(a) + " → " + esc(b) + ". Both identities were always solutions of M_op; a Master simply holds the complete basis to move between them." + flavor);
     }
     trOld.addEventListener("change", trUpdate);
     trNew.addEventListener("change", trUpdate);
     trUpdate();
   }
 }
-
 /* ═════════ warden — extrapolation plot ═════════ */
 function initWarden(root, token){
   var cv = $("#wardcv", root); if (!cv) return;
