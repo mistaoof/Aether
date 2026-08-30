@@ -35,10 +35,26 @@ as-is; keep that form if you add more.
 
 ## The site
 
-`index.html` presents a selection of the Codex — the layered-field premise, the
-three axes, the Grand Equation, the Power Hierarchy, the Spell Directory and the
-four Ascension paths. Its content is transcribed from `codex/`, not generated
-from it, so a substantive Codex change may need the page updated to match.
+`index.html` presents the Codex as a multi-page reference — sixteen pages
+(Foundations, the Grand Equation, the Hierarchy, one page per technique tier,
+the Directory, Glossary & Index, Changelog) in one self-contained file. Each
+page is a `<template id="t-…">` block; a hash router (`ROUTES` array at the
+bottom of the script) clones it into `#app`, so `#/techniques/adept` is a
+stable, linkable address. Content is transcribed from `codex/`, not generated
+from it, so a substantive Codex change may need the matching page updated.
+
+Structure notes:
+
+- To add a page: add a `<template>`, a sidebar link (`data-r` must equal the
+  route path), and a `ROUTES` entry — order in `ROUTES` drives the prev/next
+  pager at the foot of every page.
+- Interactive figures live in per-page `init*` functions. They draw on canvas
+  via the small `frame`/`lineSeries`/`tag` helpers; animation loops must check
+  `token !== routeToken` so they stop on navigation, and anything
+  size-dependent registers with `onResize`.
+- The Spell Directory renders from the `SPELLS` array; the Glossary and
+  Equation Index render from `GLOSSARY` and `EQINDEX`. Extend those arrays
+  rather than writing markup by hand.
 
 Design notes, so edits stay coherent:
 
@@ -51,7 +67,7 @@ Design notes, so edits stay coherent:
   for aether itself and every interactive accent.
 - Type is Cormorant Garamond (display), Spectral (body), IBM Plex Mono (every
   equation, directory code and § marker), loaded from Google Fonts.
-- The Spell Directory renders from the `SPELLS` array near the end of the file;
-  add entries there rather than writing card markup by hand.
-- Keep it dependency-free, respect `prefers-reduced-motion`, and check there is
-  no horizontal overflow at 390px.
+- Keep it dependency-free, respect `prefers-reduced-motion` (interactive
+  figures fall back to a meaningful static or single-step state), and check
+  there is no horizontal overflow at 390px — grid children that hold `<pre>`
+  equations need `min-width:0`.
