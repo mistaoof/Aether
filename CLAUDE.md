@@ -6,8 +6,16 @@ A hard-magic system for fiction: the Aether Codex, plus a static site that prese
 
 - `codex/` — the source of truth. Sixteen markdown files, one per area.
 - `index.html` — the site. Self-contained, no build step, no dependencies;
-  deployable from the repo root via GitHub Pages.
+  deployable from the repo root via GitHub Pages or Cloudflare Workers.
 - `README.md` — project front matter.
+- `wrangler.jsonc` / `.assetsignore` — Cloudflare Workers static-asset
+  deploy config. The repo's Workers Builds Git integration (project
+  `aether`) picks this up on every push with no dashboard-side build
+  command needed: `assets.directory` is the repo root, and
+  `.assetsignore` keeps `codex/`, `CLAUDE.md`, and `README.md` off the
+  deployed site since `index.html` is the only page. There's no server
+  script — the router is entirely hash-based (`#/foundations`, …), so
+  the Worker only ever has to answer `/` with `index.html`.
 
 ## The Codex
 
