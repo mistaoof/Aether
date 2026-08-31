@@ -2139,8 +2139,18 @@ var MONO = "IBM Plex Mono, ui-monospace, monospace";
 function setupCanvas(cv){
   var dpr = Math.min(window.devicePixelRatio || 1, 2);
   var w = cv.clientWidth || 640;
-  var h = parseInt(cv.getAttribute("height"), 10) || 300;
-  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  // canvas.height reflects the height content attribute, so writing the
+  // dpr-scaled backing store overwrites the authored CSS height. Stash that
+  // authored value on the element and always scale from it — reading the
+  // attribute back would compound by dpr on every redraw (invisible at dpr 1,
+  // doubling each frame on a retina phone).
+  var h = parseInt(cv.dataset.baseh, 10);
+  if (!h) { h = parseInt(cv.getAttribute("height"), 10) || 300; cv.dataset.baseh = h; }
+  var bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+  // Every caller clears before drawing, so only resize when it actually
+  // changed — reassigning reallocates the backing store on each frame.
+  if (cv.width !== bw) cv.width = bw;
+  if (cv.height !== bh) cv.height = bh;
   cv.style.height = h + "px";
   var ctx = cv.getContext("2d");
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -2161,10 +2171,14 @@ function frame(ctx, w, h, pad, xd, yd, xlab, ylab){
   ctx.beginPath();
   ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, h - pad.b); ctx.lineTo(w - pad.r, h - pad.b);
   ctx.stroke();
-  ctx.fillStyle = C.faint2; ctx.font = "10.5px " + MONO;
-  if (xlab){ ctx.textAlign = "right"; ctx.fillText(xlab, w - pad.r, h - pad.b + 16); }
-  if (ylab){ ctx.textAlign = "left"; ctx.fillText(ylab, pad.l, pad.t - 8); }
-  ctx.textAlign = "left";
+  if (ylab) tag(ctx, pad.l, pad.t - 8, ylab, C.faint2);
+  // The axis title shares a baseline with the tick labels callers draw at
+  // h - pad.b + 16. There's room for both side by side on a wide canvas; on a
+  // narrow one they collide into each other, so lift the title above the plot.
+  if (xlab){
+    if (narrowCv(ctx)) tag(ctx, w - pad.r, pad.t - 8, xlab, C.faint2, "right");
+    else tag(ctx, w - pad.r, h - pad.b + 16, xlab, C.faint2, "right");
+  }
   return { x: X, y: Y };
 }
 
@@ -2195,11 +2209,32 @@ function dot(ctx, x, y, r, color, ring){
   if (ring){ ctx.strokeStyle = "#0A0908"; ctx.lineWidth = 2; ctx.stroke(); }
 }
 
+/* Logical (CSS-pixel) width of a context, undoing setupCanvas's dpr transform.
+   Figures are laid out against this, not the backing-store width. */
+function ctxW(ctx){
+  var sx = 0;
+  if (ctx.getTransform) { try { sx = ctx.getTransform().a; } catch(e){ sx = 0; } }
+  if (!sx) sx = Math.min(window.devicePixelRatio || 1, 2);
+  return ctx.canvas.width / sx;
+}
+function narrowCv(ctx){ return ctxW(ctx) < 460; }
+
+/* Picks a shorter label when there isn't horizontal room for the full one. */
+function lab(ctx, long, short){ return narrowCv(ctx) ? short : long; }
+
+/* Draws a label, shrinking the type on narrow canvases and pulling the text
+   back inside the canvas rather than letting it run off either edge. */
 function tag(ctx, x, y, text, color, align){
-  ctx.font = "10.5px " + MONO; ctx.fillStyle = color;
-  ctx.textAlign = align || "left";
-  ctx.fillText(text, x, y);
+  var w = ctxW(ctx), pad = 4;
+  ctx.font = (w < 460 ? 9.5 : 10.5) + "px " + MONO;
+  ctx.fillStyle = color;
+  var tw = ctx.measureText(text).width;
+  align = align || "left";
+  var left = align === "center" ? x - tw / 2 : (align === "right" ? x - tw : x);
+  if (left + tw > w - pad) left = w - pad - tw;
+  if (left < pad) left = pad;
   ctx.textAlign = "left";
+  ctx.fillText(text, left, y);
 }
 
 /* per-route lifecycle registries */
@@ -2764,7 +2799,7 @@ function initFoundations(root, token){
             ctx.strokeStyle = "rgba(" + cc + "," + (0.5 * ba).toFixed(3) + ")"; ctx.lineWidth = 1;
             ctx.beginPath(); ctx.ellipse(xs, yUp, mag, mag * 0.3, 0, 0, 6.284); ctx.stroke();
             ctx.beginPath(); ctx.arc(xs, yUp, 3.4, 0, 6.284); ctx.fillStyle = col; ctx.fill();
-            tag(ctx, xs, yUp - 16, "delta above resolution — the upper field takes the shape", col, "center");
+            tag(ctx, xs, yUp - 16, lab(ctx, "delta above resolution — the upper field takes the shape", "the upper field takes the shape"), col, "center");
           }
           if (t > 2.6) finish(now);
         } else {
@@ -2892,12 +2927,12 @@ function initGrand(root, token){
     ctx.strokeStyle = C.ceiling; ctx.setLineDash([3, 5]);
     ctx.beginPath(); ctx.moveTo(m.x(FIDMIN), pad.t); ctx.lineTo(m.x(FIDMIN), h - pad.b); ctx.stroke();
     ctx.setLineDash([]);
-    tag(ctx, m.x(FIDMIN) + 6, pad.t + 12, "Fid_min — below: fails quietly", C.ceiling);
+    tag(ctx, m.x(FIDMIN) + 6, pad.t + 12, lab(ctx, "Fid_min — below: fails quietly", "Fid_min"), C.ceiling);
     // response
     var pts = [[m.x(0), m.y(0)], [m.x(FIDMIN), m.y(0)]];
     for (var i = 0; i <= 40; i++) { var v = FIDMIN + (1 - FIDMIN) * i / 40; pts.push([m.x(v), m.y(v)]); }
     lineSeries(ctx, pts, C.gauge, 2);
-    tag(ctx, m.x(0.72), m.y(0.72) - 12, "X_eff = X_ideal · Fid", C.gauge);
+    tag(ctx, m.x(0.72), m.y(0.72) - 12, lab(ctx, "X_eff = X_ideal · Fid", "X_ideal · Fid"), C.gauge);
     var F = kfid.value / 100;
     dot(ctx, m.x(F), m.y(F < FIDMIN ? 0 : F), 4.5, C.aether, true);
     if (kout) kout.textContent = F.toFixed(2);
@@ -2928,13 +2963,13 @@ function initGrand(root, token){
     var anchored = anchorGet() !== "0";
     // anchored line
     lineSeries(ctx, [[m.x(0), m.y(CEIL)], [m.x(1), m.y(CEIL)]], anchored ? C.gauge : "rgba(167,154,136,.45)", anchored ? 2 : 1.5, anchored ? null : [4, 5]);
-    tag(ctx, m.x(0.02), m.y(CEIL) - 8, "anchor = 1 — ceiling always applies", anchored ? C.gauge : C.faint);
+    tag(ctx, m.x(0.02), m.y(CEIL) - 8, lab(ctx, "anchor = 1 — ceiling always applies", "anchor = 1"), anchored ? C.gauge : C.faint);
     // unassisted step
     var colU = !anchored ? C.gauge : "rgba(167,154,136,.45)";
     lineSeries(ctx, [[m.x(0), m.y(FLOOR)], [m.x(PRACMIN), m.y(FLOOR)]], colU, !anchored ? 2 : 1.5, anchored ? [4, 5] : null);
     lineSeries(ctx, [[m.x(PRACMIN), m.y(FLOOR)], [m.x(PRACMIN), m.y(CEIL)]], colU, 1.2, [2, 3]);
     lineSeries(ctx, [[m.x(PRACMIN), m.y(CEIL)], [m.x(1), m.y(CEIL)]], colU, !anchored ? 2 : 1.5, anchored ? [4, 5] : null);
-    tag(ctx, m.x(PRACMIN + 0.02), m.y(FLOOR) - 8, "anchor = 0 — Step(prac − prac_min)", !anchored ? C.gauge : C.faint);
+    tag(ctx, m.x(PRACMIN + 0.02), m.y(FLOOR) - 8, lab(ctx, "anchor = 0 — Step(prac − prac_min)", "anchor = 0"), !anchored ? C.gauge : C.faint);
     var P = uprac.value / 100;
     if (uout) uout.textContent = P.toFixed(2);
     var yv = anchored ? CEIL : (P >= PRACMIN ? CEIL : FLOOR);
@@ -2966,8 +3001,8 @@ function initGrand(root, token){
       ctx.strokeStyle = C.rule; ctx.setLineDash([3, 5]); ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(bx, 14); ctx.lineTo(bx, h - 16); ctx.stroke();
       ctx.setLineDash([]);
-      tag(ctx, bx - 12, 24, "SIMULATION — Loop_dM not evaluated", C.faint2, "right");
-      tag(ctx, bx + 12, 24, "REALITY — Loop_dM evaluated", C.faint2, "left");
+      tag(ctx, bx - 12, 24, lab(ctx, "SIMULATION — Loop_dM not evaluated", "SIMULATION"), C.faint2, "right");
+      tag(ctx, bx + 12, 24, lab(ctx, "REALITY — Loop_dM evaluated", "REALITY"), C.faint2, "left");
 
       var homeX = w * 0.20, farX = w * 0.76;
       var t = anim.t0 ? (now - anim.t0) : 0;
@@ -2979,7 +3014,7 @@ function initGrand(root, token){
         ctx.beginPath(); ctx.arc(x, midY, 8 + d * 10, 0, 6.284);
         ctx.strokeStyle = "rgba(228,192,121," + ringA.toFixed(3) + ")"; ctx.lineWidth = 1; ctx.stroke();
         dot(ctx, x, midY, 3.6, C.aether);
-        tag(ctx, homeX, midY + 26, "held, measured, released — nothing crosses", C.faint2, "center");
+        tag(ctx, homeX, midY + 26, lab(ctx, "held, measured, released — nothing crosses", "held, measured, released"), C.faint2, "center");
         if (d < 1) return true;
         anim = { type: "idle", t0: 0, outcome: null };
         dot(ctx, homeX, midY, 3, "rgba(228,192,121,.4)");
@@ -3018,7 +3053,7 @@ function initGrand(root, token){
               ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px + Math.cos(ang) * len * 0.3, py + Math.sin(ang) * len * 0.3); ctx.stroke();
             });
           });
-          tag(ctx, fx, midY + 26, "backlash — unresolved mismatch", C.danger, "center");
+          tag(ctx, fx, midY + 26, lab(ctx, "backlash — unresolved mismatch", "backlash"), C.danger, "center");
         }
       } else {
         dot(ctx, homeX, midY, 3, "rgba(228,192,121,.4)");
@@ -3227,14 +3262,14 @@ function initJourneyman(root, token){
       ctx.fillRect(X(w2s + WIN), y1, X(w2s + WIN + tau()) - X(w2s + WIN), rh + (y2 - y1));
       tt += cycle();
     }
-    tag(ctx, X(WIN + tau() / 2), y1 - 8, "tau_switch — output = 0", C.ceiling, "center");
+    tag(ctx, X(WIN + tau() / 2), y1 - 8, lab(ctx, "tau_switch — output = 0", "tau_switch"), C.ceiling, "center");
     // playhead
     var ph = t % span;
     ctx.strokeStyle = C.aether; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(X(ph), 40); ctx.lineTo(X(ph), y2 + rh + 10); ctx.stroke();
     var st = stateAt(t);
     dot(ctx, X(ph), st.on === 1 ? yOut + 34 - 44 * 0.75 : (st.on === 2 ? yOut + 34 - 44 * 0.55 : yOut + 34), 4, C.aether, true);
-    tag(ctx, pad.l, h - 12, "Win_1 = Eq. 4.0a heat · Win_2 = Eq. 4.0c cohesion (J-05)", C.faint2);
+    tag(ctx, pad.l, h - 12, lab(ctx, "Win_1 = Eq. 4.0a heat · Win_2 = Eq. 4.0c cohesion (J-05)", "Win_1 heat · Win_2 cohesion"), C.faint2);
   }
   function update(){
     if (tauOut) tauOut.textContent = tau().toFixed(2) + " s";
@@ -3356,8 +3391,8 @@ function initAdept(root, token){
     for (var q = 0; q <= 50; q++){ var v3 = q / 50; l1.push([m.x(v3), m.y(v3)]); l2.push([m.x(v3), m.y(v3 * v3)]); }
     lineSeries(ctx, l1, C.dim, 2);
     lineSeries(ctx, l2, C.gauge, 2);
-    tag(ctx, m.x(0.56), m.y(0.62) - 10, "Journeyman — scales with Fid", C.dim);
-    tag(ctx, m.x(0.72), m.y(0.42) + 16, "Adept blend — scales with Fid²", C.gauge);
+    tag(ctx, m.x(0.56), m.y(0.62) - 10, lab(ctx, "Journeyman — scales with Fid", "Journeyman · Fid"), C.dim);
+    tag(ctx, m.x(0.72), m.y(0.42) + 16, lab(ctx, "Adept blend — scales with Fid²", "Adept · Fid²"), C.gauge);
     // vertical marker + dots
     ctx.strokeStyle = "rgba(228,192,121,.35)"; ctx.setLineDash([2, 4]);
     ctx.beginPath(); ctx.moveTo(m.x(F), m.y(F)); ctx.lineTo(m.x(F), m.y(F * F)); ctx.stroke();
@@ -3632,14 +3667,14 @@ function initWarden(root, token){
     ctx.strokeStyle = C.ceiling; ctx.setLineDash([3, 5]);
     ctx.beginPath(); ctx.moveTo(m.x(EVALID), pad.t); ctx.lineTo(m.x(EVALID), h - pad.b); ctx.stroke();
     ctx.setLineDash([]);
-    tag(ctx, m.x(EVALID) + 6, pad.t + 12, "eps_valid(R_proven) — demonstrated, not theoretical", C.ceiling);
+    tag(ctx, m.x(EVALID) + 6, pad.t + 12, lab(ctx, "eps_valid(R_proven) — demonstrated, not theoretical", "eps_valid"), C.ceiling);
     // curves
     var lt = [], lw = [];
     for (var q = 0; q <= 60; q++){ var v3 = q / 60; lt.push([m.x(v3), m.y(xiTrue(v3))]); lw.push([m.x(v3), m.y(xiTrunc(v3))]); }
     lineSeries(ctx, lt, C.dim, 2);
     lineSeries(ctx, lw, C.metric, 2);
-    tag(ctx, m.x(0.66), m.y(xiTrue(0.72)) - 10, "true Xi(Ae,g) — only a Sovereign has it", C.dim);
-    tag(ctx, m.x(0.74), m.y(xiTrunc(0.74)) + 18, "Xi_0 + eps·Xi_1 — the Warden's model", C.metric);
+    tag(ctx, m.x(0.66), m.y(xiTrue(0.72)) - 10, lab(ctx, "true Xi(Ae,g) — only a Sovereign has it", "true Xi(Ae,g)"), C.dim);
+    tag(ctx, m.x(0.74), m.y(xiTrunc(0.74)) + 18, lab(ctx, "Xi_0 + eps·Xi_1 — the Warden's model", "Xi_0 + eps·Xi_1"), C.metric);
     var E = ein.value / 100;
     dot(ctx, m.x(E), m.y(xiTrunc(E)), 4.5, C.metric, true);
     dot(ctx, m.x(E), m.y(xiTrue(E)), 3.5, C.dim, true);
@@ -3692,7 +3727,7 @@ function initSovereign(root, token){
       // release window band (|b|² high)
       ctx.fillStyle = "rgba(175,182,192,.05)";
       ctx.fillRect(pad.l, Y(1), w - pad.l - pad.r, Y(0.85) - Y(1));
-      tag(ctx, w - pad.r - 4, Y(0.85) + 12, "release window — |b|² high", C.faint2, "right");
+      tag(ctx, w - pad.r - 4, Y(0.85) + 12, lab(ctx, "release window — |b|² high", "release window"), C.faint2, "right");
       if (samples.length > 1) {
         var pa = [], pb = [], pe = [];
         samples.forEach(function(sm){
@@ -3805,15 +3840,15 @@ function initSovereign(root, token){
       ctx.beginPath(); ctx.moveTo(pad.l, Y(0)); ctx.lineTo(w - pad.r, Y(0)); ctx.stroke();
       tag(ctx, pad.l - 8, Y(0) + 3, "0", C.faint2, "right");
       tag(ctx, w - pad.r, h - pad.b + 16, "r →", C.faint2, "right");
-      tag(ctx, pad.l, pad.t - 10, "Curv(g)(r) — platinum · lapse(r) — amber", C.faint2);
+      tag(ctx, pad.l, pad.t - 10, lab(ctx, "Curv(g)(r) — platinum · lapse(r) — amber", "Curv(g)(r) · lapse(r)"), C.faint2);
       // regions
       ctx.fillStyle = "rgba(175,182,192,.05)";
       ctx.fillRect(X(0), pad.t, X(Rc) - X(0), h - pad.t - pad.b);
       ctx.fillStyle = "rgba(175,182,192,.03)";
       ctx.fillRect(X(Rc), pad.t, X(Rs) - X(Rc), h - pad.t - pad.b);
       tag(ctx, X(Rc / 2), h - pad.b + 16, "core", C.faint2, "center");
-      tag(ctx, X((Rc + Rs) / 2), h - pad.b + 16, "shell annulus", C.faint2, "center");
-      tag(ctx, X((Rs + RMAX) / 2), h - pad.b + 16, "exterior — flat, to leading order", C.faint2, "center");
+      tag(ctx, X((Rc + Rs) / 2), h - pad.b + 16, lab(ctx, "shell annulus", "shell"), C.faint2, "center");
+      tag(ctx, X((Rs + RMAX) / 2), h - pad.b + 16, lab(ctx, "exterior — flat, to leading order", "exterior"), C.faint2, "center");
       // R markers
       [[Rc, "R_core"], [Rs, "R_shell"]].forEach(function(rm){
         ctx.strokeStyle = C.rule; ctx.setLineDash([3, 5]);
@@ -3830,11 +3865,11 @@ function initSovereign(root, token){
         pts.push([X(r), Y(clamp(cvv, -1.1, 1.15))]);
       }
       lineSeries(ctx, pts, C.metric, 2);
-      tag(ctx, X(Rc * 0.35), Y(1.0) - 8, "well — Eq. 4.8", C.metric, "center");
-      tag(ctx, X((Rc + Rs) / 2), Y(-0.9), "counter-shell — Eq. 4.9", C.metric, "center");
+      tag(ctx, X(Rc * 0.35), Y(1.0) - 8, lab(ctx, "well — Eq. 4.8", "well"), C.metric, "center");
+      tag(ctx, X((Rc + Rs) / 2), Y(-0.9), lab(ctx, "counter-shell — Eq. 4.9", "counter-shell"), C.metric, "center");
       // leak annotation
       var leakVal = leakA / Math.pow(Rs + 4, 3);
-      if (leakVal > 0.004) tag(ctx, X(Rs + 5), Y(leakVal) - 8, "residual leak ∝ r⁻³ — Eq. 4.11", C.quark);
+      if (leakVal > 0.004) tag(ctx, X(Rs + 5), Y(leakVal) - 8, lab(ctx, "residual leak ∝ r⁻³ — Eq. 4.11", "residual leak ∝ r⁻³"), C.quark);
       // lapse in the annulus
       var lp = [], minLapse = 1;
       for (var j = 0; j <= 80; j++) {
@@ -3846,7 +3881,7 @@ function initSovereign(root, token){
         lp.push([X(r2), Y(lap)]);
       }
       lineSeries(ctx, lp, C.gauge, 2);
-      if (lp.length) tag(ctx, lp[Math.floor(lp.length * 0.45)][0], lp[Math.floor(lp.length * 0.45)][1] - 12, "lapse(r) — proper-time rate", C.gauge, "center");
+      if (lp.length) tag(ctx, lp[Math.floor(lp.length * 0.45)][0], lp[Math.floor(lp.length * 0.45)][1] - 12, lab(ctx, "lapse(r) — proper-time rate", "lapse(r)"), C.gauge, "center");
       // readout
       var hc = 2 * KN * M / Rs;
       var msg, cls;
@@ -3894,7 +3929,7 @@ function initLegend(root, token){
     ctx.strokeStyle = C.ceiling; ctx.setLineDash([4, 4]);
     ctx.beginPath(); ctx.moveTo(pad.l, Y(SAFE)); ctx.lineTo(w - pad.r, Y(SAFE)); ctx.stroke();
     ctx.setLineDash([]);
-    tag(ctx, w - pad.r, Y(SAFE) - 8, "G_dec safe threshold — past here, drive toward collapse", C.ceiling, "right");
+    tag(ctx, w - pad.r, Y(SAFE) - 8, lab(ctx, "G_dec safe threshold — past here, drive toward collapse", "G_dec safe threshold"), C.ceiling, "right");
     // sawtooth
     var T = cadence(), rr = RATE(), pts = [], crossings = [];
     var step = 0.1;
@@ -3909,7 +3944,7 @@ function initLegend(root, token){
       ctx.strokeStyle = "rgba(228,192,121,.4)";
       ctx.beginPath(); ctx.moveTo(X(k), h - pad.b); ctx.lineTo(X(k), h - pad.b - 8); ctx.stroke();
     }
-    tag(ctx, pad.l + 4, h - pad.b - 12, "gold ticks — re-surveys of Om2(x) at B", C.faint);
+    tag(ctx, pad.l + 4, h - pad.b - 12, lab(ctx, "gold ticks — re-surveys of Om2(x) at B", "gold ticks — re-surveys"), C.faint);
     crossings.forEach(function(cx){ dot(ctx, X(cx), Y(SAFE), 4, C.danger, true); });
     cadO.textContent = T.toFixed(0) + " years";
     rateO.textContent = rr.toFixed(3) + " / yr";
