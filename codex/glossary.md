@@ -90,6 +90,53 @@
 | `tau_switch` | Dead time between two sequential Journeyman castings, spent re-inscribing or re-visualizing (§3.6); shrinks with drilled practice but cannot structurally reach zero without `Chi` | Eq. 4.13 |
 | `Chi(f1, f2)` | Solved cross-coupling function joining two forces; absent at Journeyman tier, present at Adept | Eq. 4.14 |
 
+### 5.1 Directory Expansion I Additions (v2.5)
+
+*Directory-local notation and trade/practice vocabulary introduced by Directory Expansion I (§4.4). Only genuinely new symbols and terms appear below; nothing already indexed above is redefined, and no new global equation numbers are introduced.*
+
+#### New symbols (directory-local notation)
+
+| Symbol | Definition | Introduced in |
+|---|---|---|
+| `t_hold` | Sustain duration of a held (rather than discharged) casting — the interval over which a caster maintains `J_cast` and its resulting distortion, as distinct from `t_ins`, the time invested in the inscription itself | Directory Expansion I (N-EM-06, N-EM-09, and throughout); mechanics per Eq. 3.2 / Eq. 1.2 |
+
+#### New terms (trade and practice vocabulary)
+
+| Term | Definition | Introduced in |
+|---|---|---|
+| Reverse-sign casting | A Novice technique running its parent equation's distortion in the opposite direction (as N-EM-02 and N-ST-02 already do) — a choice of target expression made at inscription, never a sign on `Fid`, which Eq. 3.2 bounds to `0 <= Fid <= 1`; the Novice-tier ancestor of Eq. 4.19's formal `s` parameter | Directory Expansion I (N-EM-11, N-WK-03, and throughout) |
+| Held vs. discharged casting | The practical distinction between a distortion maintained over `t_hold` (Lumen Thread, Kettle's Patience) and one released at once (Spark Draw, Mirror Flash); both are ordinary Eq. 1.2 sourcings differing only in the time-profile of `J_cast` | Directory Expansion I (Novice tier, passim) |
+| Contingency pairing | A Journeyman pairing in which the second activation window opens only on the failure of the first's purpose (J-28) — holding a casting in reserve rather than in effect, within Eq. 4.13's ordinary disjoint-window structure | J-28 |
+| Pair-sheet | A caster's record of which of the six `Chi(f1,f2)` pairs they hold solved — the practical document behind §4.6's observation that tier is a per-pair predicate | Directory Expansion I (Adept preamble) |
+| Fire-write / frost-write | Smithing-trade names for an EM+Strong blend cast with heating versus chilling expression (AD-01/AD-08 vs. AD-09) — one pair, two signs | AD-09 |
+| Gatewright | Fortress-roster term for an Adept holding both the breaching (AD-10) and bulwark (AD-27) expressions of their respective pairs | AD-27 |
+| Seal-book | An institution's ledger of standing Reliquary Seal renewals (AD-31) — the Adept-tier ancestor of Legend-tier recertification ledgers (Eq. 4.23) | AD-31 |
+| Signature material | The material whose eigenvector family constitutes an Artisan's solved `S` (Eq. 3.1e) — long used informally in §3.3 and §4.4; entered here as a formal glossary term | §3.3; Directory Expansion I (Artisan preamble) |
+| Mercy-width | Mining-trade term for a shaft bore sunk to the exact gauge of an existing Warden proof (W-03), so the proof's `R_proven` transfers by construction | W-03 |
+| Proof-standard architecture | The practice of building new structures to the published dimensions of an existing Warden proof so that `R_proven` (Eq. 4.20) genuinely transfers — the mechanism behind every "catalogable" Warden entry (W-02, W-06, W-09) | Warden preamble; W-02 |
+| `eps` ledger | A Warden's (or order's) complete record of proven geometries and their demonstrated `eps_valid(R_proven)` bounds (Eq. 4.21); almost always closely held — W-13's open ledger is the recorded exception | Warden preamble; W-13 |
+| Drift-order | An institution constituted to maintain a Legend-scale working's re-survey cadence (`t_drift`, Eq. 4.22) or recertification interval (`t_recert`, Eq. 4.23) — the standing organizations behind LG-01 through LG-10 | Legend preamble |
+| Reversed dilation | A standing time-dilation domain run with the interior *fast* relative to the exterior (LG-08), as against the archival slow-interior form (LG-04); both are the same Eq. 3.1g mathematics with the gradient's sign chosen at establishment | LG-08 |
+| Quiescent hold | A Tetrarch-fragment discipline: several solved `Chi` pairs held simultaneously ready without any expressing (AS-05) — historically attested, not teachable, and no exception to Eq. 4.24's verdict on `k_unified` | AS-05 |
+
+### 5.2 Directory Expansion II Additions (v2.6)
+
+*Trade and practice vocabulary introduced by Directory Expansion II (§4.4). No new symbols this time; nothing already indexed above or in the Expansion I additions is redefined.*
+
+| Term | Definition | Introduced in |
+|---|---|---|
+| Bearing sense | The formalized directional discipline built atop Ripple Sense (Eq. 4.0e) — reading roughly whence a nearby working's ripple arrives, still as a pure, costless passive read; anticipated explicitly in N-EM-05's write-up ("a discipline built on top of this equation") | N-EM-29 |
+| Sickroom triad | The three Novice castings physicians treat as one bedside kit — Fever Gauge (N-EM-14), Hearthstone (N-WK-04), and Chill Draught (N-EM-33) — taught together under this name | N-EM-33; J-53 |
+| The promises | Shipboard slang for a purser's log of standing reprieve-castings (N-ST-06, N-ST-18, N-ST-29, N-ST-30) — temporary binds awaiting honest repair, audited by renewal date | N-ST-29 |
+| Contingency hold | A single casting held with its window open and its effect waiting on a trigger event (N-GR-24) — the one-casting form of J-28's contingency pairing | N-GR-24 |
+| Canary light | An AD-69 mote held at neutral buoyancy whose sinking marks thinning or fouling air — and, by extension, any casting arranged to fail visibly before people do | AD-69 |
+| Written cargo | Port slang for a hold under Cargo Writ (AD-60); by extension, freight contracted with an Adept's blend priced in | AD-60 |
+| Proof-standard stage / tower / frame / plan | Extensions of Expansion I's proof-standard architecture: published gauges (a playhouse stage, a bell tower, a scaffold frame, a weigh-house plan) built to an existing Warden proof's exact geometry so `R_proven` transfers by construction | W-16, W-17, W-18, W-23 |
+| Scheduled fold | A Legend-scale standing fold held open on a fixed calendar and re-validated in its closed intervals — Eq. 4.22's `t_drift` cadence built into an institution's week rather than around it | LG-11 |
+| The postponement | The maintaining order's own name for LG-12's arrested avalanche — catalogued as the exemplar of a Legend working named for its upkeep rather than its founding | LG-12 |
+| Drift-order rota | A ward-by-ward or segment-by-segment re-survey rotation dividing a Legend working's `t_drift` obligation across an institution (LG-14, LG-06) — the working practice behind Expansion I's drift-order term | LG-14 |
+| Clean dissolution | A Communion ended with its members' comprehension domains — and members — intact and separate (AS-10), as against the standing merge AS-06's sealed accounts warn of; attested only in the two-mind record | AS-10 |
+
 *Symbols governing how a caster's invocation reaches the Grand Equation's terms — `Ae_0`, `dAe`, `J_cast`, `G(x, x'; t, t'; g)` — are defined in §1.1–§1.4 (`codex/foundations.md`).*
 
 ---
