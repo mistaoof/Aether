@@ -48,15 +48,15 @@
   --fs-h1:clamp(38px, 5.4vw, 62px);
   --fs-h2:clamp(26px, 3.4vw, 38px);
   --fs-h3:clamp(19px, 2.2vw, 22px);
-  --fs-body:16.5px;
-  --fs-small:14.5px;
-  --fs-mono:13px;
+  --fs-body:17.5px;
+  --fs-small:15px;
+  --fs-mono:13.5px;
   --fs-label:10.5px;
 
   --side-w:272px;
   --top-h:58px;
   --shell:1060px;
-  --prose:68ch;
+  --prose:64ch;
 
   --cur-default:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj4KPGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iNi41IiBmaWxsPSJub25lIiBzdHJva2U9IiNBNzlBODgiIHN0cm9rZS13aWR0aD0iMSIvPgo8Y2lyY2xlIGN4PSIxMCIgY3k9IjEwIiByPSIxLjIiIGZpbGw9IiNBNzlBODgiLz4KPC9zdmc+") 10 10, auto;
   --cur-pointer:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgdmlld0JveD0iMCAwIDIyIDIyIj4KPGNpcmNsZSBjeD0iMTEiIGN5PSIxMSIgcj0iNy41IiBmaWxsPSJub25lIiBzdHJva2U9IiNFNEMwNzkiIHN0cm9rZS13aWR0aD0iMS4zIi8+CjxjaXJjbGUgY3g9IjExIiBjeT0iMTEiIHI9IjIuMSIgZmlsbD0iI0U0QzA3OSIvPgo8L3N2Zz4=") 11 11, pointer;
@@ -74,7 +74,7 @@ body{
   font-family:var(--body);
   font-weight:300;
   font-size:var(--fs-body);
-  line-height:1.75;
+  line-height:1.85;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
@@ -124,7 +124,7 @@ code,kbd{font-family:var(--mono)}
 
 .shell{max-width:var(--shell); margin:0 auto; padding:0 clamp(20px,4.5vw,52px)}
 .prose{max-width:var(--prose)}
-.prose p + p{margin-top:1.05em}
+.prose p + p{margin-top:1.4em}
 .prose .mono{color:#DCCEB0}
 
 /* ── topbar ──────────────────────────────────────────────────── */
@@ -194,22 +194,22 @@ main{margin-left:var(--side-w); padding-top:var(--top-h); min-height:100vh; min-
 @keyframes pagein{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
 @media (prefers-reduced-motion: reduce){ .page{animation:none} }
 
-.pagehead{padding:clamp(48px,8vh,84px) 0 clamp(30px,4vh,44px); border-bottom:1px solid var(--rule-soft)}
-.kicker{display:flex; align-items:center; gap:14px; margin-bottom:22px; flex-wrap:wrap}
+.pagehead{padding:clamp(60px,10vh,110px) 0 clamp(38px,5vh,58px); border-bottom:1px solid var(--rule-soft)}
+.kicker{display:flex; align-items:center; gap:14px; margin-bottom:26px; flex-wrap:wrap}
 .kicker .line{height:1px; flex:1; min-width:40px; background:var(--rule)}
-.pagehead h1{margin-bottom:18px}
-.lede{max-width:64ch; color:var(--ink-dim); font-size:clamp(16px,1.8vw,18px); line-height:1.7}
+.pagehead h1{margin-bottom:22px}
+.lede{max-width:58ch; color:var(--ink-dim); font-size:clamp(17px,1.9vw,19px); line-height:1.8}
 .lede strong{color:var(--ink); font-weight:400}
-.srcline{margin-top:20px; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:#948773}
+.srcline{margin-top:26px; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:#948773}
 .srcline a{color:var(--ink-faint)} .srcline a:hover{color:var(--aether)}
 
-section.band{padding:clamp(44px,7vh,76px) 0; position:relative}
+section.band{padding:clamp(60px,9vh,104px) 0; position:relative}
 .band + .band{border-top:1px solid var(--rule-soft)}
-.head{margin-bottom:clamp(26px,4vh,42px)}
-.head-rule{display:flex; align-items:center; gap:14px; margin-bottom:18px}
+.head{margin-bottom:clamp(32px,5vh,54px)}
+.head-rule{display:flex; align-items:center; gap:14px; margin-bottom:20px}
 .head-rule .line{height:1px; flex:1; background:var(--rule)}
-.head h2{margin-bottom:14px}
-.head .sub{max-width:62ch; color:var(--ink-dim); font-size:var(--fs-small); line-height:1.7}
+.head h2{margin-bottom:16px}
+.head .sub{max-width:58ch; color:var(--ink-dim); font-size:var(--fs-small); line-height:1.8}
 
 .pull{
   font-family:var(--display); font-size:clamp(20px,2.4vw,27px); line-height:1.32; font-weight:300;
@@ -217,38 +217,52 @@ section.band{padding:clamp(44px,7vh,76px) 0; position:relative}
   max-width:56ch;
 }
 .pull em{font-style:italic; color:var(--aether)}
-.note-line{margin-top:24px; font-size:var(--fs-small); color:var(--ink-faint); max-width:70ch; line-height:1.7}
+.note-line{margin-top:34px; font-size:var(--fs-small); color:var(--ink-faint); max-width:66ch; line-height:1.8}
 .note-line b{color:var(--ink-dim); font-weight:400}
 
-.cols-2{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(26px,4vw,56px); align-items:start}
+/* "In plain terms" — a plain-language landing spot beside the formal material */
+.plain{
+  margin:26px 0 30px; padding:18px 22px 20px;
+  border:1px solid var(--rule-soft); border-left:2px solid var(--rule);
+  background:var(--void-2); max-width:74ch;
+}
+.plain .pl-k{
+  display:block; font-family:var(--mono); font-size:10px; font-weight:500;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px;
+}
+.plain p{font-size:var(--fs-small); line-height:1.85; color:var(--ink-dim); max-width:66ch}
+.plain p + p{margin-top:.9em}
+.plain .mono{color:#DCCEB0}
+
+.cols-2{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(34px,5vw,72px); align-items:start}
 @media (max-width:920px){ .cols-2{grid-template-columns:minmax(0,1fr)} }
 .cols-2 > *, .chain-body > *, .chi-wrap > *, .cardgrid > *, .premise-grid > *{min-width:0}
 
 /* ── equations ───────────────────────────────────────────────── */
 .eqplate{
-  margin:22px 0; border:1px solid var(--rule); border-left:2px solid var(--aether);
+  margin:30px 0; border:1px solid var(--rule); border-left:2px solid var(--aether);
   background:var(--plate);
 }
 .eqplate .eqk{
-  display:flex; flex-wrap:wrap; gap:4px 10px; align-items:baseline; padding:11px 18px 0;
+  display:flex; flex-wrap:wrap; gap:4px 10px; align-items:baseline; padding:14px 22px 0;
   font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint);
 }
 .eqplate .eqk b{color:var(--aether); font-weight:500; letter-spacing:.1em}
 .eqplate pre{
-  margin:0; padding:10px 18px 14px; overflow-x:auto;
-  font-family:var(--mono); font-size:13.5px; line-height:1.65; color:#E8DCC2;
+  margin:0; padding:12px 22px 16px; overflow-x:auto;
+  font-family:var(--mono); font-size:14px; line-height:1.7; color:#E8DCC2;
 }
 .eqplate.gauge{border-left-color:var(--gauge)} .eqplate.gauge .eqk b{color:var(--gauge)}
 .eqplate.quark{border-left-color:var(--quark)} .eqplate.quark .eqk b{color:var(--quark)}
 .eqplate.metric{border-left-color:var(--metric)} .eqplate.metric .eqk b{color:var(--metric)}
 .eqplate.iron{border-left-color:var(--ceiling)} .eqplate.iron .eqk b{color:var(--ceiling)}
 .eqplate .eqnote{
-  padding:0 18px 13px; font-size:13px; line-height:1.65; color:var(--ink-faint); max-width:72ch;
+  padding:0 22px 16px; font-size:13.5px; line-height:1.78; color:var(--ink-faint); max-width:68ch;
 }
 
 /* grand-equation stack + term table */
 .plate{border:1px solid var(--rule); background:var(--plate); overflow-x:auto}
-.eqrow{padding:15px 20px; border-bottom:1px solid var(--rule-soft); transition:background .25s ease}
+.eqrow{padding:18px 22px; border-bottom:1px solid var(--rule-soft); transition:background .25s ease}
 .eqrow:last-child{border-bottom:0}
 .eqrow:hover{background:var(--plate-2)}
 .eqrow .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); display:flex; flex-wrap:wrap; gap:4px 10px; align-items:baseline}
@@ -259,12 +273,12 @@ section.band{padding:clamp(44px,7vh,76px) 0; position:relative}
 .eqrow .tm.hot{color:var(--aether); border-bottom-color:var(--aether)}
 .terms{display:flex; flex-direction:column; border-top:1px solid var(--rule-soft)}
 .term{
-  display:grid; grid-template-columns:130px 1fr; gap:16px; padding:13px 0;
+  display:grid; grid-template-columns:130px 1fr; gap:16px; padding:16px 0;
   border-bottom:1px solid var(--rule-soft); align-items:baseline;
 }
 .term .sym{font-family:var(--mono); font-size:12.5px; color:var(--ink); transition:color .25s ease}
 .term:hover .sym,.term.hot .sym{color:var(--aether)}
-.term .def{font-size:var(--fs-small); color:var(--ink-dim); line-height:1.62}
+.term .def{font-size:var(--fs-small); color:var(--ink-dim); line-height:1.72}
 .term .def em{font-style:normal; color:var(--ink-faint); display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; margin-top:5px}
 @media (max-width:520px){ .term{grid-template-columns:1fr; gap:6px} }
 
@@ -272,15 +286,15 @@ section.band{padding:clamp(44px,7vh,76px) 0; position:relative}
 .figure{border:1px solid var(--rule); background:var(--plate); padding:18px 18px 14px}
 .figure svg{display:block; width:100%; height:auto}
 .figcap{
-  margin-top:12px; padding-top:12px; border-top:1px solid var(--rule-soft);
-  font-family:var(--mono); font-size:11px; line-height:1.65; color:var(--ink-faint);
+  margin-top:14px; padding-top:14px; border-top:1px solid var(--rule-soft);
+  font-family:var(--mono); font-size:11.5px; line-height:1.78; color:var(--ink-faint);
   overflow-wrap:break-word;
 }
 .figcap b{color:var(--ink-dim); font-weight:500}
 
 .plot{border:1px solid var(--rule); background:var(--plate); position:relative}
 .plot canvas{display:block; width:100%; height:auto}
-.plot-tools{border-top:1px solid var(--rule-soft); padding:16px 18px 18px; display:flex; flex-direction:column; gap:14px}
+.plot-tools{border-top:1px solid var(--rule-soft); padding:18px 20px 20px; display:flex; flex-direction:column; gap:16px}
 .ctl-row{display:flex; flex-wrap:wrap; gap:14px 26px; align-items:center}
 .ctl{display:flex; align-items:center; gap:10px 12px; min-width:0; max-width:100%; flex-wrap:wrap}
 .ctl label{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap}
@@ -316,7 +330,7 @@ input[type="range"]::-moz-range-thumb{width:12px; height:12px; border-radius:50%
 .btn-key:hover{background:rgba(228,192,121,.11)}
 
 .readout{
-  font-family:var(--mono); font-size:11.5px; line-height:1.7; color:var(--ink-dim);
+  font-family:var(--mono); font-size:12px; line-height:1.78; color:var(--ink-dim);
   border-left:2px solid var(--rule); padding:6px 0 6px 14px; min-height:2.4em;
 }
 .readout b{color:var(--ink); font-weight:500}
@@ -370,12 +384,12 @@ select.search{cursor:var(--cur-pointer); appearance:none; -webkit-appearance:non
 .cardgrid.c3{grid-template-columns:repeat(3,1fr)}
 .cardgrid.c2{grid-template-columns:1fr 1fr}
 @media (max-width:880px){ .cardgrid.c3{grid-template-columns:1fr} .cardgrid.c2{grid-template-columns:1fr} }
-.card{background:var(--plate); padding:26px 24px 28px; display:flex; flex-direction:column; transition:background .3s ease}
+.card{background:var(--plate); padding:30px 28px 32px; display:flex; flex-direction:column; transition:background .3s ease}
 .card:hover{background:var(--plate-2)}
 .card .cn{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint)}
 .card h3{margin:12px 0 6px}
 .card .crole{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--aether); margin-bottom:14px}
-.card p{font-size:var(--fs-small); line-height:1.7; color:var(--ink-dim)}
+.card p{font-size:var(--fs-small); line-height:1.78; color:var(--ink-dim)}
 .card .cfoot{margin-top:auto; padding-top:16px; font-family:var(--mono); font-size:11px; color:var(--ink-faint)}
 .meter{display:flex; gap:3px; margin-top:18px}
 .meter i{height:2px; flex:1; background:var(--rule)}
@@ -387,7 +401,7 @@ select.search{cursor:var(--cur-pointer); appearance:none; -webkit-appearance:non
 .toc{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
 @media (max-width:820px){ .toc{grid-template-columns:1fr} }
 .toc a{
-  background:var(--plate); padding:20px 22px; display:flex; gap:16px; align-items:baseline;
+  background:var(--plate); padding:24px 26px; display:flex; gap:16px; align-items:baseline;
   color:var(--ink-dim); transition:background .25s ease, color .25s ease; position:relative;
 }
 .toc a::after{content:"→"; margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--ink-faint); transition:color .25s ease, transform .25s ease}
@@ -403,13 +417,13 @@ select.search{cursor:var(--cur-pointer); appearance:none; -webkit-appearance:non
   --c:var(--gauge);
   display:grid; grid-template-columns:26px 158px minmax(0,1fr) 150px 18px;
   gap:0 20px; width:100%; text-align:left; align-items:start;
-  padding:19px 6px 19px 0; background:none; border:0; border-bottom:1px solid var(--rule-soft);
+  padding:24px 6px 24px 0; background:none; border:0; border-bottom:1px solid var(--rule-soft);
   color:inherit; font:inherit; cursor:var(--cur-pointer); position:relative;
   transition:background .28s ease;
 }
 .tier:hover{background:rgba(26,22,16,.6)}
 .tier .spine{position:relative; height:100%; min-height:34px}
-.tier .spine::before{content:""; position:absolute; left:11px; top:-19px; bottom:-19px; width:1px; background:var(--rule)}
+.tier .spine::before{content:""; position:absolute; left:11px; top:-24px; bottom:-24px; width:1px; background:var(--rule)}
 .tier:first-child .spine::before{top:14px}
 .tier .node{
   position:absolute; left:6px; top:9px; width:11px; height:11px; border-radius:50%;
@@ -418,7 +432,7 @@ select.search{cursor:var(--cur-pointer); appearance:none; -webkit-appearance:non
 .tier:hover .node,.tier[aria-expanded="true"] .node{background:var(--c)}
 .tier .tname{font-family:var(--display); font-size:25px; font-weight:500; line-height:1.1; color:var(--ink)}
 .tier .tsolved{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--c); margin-top:7px; display:block}
-.tier .tcap{font-size:var(--fs-small); line-height:1.65; color:var(--ink-dim); padding-top:4px}
+.tier .tcap{font-size:var(--fs-small); line-height:1.75; color:var(--ink-dim); padding-top:4px}
 .tier .tprev{padding-top:5px; text-align:right}
 .tier .prev-l{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint)}
 .pips{display:flex; gap:3px; justify-content:flex-end; margin-top:8px}
@@ -430,7 +444,7 @@ select.search{cursor:var(--cur-pointer); appearance:none; -webkit-appearance:non
 }
 .tier[aria-expanded="true"] .tdetail{max-height:400px; opacity:1; margin-top:16px}
 .tdetail-in{display:block; border-left:1px solid var(--c); padding:2px 0 2px 18px}
-.tdetail-in .dp{display:block; font-size:var(--fs-small); color:var(--ink-dim); line-height:1.7; max-width:62ch}
+.tdetail-in .dp{display:block; font-size:var(--fs-small); color:var(--ink-dim); line-height:1.78; max-width:60ch}
 .tdetail-in code{display:inline-block; margin-top:10px; font-family:var(--mono); font-size:12px; color:#E8DCC2}
 .tdetail-in .golink{display:inline-block; margin-top:12px; font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase}
 .tier .chev{padding-top:6px; text-align:right; font-family:var(--mono); font-size:13px; color:var(--ink-faint); transition:transform .3s ease, color .3s ease; display:inline-block}
@@ -445,7 +459,7 @@ select.search{cursor:var(--cur-pointer); appearance:none; -webkit-appearance:non
 .ceiling-band{
   margin-top:2px; border:1px solid var(--rule-soft); border-top:0;
   background:rgba(122,113,96,.05);
-  padding:26px 24px; display:grid; grid-template-columns:158px minmax(0,1fr); gap:22px;
+  padding:30px 28px; display:grid; grid-template-columns:158px minmax(0,1fr); gap:24px;
 }
 @media (max-width:880px){ .ceiling-band{grid-template-columns:1fr; gap:12px} }
 .ceiling-band .cl{font-family:var(--display); font-size:24px; color:var(--ceiling); font-weight:500}
@@ -472,7 +486,7 @@ select.search{cursor:var(--cur-pointer); appearance:none; -webkit-appearance:non
 .grid-spells{display:grid; grid-template-columns:repeat(auto-fill,minmax(288px,1fr)); gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
 .spell{
   --c:var(--gauge);
-  background:var(--plate); padding:20px 20px 22px; position:relative;
+  background:var(--plate); padding:24px 24px 26px; position:relative;
   display:flex; flex-direction:column;
   transition:background .3s ease;
 }
@@ -481,7 +495,7 @@ select.search{cursor:var(--cur-pointer); appearance:none; -webkit-appearance:non
 .spell:hover::before{height:100%}
 .spell .code{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:var(--c)}
 .spell .nm{font-family:var(--display); font-size:21px; font-weight:500; color:var(--ink); margin:8px 0 10px; line-height:1.15}
-.spell .desc{font-size:13.5px; line-height:1.68; color:var(--ink-dim)}
+.spell .desc{font-size:14px; line-height:1.75; color:var(--ink-dim)}
 .spell .f{margin-top:auto; padding-top:14px; border-top:1px solid var(--rule-soft); font-family:var(--mono); font-size:11px; color:var(--ink-faint); overflow-x:auto; white-space:pre}
 .spell.hide{display:none}
 .dir-foot{margin-top:20px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink-faint)}
@@ -489,11 +503,11 @@ select.search{cursor:var(--cur-pointer); appearance:none; -webkit-appearance:non
 /* ── ascension paths ─────────────────────────────────────────── */
 .paths{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule-soft); border:1px solid var(--rule-soft)}
 @media (max-width:820px){ .paths{grid-template-columns:1fr} }
-.path{background:var(--plate); padding:30px 28px 30px; position:relative; overflow:hidden; display:flex; flex-direction:column}
+.path{background:var(--plate); padding:34px 30px; position:relative; overflow:hidden; display:flex; flex-direction:column}
 .path .pn{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint)}
 .path h3{margin:12px 0 4px; font-size:26px; color:#EFE7D8}
 .path .ptarget{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:16px}
-.path p{font-size:var(--fs-small); line-height:1.7; color:var(--ink-dim); max-width:48ch}
+.path p{font-size:var(--fs-small); line-height:1.78; color:var(--ink-dim); max-width:48ch}
 .path pre{margin:22px 0 0; padding-top:20px; border-top:1px solid var(--rule-soft); font-family:var(--mono); font-size:11.5px; line-height:1.6; color:#DCCEB0; white-space:pre-wrap}
 .path .never{
   position:absolute; right:24px; top:26px; font-family:var(--mono); font-size:9px;
@@ -523,8 +537,8 @@ table.ref th{
   position:sticky; top:0;
 }
 table.ref td{
-  padding:11px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top;
-  font-size:13.5px; line-height:1.6; color:var(--ink-dim);
+  padding:13px 18px; border-bottom:1px solid var(--rule-soft); vertical-align:top;
+  font-size:14px; line-height:1.7; color:var(--ink-dim);
 }
 table.ref tr:last-child td{border-bottom:0}
 table.ref td.sym{font-family:var(--mono); font-size:12px; color:var(--ink); white-space:nowrap}
@@ -536,7 +550,7 @@ table.ref tr.hide{display:none}
 
 /* ── changelog ───────────────────────────────────────────────── */
 .chlog{border-top:1px solid var(--rule-soft)}
-.chver{display:grid; grid-template-columns:120px 1fr; gap:20px; padding:24px 0; border-bottom:1px solid var(--rule-soft)}
+.chver{display:grid; grid-template-columns:120px 1fr; gap:20px; padding:28px 0; border-bottom:1px solid var(--rule-soft)}
 @media (max-width:640px){ .chver{grid-template-columns:1fr; gap:8px} }
 .chver .v{font-family:var(--mono); font-size:13px; color:var(--aether)}
 .chver h3{font-size:18px; margin-bottom:8px}
@@ -556,9 +570,9 @@ table.ref tr.hide{display:none}
 .chain-steps button b{display:block; font-size:12px; letter-spacing:.04em; margin-top:5px; color:var(--ink-dim); font-weight:500; text-transform:none}
 .chain-steps button[aria-pressed="true"]{background:rgba(228,192,121,.07); color:var(--aether)}
 .chain-steps button[aria-pressed="true"] b{color:var(--ink)}
-.chain-body{padding:22px 22px 24px; display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:24px; align-items:center}
+.chain-body{padding:26px 26px 28px; display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:30px; align-items:center}
 @media (max-width:820px){ .chain-body{grid-template-columns:1fr} }
-.chain-body .ct{font-size:var(--fs-small); line-height:1.72; color:var(--ink-dim)}
+.chain-body .ct{font-size:var(--fs-small); line-height:1.8; color:var(--ink-dim)}
 .chain-body .ct b{color:var(--ink); font-weight:400}
 .chain-body .ceq{font-family:var(--mono); font-size:12px; color:#E8DCC2; margin-top:14px; display:block; overflow-x:auto; white-space:pre}
 
@@ -622,7 +636,7 @@ footer.site{border-top:1px solid var(--rule-soft); padding:30px 0 44px}
 .hero-eyebrow{display:flex; align-items:center; gap:12px; margin-bottom:24px}
 .hero-eyebrow .dot{width:5px; height:5px; border-radius:50%; background:var(--aether)}
 .hero h1{font-size:clamp(52px,8.5vw,110px); line-height:.9; margin-bottom:24px}
-.hero-deck{max-width:54ch; font-size:clamp(16px,1.9vw,19px); line-height:1.64; color:var(--ink-dim)}
+.hero-deck{max-width:54ch; font-size:clamp(16px,1.9vw,19px); line-height:1.74; color:var(--ink-dim)}
 .hero-deck strong{color:var(--ink); font-weight:400}
 .hero-cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px}
 .hero-strip{position:relative; z-index:2; border-top:1px solid var(--rule-soft); background:var(--void)}
@@ -732,6 +746,10 @@ footer.site{border-top:1px solid var(--rule-soft); padding:30px 0 44px}
         <a href="#/directory"><span class="tn">§4.4</span><span><span class="tt">The Spell Directory</span><span class="td">The coded catalogue of named techniques, filterable by tier and channel</span></span></a>
         <a href="#/glossary"><span class="tn">§5–6</span><span><span class="tt">Glossary &amp; Equation Index</span><span class="td">Every symbol and every numbered equation in the system, searchable</span></span></a>
       </div>
+      <div class="plain rv"><span class="pl-k">If you are new here</span>
+        <p>Start with the Foundations — it introduces the one picture everything else leans on: two surfaces of water, connected by narrow channels, with all of magic happening at the lower one. The Grand Equation then gives the pieces their formal names, the Hierarchy shows who can do what and why, and each technique page walks a single tier in depth.</p>
+        <p>The Directory and the Glossary are lookup tables, not reading. Every page also carries an <em>In plain terms</em> box like this one wherever the formal material gets steep — you can follow the whole system through those boxes alone and come back for the equations later.</p>
+      </div>
       <p class="note-line rv"><b>Source of truth.</b> This site presents the Aether Codex; the canonical text lives in the repository's <span class="mono">codex/</span> directory as sixteen plain-markdown files, with all equations in typeable ASCII so they can be pasted straight into a manuscript.</p>
     </div>
   </section>
@@ -786,6 +804,10 @@ footer.site{border-top:1px solid var(--rule-soft); padding:30px 0 44px}
             <pre>dAe(x, t) = Int[ G(x, x'; t, t'; g) * J_cast(x', t') ] d4x'</pre>
             <p class="eqnote"><span class="mono">J_cast</span> is the source current the caster's invocation injects — glyph, cadence, gesture, or a purely mental structure at sufficient mastery. <span class="mono">G</span> is the propagator: how strongly, and after how much delay, a disturbance sourced at one point is felt at another, given the surrounding geometry <span class="mono">g</span>.</p>
           </div>
+          <div class="plain"><span class="pl-k">In plain terms</span>
+            <p>The aether field is a still pond that never runs dry. A caster taps its surface — that tap is <span class="mono">J_cast</span> — and the tap spreads outward as a ripple, <span class="mono">dAe</span>, whose reach and timing the propagator <span class="mono">G</span> decides. Everything a spell ever does is downstream of one well-shaped tap.</p>
+            <p>Note what is <em>not</em> in these two equations: no reservoir, no cost, no fuel being spent. That absence is deliberate, and the rest of the system is built on it.</p>
+          </div>
           <p class="note-line"><b>Why "aether-poor regions" don't exist.</b> <span class="mono">Ae_0</span> isn't drawn down by a casting any more than the floor of a pond is drawn down by a ripple crossing its surface. Two casters working nearby never compete for a shared supply, and exhaustion has no aether-scarcity component anywhere in this system.</p>
         </div>
         <div class="rv">
@@ -817,7 +839,7 @@ footer.site{border-top:1px solid var(--rule-soft); padding:30px 0 44px}
               <p class="readout" id="bench-read">Choose a channel and source a ripple. A proven channel with clean fidelity couples upward; the failures are worth watching too.</p>
             </div>
           </div>
-          <p class="figcap" style="border:0; margin-top:10px"><b>Fig. 1.1 — the coupling bench.</b> The lower line is the aether layer; the upper line is the field the chosen channel connects to. Low fidelity dissipates back into <span class="mono">Ae_0</span> (a quiet fizzle, Eq. 3.3); a guessed channel reflects the mismatch back at the caster (a backlash, Eq. 4.7). The metric channel visibly bends its own path mid-transit — that is Eq. 1.4.</p>
+          <p class="figcap" style="border:0; margin-top:10px"><b>Fig. 1.1 — the coupling bench.</b> The lower line is the aether layer; the upper line is the field the chosen channel connects to. Low fidelity dissipates back into <span class="mono">Ae_0</span> (a quiet fizzle, Eq. 3.3); a guessed channel reflects the mismatch back at the caster (a backlash, Eq. 4.7). The metric channel visibly bends its own path mid-transit — that is Eq. 1.4. <b>Try:</b> source one ripple on a proven channel, then drop the fidelity slider low, then switch comprehension to "guessed" — the three outcomes you see are the only three this system permits, on any page that follows.</p>
         </div>
       </div>
     </section>
@@ -834,6 +856,10 @@ footer.site{border-top:1px solid var(--rule-soft); padding:30px 0 44px}
 delta(M_op) = c_M  * dAe(x, t)                         -- quark-sector distortion
 delta(g)    = Xi(Ae, g),   with Ae = Ae_0 + dAe        -- metric-sector distortion</pre>
         <p class="eqnote">Each line is a different upper-layer field being pushed by the same ripple, through a different channel, at a coupling strength that is either known or it isn't. This is the concrete meaning of "comprehension caps power": a term that hasn't been solved isn't a channel that produces a weaker effect — it's a channel whose strength and shape the caster is guessing at, and Eq. 1.3 doesn't care whether a guess is confident.</p>
+      </div>
+      <div class="plain rv"><span class="pl-k">In plain terms</span>
+        <p>A ripple can push on reality through exactly three doors: the <b style="font-weight:500">gauge door</b> (light, lightning, weight, cohesion, decay — the four forces), the <b style="font-weight:500">quark door</b> (what a thing is made of), and the <b style="font-weight:500">metric door</b> (the shape of space and time themselves). Each door needs its own key — a solved piece of mathematics.</p>
+        <p>A caster who guesses at a key isn't opening the door slightly. They're forcing a lock, and the lock forces back — which is why the two failure modes below are so different from one another.</p>
       </div>
       <div class="cardgrid c2 rv">
         <div class="card">
@@ -869,6 +895,9 @@ delta(g)    = Xi(Ae, g),   with Ae = Ae_0 + dAe        -- metric-sector distorti
 delta(g) = Xi(Ae, g)   whenever the metric channel is engaged
 
 =&gt;  G(x, x'; t, t'; g + delta(g))  !=  G(x, x'; t, t'; g)</pre>
+          </div>
+          <div class="plain"><span class="pl-k">In plain terms</span>
+            <p>Bending space is like repainting the floor you are standing on: every stroke changes the surface the next stroke has to land on. The other two channels hold still while you work — this one does not, and that single fact is why the entire upper half of the Power Hierarchy is devoted to just this door.</p>
           </div>
           <div class="prose">
             <p>Solving <span class="mono">k_EM</span> doesn't change how the gauge sector propagates disturbances; solving an eigenvector of <span class="mono">M_op</span> doesn't change the quark sector either. Those are static targets — hard to hit, but the target doesn't move while you aim. A caster invoking <span class="mono">Xi(Ae, g)</span> is sending a ripple through a medium that their own ripple, once it arrives, has already begun to reshape — including the parts still in transit when the reshaping starts.</p>
@@ -945,7 +974,7 @@ delta(g) = Xi(Ae, g)   whenever the metric channel is engaged
           <p class="readout" id="cx-read"></p>
         </div>
       </div>
-      <p class="figcap rv" style="border:0; margin-top:10px"><b>Fig. 2.1 — three axes, one caster.</b> Drag any dial and the preset releases; no axis moves another. Any description of a character's power that tracks only one of them misrepresents what that character can actually do.</p>
+      <p class="figcap rv" style="border:0; margin-top:10px"><b>Fig. 2.1 — three axes, one caster.</b> Drag any dial and the preset releases; no axis moves another. Any description of a character's power that tracks only one of them misrepresents what that character can actually do. <b>Try:</b> select each archetype in turn and read how the same three numbers produce three entirely different kinds of dangerous — then drag one dial at a time and watch the description change while the other two hold still.</p>
     </section>
   </div>
 </div>
@@ -967,6 +996,10 @@ delta(g) = Xi(Ae, g)   whenever the metric channel is engaged
         <div class="head-rule"><span class="sec-num">§3.1–§3.2</span><span class="line"></span><span class="label">Formal statement · term reference</span></div>
         <h2>A small stack of named pieces</h2>
         <p class="sub">Hover any underlined term to trace it into the reference at right. Note what the decomposition does and does not say: <span class="mono">Ae</span> appears explicitly only inside <span class="mono">Xi(Ae, g)</span> — never inside the gauge or quark terms.</p>
+      </div>
+      <div class="plain rv"><span class="pl-k">In plain terms</span>
+        <p>The Grand Equation says this: of all the shapes reality could take around a caster, the one that becomes real is chosen by weighing every possibility — and only possibilities inside the caster's proven understanding, <span class="mono">dM</span>, are on the ballot. Nothing outside what a caster has mathematically solved can win, no matter how hard they push.</p>
+        <p>The stack below just names what does the weighing: the four forces (the gauge term), matter (the quark term), and the one place aether touches spacetime directly (<span class="mono">Xi</span>). Every tier of the Power Hierarchy is a claim about which of those three pieces a caster has opened, and how far.</p>
       </div>
       <div class="cols-2">
         <div class="plate rv">
@@ -1042,6 +1075,9 @@ Fid   = | &lt;phi_ideal | phi_actual(t_ins)&gt; |^2
             <pre>if Fid &lt; Fid_min:  X_eff ~ 0   (fails quietly — not a backlash)</pre>
             <p class="eqnote">Below threshold, the field simply does not resolve the invocation into any meaningful effect. Casting a fully solved equation carelessly merely fails to manifest — the equation is not in question, only its execution.</p>
           </div>
+          <div class="plain"><span class="pl-k">In plain terms</span>
+            <p>A spell's strength is its ideal strength times how cleanly you performed it — and a sloppy-enough performance simply does nothing at all. There is no overcasting, no burning extra power for extra effect: the ceiling is fixed by the mathematics, and execution only decides how close you get to it.</p>
+          </div>
         </div>
         <div class="rv">
           <div class="plot" id="kettle">
@@ -1056,7 +1092,7 @@ Fid   = | &lt;phi_ideal | phi_actual(t_ins)&gt; |^2
               <p class="readout" id="kettle-read"></p>
             </div>
           </div>
-          <p class="figcap" style="border:0; margin-top:10px"><b>Fig. 3.1 — two casters, one kettle.</b> Both hold an identical, fully solved <span class="mono">k_EM</span> term (Eq. 4.0a). Only how close either lands to the shared ceiling differs — and below <span class="mono">Fid_min</span> the attempt fails quietly, with no risk to anyone, however badly it is botched.</p>
+          <p class="figcap" style="border:0; margin-top:10px"><b>Fig. 3.1 — two casters, one kettle.</b> Both hold an identical, fully solved <span class="mono">k_EM</span> term (Eq. 4.0a). Only how close either lands to the shared ceiling differs — and below <span class="mono">Fid_min</span> the attempt fails quietly, with no risk to anyone, however badly it is botched. <b>Try:</b> drag the slider below the marked threshold and watch the output pin to zero, then bring it back up and read the boil time shrinking in the readout.</p>
         </div>
       </div>
     </section>
@@ -1098,7 +1134,7 @@ Fid   = | &lt;phi_ideal | phi_actual(t_ins)&gt; |^2
               <p class="readout" id="unaid-read"></p>
             </div>
           </div>
-          <p class="figcap" style="border:0; margin-top:10px"><b>Fig. 3.2 — the step, not the gradient.</b> With an anchor, the practiced ceiling always applies. Without one, it applies only once practice depth for that exact term crosses <span class="mono">prac_min</span> — below it, an unassisted attempt collapses toward <span class="mono">Fid_min</span> and fails quietly.</p>
+          <p class="figcap" style="border:0; margin-top:10px"><b>Fig. 3.2 — the step, not the gradient.</b> With an anchor, the practiced ceiling always applies. Without one, it applies only once practice depth for that exact term crosses <span class="mono">prac_min</span> — below it, an unassisted attempt collapses toward <span class="mono">Fid_min</span> and fails quietly. <b>Try:</b> switch the medium to "visualization only" and drag <span class="mono">prac(x)</span> across the threshold — the ceiling doesn't ramp up gradually; it snaps into place all at once, exactly as casters describe it.</p>
         </div>
       </div>
     </section>
@@ -1113,6 +1149,9 @@ Fid   = | &lt;phi_ideal | phi_actual(t_ins)&gt; |^2
         <div class="eqk"><b>Eq. 3.5</b> Simulated Invocation</div>
         <pre>Sim[ X ](t_ins) -&gt; { Fid(t_ins), X_eff_proj, E_back_proj }
 Loop_dM[ ... ]  not evaluated</pre>
+      </div>
+      <div class="plain rv"><span class="pl-k">In plain terms</span>
+        <p>Sim[…] is a flight simulator. It grades your performance perfectly, and the skill it builds is real — but it grades you against the mathematics <em>you brought</em>, and it has no way of telling you that mathematics is wrong. Rehearsal makes execution safe to perfect. It cannot make a wrong idea safe to cast.</p>
       </div>
       <div class="cardgrid c2 rv">
         <div class="card">
@@ -1160,11 +1199,15 @@ Loop_dM[ ... ]  not evaluated</pre>
     <header class="pagehead">
       <div class="kicker"><span class="sec-num">PART III · §3.3</span><span class="line"></span><span class="label">Who can do what</span></div>
       <h1>The Power <em>Hierarchy</em></h1>
-      <p class="lede">Five tiers mark qualitative jumps in comprehension — a whole term of the Grand Equation opened up. Between the first three of those pairs sits a named subclass: a rung defined not by a new term but by an <strong>incomplete version of the next one</strong>. Tier reflects comprehension only — it sets the ceiling, never the outcome of any single casting. Select a sector in the legend below to isolate the tiers that live inside its channel; select a tier to open it.</p>
+      <p class="lede">Five tiers mark qualitative jumps in comprehension — a whole term of the Grand Equation opened up. Between the first three of those pairs sits a named subclass: a rung defined not by a new term but by an <strong>incomplete version of the next one</strong>. Tier reflects comprehension only — it sets the ceiling, never the outcome of any single casting.</p>
       <p class="srcline">SOURCE — <a href="https://github.com/mistaoof/Aether/blob/main/codex/power-hierarchy.md">codex/power-hierarchy.md</a></p>
     </header>
 
     <section class="band">
+      <div class="plain rv"><span class="pl-k">In plain terms · how to read the ladder</span>
+        <p>The ladder below is a map of which of the three doors from §1.3 a caster has opened, and how far. The first three rungs live entirely in the forces door, the next two in the matter door, and the last three in the space-time door. A higher tier never means a bigger reserve of power — it means a genuinely new piece of solved mathematics that lower tiers simply do not have.</p>
+        <p><b style="font-weight:500">Select a sector in the legend</b> to isolate the tiers that live inside its channel, and <b style="font-weight:500">select any tier</b> to open its detail — each one names the exact equation that defines it, and links to its full technique page.</p>
+      </div>
       <div class="channels rv" role="group" aria-label="Filter tiers by coupling channel">
         <button type="button" class="chan gauge" data-f="gauge" aria-pressed="false"><i></i>delta(F_f) — gauge sector</button>
         <button type="button" class="chan quark" data-f="quark" aria-pressed="false"><i></i>delta(M_op) — quark sector</button>
@@ -1322,6 +1365,9 @@ Loop_dM[ ... ]  not evaluated</pre>
           </div>
         </div>
       </div>
+      <div class="plain rv"><span class="pl-k">In plain terms</span>
+        <p>Every spell in this Codex — from boiling water here to holding a standing star at Legend tier — is these same four steps. Higher tiers change only which door step&nbsp;3 goes through, and how much of the mathematics behind that door has actually been solved. <b style="font-weight:500">Try the "Play the chain" button</b> to watch a full cycle: tap, spread, couple, and then ordinary physics finishing the job.</p>
+      </div>
     </section>
 
     <section class="band" id="worked">
@@ -1329,6 +1375,9 @@ Loop_dM[ ... ]  not evaluated</pre>
         <div class="head-rule"><span class="sec-num">§4.0</span><span class="line"></span><span class="label">The worked examples</span></div>
         <h2>Four forces, four first lessons</h2>
         <p class="sub">The same terms reappear, in far more complete form, throughout the rest of Part 4. The throughline is deliberate — lifting a pebble and binding a singularity both trace back to gravity, at opposite ends of the hierarchy.</p>
+      </div>
+      <div class="plain rv"><span class="pl-k">In plain terms</span>
+        <p>The five entries below are one trick pointed at four different forces, plus a listening version of the first: concentrate a ripple where you want it, and let a single solved coupling do the rest. Read the note under each plate for what makes its force distinctive — the electromagnetic one is taught first because its worst failure is lukewarm water.</p>
       </div>
       <div class="rv">
         <div class="eqplate gauge">
@@ -1391,6 +1440,9 @@ Win_1(t) . Win_2(t) = 0   for all t
 tau_switch = t_start(Win_2) - t_end(Win_1)</pre>
             <p class="eqnote">The product constraint is the entire content of "closed form without a cross-term" written as an equation. <span class="mono">tau_switch</span> is the dead time between windows — the interval spent re-inscribing a glyph or re-settling a cadence. Real cost, not bookkeeping.</p>
           </div>
+          <div class="plain"><span class="pl-k">In plain terms</span>
+            <p>A Journeyman knows two spells but has, in effect, one pair of hands: each casting must be fully released before the next can begin, and the fumble between them — <span class="mono">tau_switch</span> — is where things go wrong under pressure. Practice shortens the fumble. Only genuinely new mathematics, the Adept's cross-term, removes it.</p>
+          </div>
           <div class="prose">
             <p>Drilled practice — the kind Bladeline Feint (J-07) exists to train — shrinks <span class="mono">tau_switch</span> considerably, and a seasoned Journeyman's switch can become nearly imperceptible to an observer. But nearly imperceptible is not zero, and it cannot structurally become zero without <span class="mono">Chi(f1,f2)</span>: a genuine zero-gap alternation and a true simultaneous blend become indistinguishable only once <span class="mono">Chi</span> exists to make the blend real rather than merely fast.</p>
             <p>A task that assumes continuous output — a Storm-Step-style discharge-into-leap — simply cannot be performed at this tier, no matter how short the gap gets, because Eq. 4.13 has no term for simultaneous output at all.</p>
@@ -1446,6 +1498,9 @@ tau_switch = t_start(Win_2) - t_end(Win_1)</pre>
         <pre>Chi(f1, f2) = Overlap[ delta(F_f1), delta(F_f2) ; dAe ]      0 &lt;= Chi &lt;= 1</pre>
         <p class="eqnote">How coherently a <em>single</em> sourced ripple can be shaped to satisfy two gauge-sector channels at once — not a measure of two separate ripples close together in time. <span class="mono">Chi = 0</span> is exactly the Journeyman condition; <span class="mono">Chi = 1</span> is a limit no known technique reaches.</p>
       </div>
+      <div class="plain rv"><span class="pl-k">In plain terms</span>
+        <p>An Adept has solved how two forces can share one ripple. Four forces can only be paired six ways, so the entire Adept catalogue fits in the small grid below — there is no seventh pair to discover. The price of sharing appears in the next section: one shared ripple means one shared point of failure.</p>
+      </div>
       <div class="plot rv" id="chicompare" style="margin-bottom:10px">
         <canvas id="chicomparecv" height="130" aria-label="Looping comparison: a Journeyman firing the EM and gravity channels one after another from two separate castings, against an Adept firing both at once from a single ripple."></canvas>
       </div>
@@ -1488,7 +1543,7 @@ tau_switch = t_start(Win_2) - t_end(Win_1)</pre>
               <p class="readout" id="fid2-read"></p>
             </div>
           </div>
-          <p class="figcap" style="border:0; margin-top:10px"><b>Fig. 4.15 — the fidelity tax.</b> The upper curve scales a Journeyman's single-channel output; the lower scales an Adept blend. The shaded interval between them is what the blend costs at the chosen Fid — the price of no firewall between the halves.</p>
+          <p class="figcap" style="border:0; margin-top:10px"><b>Fig. 4.15 — the fidelity tax.</b> The upper curve scales a Journeyman's single-channel output; the lower scales an Adept blend. The shaded interval between them is what the blend costs at the chosen Fid — the price of no firewall between the halves. <b>Try:</b> drag Fid down from 1.0 — the gap between the curves is widest through the middle of the range, which is exactly where a working caster under battlefield pressure actually lives.</p>
         </div>
       </div>
       <p class="note-line rv"><b>Growth past this ceiling belongs to a different channel entirely.</b> An Adept's remaining growth along this axis is depth on pairs already held, or breadth across whichever of the six remain unsolved for them. Beyond that lies the quark sector — <a href="#/techniques/artisan">Artisan, §4.7</a>.</p>
@@ -1513,6 +1568,9 @@ tau_switch = t_start(Win_2) - t_end(Win_1)</pre>
         <div class="head-rule"><span class="sec-num">EQ. 4.16–4.17</span><span class="line"></span><span class="label">The eigenvector draw, and its edge</span></div>
         <h2>A signature material,<br>one eigenvector at a time</h2>
         <p class="sub">Select a material. Those inside S draw on Eq. 4.16 — the quark-sector analogue of boiling water. Those outside it have only Eq. 4.17 waiting.</p>
+      </div>
+      <div class="plain rv"><span class="pl-k">In plain terms</span>
+        <p>Matter, in this system, is a locked instrument with a finite number of strings. An Artisan has learned to play a few specific strings perfectly — salt, iron, bone — and a material whose string they never learned isn't <em>harder</em> to play; it isn't on their instrument at all. Reaching for it anyway, on the strength of a resemblance, is the backlash equation waiting to fire.</p>
       </div>
       <div class="plot rv" id="eigenmap" style="margin-bottom:10px">
         <canvas id="eigenmapcv" height="120" aria-label="Twelve eigenvector slots of M_op: seven lit, proven by this Artisan's order; five dashed and empty, unsolved by anyone. Selecting a material below lights its slot, or sparks beside the map if the material has none."></canvas>
@@ -1566,6 +1624,9 @@ tau_switch = t_start(Win_2) - t_end(Win_1)</pre>
             <pre>M_op_full = Sum_{all i}[ lam_i * |e_i&gt;&lt;e_i| ],      S = complete eigenbasis
 q_new = U_transmute(M_op_full) * q_old</pre>
             <p class="eqnote"><span class="mono">U_transmute</span> is the unitary that acts on the completed basis, reassigning which combination of solved eigenvectors a given quantity of matter expresses — it moves <span class="mono">q_old</span> to <span class="mono">q_new</span> the way <span class="mono">U_op</span> moves a caster between two points, except the "points" are two material identities.</p>
+          </div>
+          <div class="plain"><span class="pl-k">In plain terms</span>
+            <p>An Artisan knows some of the strings; a Master has finished learning all of them. Nothing new was added to the instrument — which is exactly why transmutation, whole-body healing and decay control arrive together at this tier: they were always one skill, waiting behind the same complete catalogue.</p>
           </div>
         </div>
         <div class="prose rv">
@@ -1669,6 +1730,9 @@ s = +1 (boost / hasten)  or  s = -1 (weaken / arrest),  chosen at inscription</p
                                     for  eps &gt; eps_valid(R_proven)</pre>
             <p class="eqnote">Past <span class="mono">eps_valid</span>, the truncated series quietly stops tracking the true closed form only a Sovereign has solved. The gap does not vanish — it reflects back as absorbed curvature stress, the identical shape seen in Eq. 4.7 and Eq. 4.17.</p>
           </div>
+          <div class="plain"><span class="pl-k">In plain terms</span>
+            <p>A Warden's spacetime mathematics is an approximation that has been tested in a few specific places — like a rope bridge certified for one particular canyon. Inside those places it is genuinely, provably safe. Carrying the same rope bridge to a similar-looking canyon, because it <em>looks</em> like it should hold, is how Wardens die.</p>
+          </div>
           <p class="note-line"><b>Why so little Warden technique is ever shared.</b> A proof of safety is tied to one specific geometry, not portable to the next. Warden discipline is almost entirely R_proven bookkeeping: knowing exactly which geometries have been tested, to what eps_valid — and refusing every request, including one's own, to reuse the result somewhere merely similar.</p>
         </div>
         <div class="rv">
@@ -1724,6 +1788,9 @@ G_dec = eta * ( mismatch(Om2) )^2 / K(B) + s_int</pre>
           <p class="eqnote">Holding the fold shifts probability from A toward B; decoherence eats arrival probability the longer the hold lasts. <span class="mono">K(B)</span> is the caster's knowledge coefficient for the destination — prior visits, sensory data, measurement quality. <span class="mono">s_int</span> is external disruption injected mid-fold.</p>
         </div>
       </div>
+      <div class="plain rv"><span class="pl-k">In plain terms</span>
+        <p>A Fold doesn't move you. It argues that <em>here</em> and <em>there</em> are briefly the same place, and lets your probability drain from one to the other while the argument holds. The argument decays as it is held — and the worse you know your destination, the faster it rots. Release while the weight of probability sits at B and you arrive; misjudge the moment and the four outcomes in the simulator below are all that is left.</p>
+      </div>
 
       <div class="plot rv" id="foldsim" style="margin-top:26px">
         <canvas id="foldcv" height="340" aria-label="Interactive simulator: amplitudes at origin and destination oscillate while the fold is held; the decoherence envelope decays; releasing the fold resolves one of four outcomes."></canvas>
@@ -1755,6 +1822,9 @@ G_dec = eta * ( mismatch(Om2) )^2 / K(B) + s_int</pre>
         <div class="head-rule"><span class="sec-num">§4.3</span><span class="line"></span><span class="label">The Bound Singularity</span></div>
         <h2>A well, a shell,<br>and a stopped clock</h2>
         <p class="sub">Three separately solved components tuned together: a curvature well sourced from aether alone (Eq. 4.8), a counter-curvature shell carrying equal and opposite charge (Eq. 4.9), and a lapse tuning that makes proper time approach a full stop at the shell boundary (Eq. 4.10) — so the containment is causal, not merely a canceled field on paper. Each of the three castings modifies the very medium the other two are propagating through, in real time.</p>
+      </div>
+      <div class="plain rv"><span class="pl-k">In plain terms</span>
+        <p>The Bound Singularity is a pet black hole in a soundproof box: a well of real gravity, a shell carrying the equal-and-opposite charge that cancels every outside trace of it, and a clock trick at the boundary so that nothing inside can ever cross out in any finite outside time. The catch is §1.4 again — each of the three pieces bends the stage the other two are performing on, so they can only be validated together, never separately.</p>
       </div>
       <div class="plot rv" id="singplot">
         <canvas id="singcv" height="360" aria-label="Interactive chart: radial curvature profile of the Bound Singularity — well, cancelling shell, residual leak — with the lapse function and horizon condition."></canvas>
@@ -1830,6 +1900,9 @@ t_recert = max interval between Fid_shell re-inscriptions
            keeping Curv_ext(r) below the ambient noise floor</pre>
             <p class="eqnote">Over a generational hold, <span class="mono">Fid_shell</span> decays and Eq. 4.11's residual leak — never zero — creeps upward until it would register at long range as an uncontained mass. <span class="mono">t_recert</span> bounds how long the shell can go between re-inscriptions before that happens.</p>
           </div>
+          <div class="plain"><span class="pl-k">In plain terms</span>
+            <p>Legend-scale magic is infrastructure. The spell is the very one a Sovereign casts — what's new is that the world drifts out from under anything held for a generation, so someone must keep re-measuring and re-certifying on a schedule. Miss the schedule, and the failure is an ordinary Sovereign-tier failure… with a town inside it.</p>
+          </div>
         </div>
         <div class="rv">
           <div class="plot" id="driftplot">
@@ -1867,6 +1940,9 @@ t_recert = max interval between Fid_shell re-inscriptions
     </header>
 
     <section class="band">
+      <div class="plain rv"><span class="pl-k">In plain terms</span>
+        <p>These are four different bets on how to keep growing once solving one term at a time runs out of road: unify the four forces into one, generalize matter itself, unbound geometry, or pool many minds' comprehension into a single boundary. Each card carries a meter of how far the bet has ever been pushed. <b style="font-weight:500">Press "Spend a lifetime"</b> a few times on any of them and watch the increments shrink — that flattening curve is the entire point. The paths are real, measurable, and provably endless.</p>
+      </div>
       <div class="paths rv">
         <article class="path" data-c="gauge">
           <span class="pn">Path I · Eq. 4.24</span>
