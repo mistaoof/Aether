@@ -1,7 +1,7 @@
 # THE AETHER CODEX — Overview & File Map
 ### Master index for the Aether Power System reference files
 
-**Version:** 2.4
+**Version:** 2.6
 **Status:** Living document — see `codex/changelog.md` for how to extend it
 **Notation:** All equations use plain ASCII (no Greek letters, hats, daggers, or special symbols) so they can be typed directly into a manuscript. See the changelog (v1.3 entry) for the legacy symbol mapping if cross-referencing earlier drafts.
 

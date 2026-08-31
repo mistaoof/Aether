@@ -9,6 +9,12 @@
 
 *New techniques, refinements, and derivations are appended to the relevant Codex file with a version bump and a one-line summary here, then given their own subsection under the relevant Part. New equations continue the running numbering in §6 (`codex/glossary.md`).*
 
+**v2.6 — Spell Directory Expansion II**
+- Spell Directory Expansion II — 200 further catalogued techniques across every directory tier (Novice 60, Journeyman 40, Adept 34, Artisan 26, Master 16, Warden 12, Legend 8, Beyond Legend 4), appended to §4.4 as Directory Expansion II, plus §5 trade-vocabulary additions. No new global equation numbers; no changes to existing entries
+
+**v2.5 — Spell Directory Expansion I**
+- Spell Directory Expansion I — 200 new catalogued techniques across every directory tier (Novice 60, Journeyman 40, Adept 34, Artisan 26, Master 16, Warden 12, Legend 8, Beyond Legend 4), appended to §4.4 as Directory Expansion I, plus §5 glossary additions for directory-local notation (`t_hold`, *reverse-sign casting*) and trade vocabulary. No new global equation numbers; no changes to existing entries
+
 **v2.4 — Cross-Reference Audit & Consistency Pass**
 - Full cross-reference audit of all 16 files (equation/section citations, glossary coverage, Spell Directory codes, structural claims); no equations renumbered, no §/Eq. global numbering changed
 - Fixed §-vs-Eq. citation swaps: "Eq. 3.4's Unsolved Ceiling" → "§3.4's" (§3.3), "Eq. 3.4 forbids" → "§3.4 forbids" (§4.11), the Sim[...] believed-vs-proven warning re-attributed §3.5 → §3.7 (§3.3), `Xi(Ae, g)` development pointer corrected to (§3.3, §4.3, §4.9) in §3.1, and §4.5's closing citation corrected from "Eq. 3.1c's combination pattern" to the Adept Combination Pattern (Eq. 4.15, §4.6); §4.11's closeness-auditability framing re-attributed §3.3 → §3.4 (here and in the v2.3 entry below)
